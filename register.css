@@ -303,8 +303,8 @@ body::-webkit-scrollbar {
     padding-bottom: 51px;
     overflow-x: hidden;
     scroll-behavior: auto;
-    height: 618px;
-    border: 1px solid;
+    height: 740px;
+    border: none;
 }
 .account {
     display: none;
