@@ -300,11 +300,11 @@ body::-webkit-scrollbar {
     display: block;
     z-index: 2;
     overflow: scroll;
-    padding-bottom: 70px;
     scroll-behavior: auto;
     overflow-x: hidden;
-    height: 740px;
-    border: none;
+    height: fit-content;
+    border: 1px solid;
+    margin-bottom: 120px;
 }
 .account {
     display: none;
