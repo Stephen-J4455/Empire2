@@ -8,6 +8,14 @@ const feed = document.querySelector(".feedpage");
 const help = document.querySelector(".help");
 const category = document.querySelector(".category");
 const navBar = document.querySelector(".buttom-nav");
+
+// notification
+const notification = document.getElementById("note");
+const noteBox = document.querySelector(".notification");
+function closeNotification() {
+    noteBox.style.display = "none";
+}
+// notification
 function sign() {
     signupForm.style.display = "block";
     loginForm.style.display = "none";
@@ -33,6 +41,7 @@ function openAccountPage() {
     help.style.display = "none";
     category.style.display = "none";
     feed.style.display = "none";
+    document.querySelector(".cart-btn").style.display = "none";
     document.getElementById("activehome").style.color = "white";
     document.getElementById("activehome2").style.color = "white";
     document.getElementById("activehome3").style.color = "white";
@@ -45,6 +54,7 @@ function home() {
     help.style.display = "none";
     category.style.display = "none";
     feed.style.display = "none";
+    document.querySelector(".cart-btn").style.display = "block";
     document.getElementById("activehome").style.color = "darkorange";
     document.getElementById("activehome2").style.color = "white";
     document.getElementById("activehome3").style.color = "white";
@@ -57,6 +67,7 @@ function openFeed() {
     help.style.display = "none";
     category.style.display = "none";
     feed.style.display = "block";
+    document.querySelector(".cart-btn").style.display = "block";
     document.getElementById("activehome").style.color = "white";
     document.getElementById("activehome2").style.color = "white";
     document.getElementById("activehome3").style.color = "darkorange";
@@ -69,6 +80,7 @@ function openCategory() {
     help.style.display = "none";
     category.style.display = "block";
     feed.style.display = "none";
+    document.querySelector(".cart-btn").style.display = "block";
     document.getElementById("activehome").style.color = "white";
     document.getElementById("activehome2").style.color = "darkorange";
     document.getElementById("activehome3").style.color = "white";
@@ -81,12 +93,29 @@ function openHelp() {
     help.style.display = "block";
     category.style.display = "none";
     feed.style.display = "none";
+    document.querySelector(".cart-btn").style.display = "none";
     document.getElementById("activehome").style.color = "white";
     document.getElementById("activehome2").style.color = "white";
     document.getElementById("activehome3").style.color = "white";
     document.getElementById("activehome4").style.color = "white";
     document.getElementById("activehome5").style.color = "darkorange";
 }
+
+//auto scroll
+function autoScroll() {
+    const container = document.querySelector(".adds");
+    const cards = container.querySelectorAll(".giftcards");
+    let currentIndex = 0;
+
+    setInterval(() => {
+        currentIndex = (currentIndex + 1) % cards.length;
+        container.scrollTo({
+            left: cards[currentIndex].offsetLeft,
+            behavior: "smooth"
+        });
+    }, 3000);
+}
+autoScroll();
 
 // page loading script
 
@@ -149,5 +178,3 @@ function closeAddressBook() {
         addressPress.style.display = "flex";
     }
 }
-// //
-//

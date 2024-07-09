@@ -19,7 +19,8 @@ function signUp() {
     const password = $("#signup-password").val();
     const username = $("#userName").val();
     if ((email === "", password === "")) {
-        document.getElementById("error1").style.display = "flex";
+        noteBox.style.display = "block";
+        notification.innerText = "Enter Email and Password";
     } else {
         auth.createUserWithEmailAndPassword(email, password)
             .then(userCredential => {
@@ -31,6 +32,7 @@ function signUp() {
                     database: dbId
                 });
                 // alert("Sign up successful: ", user);
+                location.reload();
                 homePage.style.display = "block";
                 formCnt.style.display = "none";
             })
@@ -45,7 +47,8 @@ function login() {
     const email = $("#loginEmail").val();
     const password = $("#loginPassword").val();
     if ((email === "", password === "")) {
-        document.getElementById("error2").style.display = "flex";
+        noteBox.style.display = "block";
+        notification.innerText = "Enter Email and Password";
     } else {
         auth.signInWithEmailAndPassword(email, password)
             .then(userCredential => {
@@ -53,6 +56,7 @@ function login() {
                 //alert("Login successful: ", user);
                 homePage.style.display = "block";
                 formCnt.style.display = "none";
+                location.reload();
             })
             .catch(error => {
                 // alert("Error logging in: ", error);
@@ -122,12 +126,13 @@ function topPicks() {
     db.ref("TopPicks/products").on("value", function (snapshot) {
         snapshot.forEach(function (childSnapshot) {
             let topPick = childSnapshot.val();
-            document.getElementById(
-                "topPickList"
-            ).innerHTML += `<div class="top-prod"><img class="top-img"
+            document.getElementById("topPickList").innerHTML += `<div
+            onclick="openProductPage('${topPick.image}','${topPick.name}','${topPick.sellingprice}','${topPick.costprice}','${topPick.identification}','${topPick.seller}','${topPick.description}',this)"
+            class="top-prod"><img class="top-img"
             src="${topPick.image}" height="160px"
             width="110px"/><div
             class="top-picks-name">${topPick.name}</div></div>`;
+
             let lo = document.querySelectorAll(".topPick-loader ");
             lo.forEach(function (e) {
                 e.style.display = "none";
@@ -143,7 +148,7 @@ function popular() {
             let popular = childSnapshot.val();
             document.getElementById("popularList").innerHTML += `<div
             class="popular-prod"><img class="popular-img" src="${popular.image}"
-            height="150px" width="150px"/>
+            height="150px" width="160px"/>
             <div
             class="popular-name">${popular.name}</div>
             <div class="price-box">
@@ -153,8 +158,8 @@ function popular() {
             </div>
                         <div
             class="top-picks-name">Seller: ${popular.seller}</div>
-            <div class="top-picks-id">ID:${popular.userID}</div>
-            <button class="add-to-cart-btn-mini"
+            <div class="top-picks-id">ID:${popular.identification}</div>
+            <button class="add-to-cart-btn"
             onclick="addCart('${popular.image}','${popular.name}','${popular.sellingprice}','${popular.seller}',this)">Add
             to Cart</button>
             </div>`;
@@ -180,14 +185,37 @@ function poster() {
     db.ref("Posters/flyers").on("value", function (snapshot) {
         snapshot.forEach(function (childSnapshot) {
             let flyer = childSnapshot.val();
-            document.getElementById(
-                "advertise"
+            document.querySelector(
+                ".adds"
             ).innerHTML += `<img class="giftcards"  src="${flyer.image}"/>`;
+            autoScroll();
         });
     });
 }
 poster();
 
+function newArrivals() {
+    db.ref("New/products").on("value", function (snapshot) {
+        snapshot.forEach(function (childSnapshot) {
+            var newProduct = childSnapshot.val();
+            document.querySelector(".new-products").innerHTML += `<div
+            class="new-arrival-product">
+            <img
+            src="${newProduct.image}" height="160px" width="160px"/>
+            <div class="new-arrival-name">${newProduct.name}</div>
+            <div class="new-arrival-sp">Ghc${newProduct.sellingprice}</div>
+            <div class="new-arrival-cp">Ghc${newProduct.costprice}</div>
+            <div class="new-arrival-seller">Seller: ${newProduct.seller}</div>
+            <div class="new-arrival-id">ID: ${newProduct.identification}</div>
+            <button
+            onclick="addCart('${newProduct.image}','${newProduct.name}','${newProduct.sellingprice}','${newProduct.seller}',this)"
+            class="add-to-cart-btn">Add to Cart</button>
+            
+            </div>`;
+        });
+    });
+}
+newArrivals();
 // cart
 
 function addCart(image, product, price, seller, quantity) {
@@ -277,6 +305,7 @@ function cart() {
                 db.ref(`USER/CART/${user}`).child(pro.product).remove();
                 calculateSubtotal();
             };
+
             li.appendChild(removeButton);
             cartItems.appendChild(li);
             count();
@@ -295,4 +324,52 @@ function calculateSubtotal() {
         });
         document.getElementById("tot").innerHTML = ` ${total}`;
     });
+}
+
+function checkOut() {
+    let user = firebase.auth().currentUser.uid;
+    var cartRef = db.ref(`USER/CART/${user}`);
+    var checkPage = db.ref(`CheckOuts/${user}`);
+
+    cartRef.once("value", function (snapshot) {
+        snapshot.forEach(function (childSnapshot) {
+            var childKey = childSnapshot.key;
+            var childData = childSnapshot.val();
+            checkPage.child(childKey).push(childData);
+            noteBox.style.display = "block";
+            notification.innerText = "Order Successful";
+        });
+    });
+    db.ref(`USER/CART/${user}`).set("");
+}
+
+function openProductPage(image, product, sp, cp, id, seller) {
+    const pPage = document.querySelector(".p-page");
+    pPage.style.display = "flex";
+    pageP = document.getElementById("prodInf");
+    pageP.innerHTML = `<div class="product-page-card">
+    <img class="product-page-image" src="${image}"
+    height="260px" width="360px"/>
+    <div class="product-page-name">${product}</div>
+    <div class="price-card">
+    <div class="product-page-sellingprice">Gh¢ ${sp}</div>
+    <div class="product-page-costprice">Gh¢ ${cp}</div>
+    <div class="product-page-off"></div>
+    </div>
+    <div class="product-page-id">Product ID: ${id}</div>
+    <div class="product-page-seller">Seller: ${seller}</div>
+    	
+    	 <div class="product-page-cart-box">
+                    <button
+                    onclick="addCart('${image}','${product}','${sp}','${seller}',this)"
+                    class="product-page-cart-btn">Add To Cart</button>
+                    <button class="product-page-call-btn">Buy Now</button>
+                </div>
+    </div>
+    
+    `;
+}
+function closePPage() {
+    const pPage = document.querySelector(".p-page");
+    pPage.style.display = "none";
 }
