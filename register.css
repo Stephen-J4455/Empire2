@@ -300,7 +300,7 @@ body::-webkit-scrollbar {
     display: block;
     z-index: 2;
     overflow: scroll;
-    padding-bottom: 60px;
+    padding-bottom: 70px;
     scroll-behavior: auto;
     overflow-x: hidden;
     height: 740px;
