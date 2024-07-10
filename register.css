@@ -299,11 +299,13 @@ body::-webkit-scrollbar {
 .homepage {
     display: block;
     z-index: 2;
-    overflow: scroll;
-    scroll-behavior: auto;
+    scroll-behavior: smooth;
+    height: 680px;
+    position: relative;
+    overflow-y: scroll;
     overflow-x: hidden;
-    height: fit-content;
-    border: 1px solid;
+    width: 360px;
+    border: none;
     margin-bottom: 0;
 }
 .account {
