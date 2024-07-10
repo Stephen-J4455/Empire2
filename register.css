@@ -307,6 +307,7 @@ body::-webkit-scrollbar {
     width: 360px;
     border: none;
     padding-bottom: 10px;
+    background-color: black;
 }
 .account {
     display: none;
