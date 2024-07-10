@@ -300,7 +300,7 @@ body::-webkit-scrollbar {
     display: block;
     z-index: 2;
     scroll-behavior: smooth;
-    height: 720px;
+    height: 715px;
     position: absolute;
     top: 0;
     overflow-y: scroll;
@@ -308,7 +308,7 @@ body::-webkit-scrollbar {
     width: 360px;
     border: none;
     padding-bottom: 10px;
-    background-color: white;
+    background-color: blue;
 }
 .account {
     display: none;
