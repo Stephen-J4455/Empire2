@@ -146,22 +146,31 @@ function popular() {
     db.ref("Popular/products").on("value", function (snapshot) {
         snapshot.forEach(function (childSnapshot) {
             let popular = childSnapshot.val();
-            document.getElementById("popularList").innerHTML += `<div
-            class="popular-prod"><img class="popular-img" src="${popular.image}"
-            height="150px" width="160px"/>
+            let offCp = popular.costprice;
+            let offSp = popular.sellingprice;
+            document.getElementById(
+                "popularList"
+            ).innerHTML += `<div class="popular-prod">
+            
+            <div onclick="openProductPage('${popular.image}','${popular.name}','${popular.sellingprice}','${popular.costprice}','${popular.identification}','${popular.seller}','${popular.description}',this)">
+                        
+            <img class="popular-img" src="${popular.image}"
+            height="150px" width="170px"/>
             <div
             class="popular-name">${popular.name}</div>
             <div class="price-box">
-            <div class="popular-price"><b>GHC ${popular.sellingprice}</b></div>
-            
-            <div class="popular-cprice"><b>GHC ${popular.costprice}</b></div>
+            <div class="popular-price">GHC ${popular.sellingprice}</div>
+            <div class="popular-cprice">GHC ${popular.costprice}</div>
             </div>
-                        <div
-            class="top-picks-name">Seller: ${popular.seller}</div>
+      <div class="top-picks-name">Seller: ${popular.seller}</div>
             <div class="top-picks-id">ID:${popular.identification}</div>
+            </div>
             <button class="add-to-cart-btn"
-            onclick="addCart('${popular.image}','${popular.name}','${popular.sellingprice}','${popular.seller}',this)">Add
-            to Cart</button>
+            onclick="addCart('${popular.image}','${popular.name}','${popular.sellingprice}','${popular.seller}',this)">Add to Cart</button>
+             <div class="off-tag">-${parseInt(
+                ((offCp - offSp) / offCp) * 100
+            )}%<div>
+            
             </div>`;
         });
     });
@@ -197,16 +206,18 @@ poster();
 function newArrivals() {
     db.ref("New/products").on("value", function (snapshot) {
         snapshot.forEach(function (childSnapshot) {
-            var newProduct = childSnapshot.val();
+            let newProduct = childSnapshot.val();
             document.querySelector(".new-products").innerHTML += `<div
             class="new-arrival-product">
+            <div onclick="openProductPage('${newProduct.image}','${newProduct.name}','${newProduct.sellingprice}','${newProduct.costprice}','${newProduct.identification}','${newProduct.seller}','${newProduct.description}',this)">
             <img
-            src="${newProduct.image}" height="160px" width="160px"/>
+            src="${newProduct.image}" height="160px" width="170px"/>
             <div class="new-arrival-name">${newProduct.name}</div>
             <div class="new-arrival-sp">Ghc${newProduct.sellingprice}</div>
             <div class="new-arrival-cp">Ghc${newProduct.costprice}</div>
             <div class="new-arrival-seller">Seller: ${newProduct.seller}</div>
             <div class="new-arrival-id">ID: ${newProduct.identification}</div>
+            </div>
             <button
             onclick="addCart('${newProduct.image}','${newProduct.name}','${newProduct.sellingprice}','${newProduct.seller}',this)"
             class="add-to-cart-btn">Add to Cart</button>
