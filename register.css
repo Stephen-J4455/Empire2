@@ -306,7 +306,7 @@ body::-webkit-scrollbar {
     overflow-x: hidden;
     width: 360px;
     border: none;
-    margin-bottom: 0;
+    padding-bottom: 10px;
 }
 .account {
     display: none;
