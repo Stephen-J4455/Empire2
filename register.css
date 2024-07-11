@@ -787,6 +787,9 @@ body::-webkit-scrollbar {
     z-index: 1;
     position: absolute;
 }
+#grocery {
+    background-image: url("/");
+}
 /* category items end*/
 .cart-head {
     position: relative;
@@ -1407,4 +1410,39 @@ body::-webkit-scrollbar {
     justify-content: center;
     align-items: center;
     font-size: 15px;
+}
+@media only screen and (min-width: 414px) {
+    .homepage {
+        width: 414px;
+    }
+    .buttom-nav {
+        width: 414px;
+    }
+    .category-box {
+        width: 414px;
+    }
+    .new-products {
+        width: 414px;
+        gap: 30px;
+    }
+    #brandList {
+        width: 414px;
+    }
+    .top-picks-box {
+        margin-left: 10px;
+        width: 414px;
+        gap: 40px;
+    }
+    .top-picks {
+        margin-left: 20px;
+    }
+    .popular {
+        width: 414px;
+    }
+    .giftcards {
+        width: 414px;
+    }
+    .adds {
+        width: 414px;
+    }
 }
