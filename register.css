@@ -769,7 +769,7 @@ body::-webkit-scrollbar {
     font-size: 13px;
     overflow: hidden;
     height: 45px;
-    width: 60%;
+    width: 80px;
     margin: 3px 0px;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
@@ -1111,13 +1111,11 @@ body::-webkit-scrollbar {
 #popularList {
     border: 3px solid rgb(225, 226, 350);
     border-radius: 10px;
-    margin: 0px 0px;
     padding: 1px 1px;
-    display: flex;
+    display: -webkit-flex;
     flex-direction: row;
     gap: 5px;
     overflow-x: scroll;
-    overflow-y: hidden;
     height: 260px;
 }
 .price-box {
@@ -1549,36 +1547,51 @@ body::-webkit-scrollbar {
 /* media 430 */
 @media only screen and (min-width: 420px) {
     .homepage {
-        width: 430px;
+        width: 420px;
+        overflow-x: hidden;
+        scroll-behavior: smooth;
     }
     .buttom-nav {
-        width: 430px;
+        width: 420px;
+        gap: 50px;
     }
     .category-box {
-        width: 430px;
+        width: 420px;
     }
     .new-products {
-        width: 430px;
+        width: 420px;
         gap: 30px;
     }
     #brandList {
-        width: 430px;
+        width: 420px;
     }
     .top-picks-box {
         margin-left: 10px;
-        width: 430px;
+        width: 420px;
         gap: 40px;
     }
     .top-picks {
         margin-left: 25px;
     }
     .popular {
-        width: 430px;
+        width: 100%;
     }
     .giftcards {
-        width: 430px;
+        width: 420px;
     }
     .adds {
-        width: 430px;
+        width: 420px;
+    }
+    .category-display {
+        width: 280px;
+        position: absolute;
+        right: -60px;
+    }
+    .for-gros {
+        gap: 10px;
+    }
+    .category-box span {
+        width: 110px;
+        border-inline-start: none;
     }
 }
