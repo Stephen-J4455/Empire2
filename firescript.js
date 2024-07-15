@@ -87,6 +87,8 @@ auth.onAuthStateChanged(user => {
         formCnt.style.display = "none";
         navBar.style.display = "flex";
         cart();
+        catGros();
+        electronics();
     } else {
         // alert("User is signed out");
         // Redirect to login page
@@ -152,7 +154,11 @@ function popular() {
                 "popularList"
             ).innerHTML += `<div class="popular-prod">
             
-            <div onclick="openProductPage('${popular.image}','${popular.name}','${popular.sellingprice}','${popular.costprice}','${popular.identification}','${popular.seller}','${popular.description}',this)">
+            <div onclick="openProductPage('${popular.image}','${
+                popular.name
+            }','${popular.sellingprice}','${popular.costprice}','${
+                popular.identification
+            }','${popular.seller}','${popular.description}',this)">
                         
             <img class="popular-img" src="${popular.image}"
             height="150px" width="170px"/>
@@ -166,10 +172,12 @@ function popular() {
             <div class="top-picks-id">ID:${popular.identification}</div>
             </div>
             <button class="add-to-cart-btn"
-            onclick="addCart('${popular.image}','${popular.name}','${popular.sellingprice}','${popular.seller}',this)">Add to Cart</button>
+            onclick="addCart('${popular.image}','${popular.name}','${
+                popular.sellingprice
+            }','${popular.seller}',this)">Add to Cart</button>
              <div class="off-tag">-${parseInt(
-                ((offCp - offSp) / offCp) * 100
-            )}%<div>
+                 ((offCp - offSp) / offCp) * 100
+             )}%<div>
             
             </div>`;
         });
@@ -383,4 +391,38 @@ function openProductPage(image, product, sp, cp, id, seller) {
 function closePPage() {
     const pPage = document.querySelector(".p-page");
     pPage.style.display = "none";
+}
+
+// category data
+
+function catGros() {
+    db.ref("Category/grocery").on("value", function (snapshot) {
+        snapshot.forEach(function (childSnapshot) {
+            let groceries = childSnapshot.val();
+
+            document.getElementById("card1").innerHTML += `
+            <div class="category-prods">
+            <div onclick="openProductPage('${groceries.image}','${groceries.name}','${groceries.sellingprice}','${groceries.costprice}','${groceries.identification}','${groceries.seller}','${groceries.description}',this)">
+            <img class="category-item-image"
+            src="${groceries.image}" />
+            <div class="category-item-name">${groceries.name}</div>
+            </div>
+           </div> `;
+        });
+    });
+}
+function electronics() {
+    db.ref("Category/electronics").on("value", function (snapshot) {
+        snapshot.forEach(function (childSnapshot) {
+            let electronics = childSnapshot.val();
+            document.getElementById("elecP").innerHTML += `
+            <div class="category-prods">
+            <div onclick="openProductPage('${electronics.image}','${electronics.name}','${electronics.sellingprice}','${electronics.costprice}','${electronics.identification}','${electronics.seller}','${electronics.description}',this)">
+            <img class="category-item-image"
+            src="${electronics.image}" />
+            <div class="category-item-name">${electronics.name}</div>
+            </div>
+           </div> `;
+        });
+    });
 }

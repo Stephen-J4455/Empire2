@@ -16,6 +16,27 @@ function closeNotification() {
     noteBox.style.display = "none";
 }
 // notification
+// category
+const grosP = document.getElementById("grosP");
+const elecP = document.getElementById("elecP");
+const phoneP = document.getElementById("phoneP");
+const computingP = document.getElementById("computingP");
+const menP = document.getElementById("menP");
+const womenP = document.getElementById("womenP");
+const childrenP = document.getElementById("childrenP");
+const machinaryP = document.getElementById("machinaryP");
+const fashionP = document.getElementById("fashionP");
+const sportsP = document.getElementById("sportsP");
+const gamingP = document.getElementById("gamingP");
+const homeAndOfficeP = document.getElementById("homeAndOfficeP");
+const healthP = document.getElementById("healthP");
+const gardenP = document.getElementById("gardenP");
+const musicP = document.getElementById("musicP");
+const miscP = document.getElementById("miscP");
+const booksP = document.getElementById("booksP");
+const automobileP = document.getElementById("automobileP");
+const butt = document.getElementById("grocery");
+// category end
 function sign() {
     signupForm.style.display = "block";
     loginForm.style.display = "none";
@@ -74,6 +95,7 @@ function openFeed() {
     document.getElementById("activehome4").style.color = "white";
     document.getElementById("activehome5").style.color = "white";
 }
+
 function openCategory() {
     accountPage.style.display = "none";
     homePage.style.display = "none";
@@ -176,5 +198,24 @@ function closeAddressBook() {
         addressPress.style.display = "none";
     } else {
         addressPress.style.display = "flex";
+    }
+}
+// category page
+function btnSelect(cardNum) {
+    var catP = document.getElementsByClassName("for-gros");
+    var buttons = document.querySelectorAll(".category-box span");
+    for (var i = 0; i < catP.length; i++) {
+        if (i == cardNum) {
+            catP[i].classList.add("show");
+        } else {
+            catP[i].classList.remove("show");
+        }
+    }
+    for (var i = 0; i < buttons.length; i++) {
+        if (i == cardNum) {
+            buttons[i].classList.add("cat-active");
+        } else {
+            buttons[i].classList.remove("cat-active");
+        }
     }
 }

@@ -13,6 +13,9 @@ body {
         "Helvetica Neue",
         sans-serif;
     overflow: hidden;
+    height: 100vh;
+    scroll-behavior: smooth;
+    position: fixed;
 }
 body::-webkit-scrollbar {
     display: none;
@@ -299,15 +302,13 @@ body::-webkit-scrollbar {
 .homepage {
     display: block;
     z-index: 2;
-    scroll-behavior: smooth;
-    height: 715px;
     position: absolute;
+    bottom: 50px;
     top: 0;
     overflow-y: scroll;
-    overflow-x: hidden;
+    scroll-behavior: smooth;
     width: 360px;
     border: none;
-    padding-bottom: 5px;
     background-color: white;
 }
 .account {
@@ -323,11 +324,10 @@ body::-webkit-scrollbar {
 }
 .category {
     display: none;
-    position: fixed;
+    position: absolute;
     background-color: white;
-    height: 900px;
     top: 0;
-    bottom: 0;
+    bottom: 50px;
     width: 100%;
     z-index: 2;
 }
@@ -422,7 +422,8 @@ body::-webkit-scrollbar {
 .add-to-cart-btn {
     height: 35px;
     width: 170px;
-    background-color: darkorange;
+    background-color: rgb(112, 112, 112, 0.57);
+    font-weight: 500;
     border: none;
     border-radius: 7px;
     color: black;
@@ -749,31 +750,38 @@ body::-webkit-scrollbar {
 
 /* category items */
 .category-box {
-    border: 1px solid;
-    width: 359px;
-    height: 720px;
+    border: none;
+    width: fit-content;
     overflow-y: scroll;
-    gap: 5px;
-    display: grid;
-    grid-template-columns: auto auto auto;
-    justify-content: center;
+    display: inline-block;
+    flex-direction: column;
     position: absolute;
-    top: 0;
+    top: 50px;
+    bottom: 0;
 }
 .category-box span {
-    border-radius: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
     color: black;
     border: 0.1px solid;
     text-align: center;
-    font-size: 14px;
+    font-size: 13px;
     overflow: hidden;
-    height: 200px;
-    width: 110px;
-    margin-top: 50px;
+    height: 45px;
+    width: 80px;
+    margin: 3px 0px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding: 2px 5px;
 }
+.cat-active {
+    color: white;
+    background-color: darkorange;
+    font-weight: 500;
+    transition: 0.2s ease-in-out;
+}
+
 .category-head {
     border: none;
     width: 150px;
@@ -787,8 +795,87 @@ body::-webkit-scrollbar {
     z-index: 1;
     position: absolute;
 }
+.category-display {
+    position: absolute;
+    border: none;
+    width: 238px;
+    height: 670px;
+    border-radius: 10px;
+    right: 0;
+    top: 50px;
+    overflow: hidden;
+    margin-right: 1px;
+}
+.for-gros {
+    display: none;
+    grid-template-columns: auto auto;
+    padding: 5px 3px;
+}
+.show {
+    display: grid;
+}
+.see-more {
+    border: none;
+    height: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 130px;
+    font-size: 18px;
+    font-weight: 500;
+    background-color: rgb(4, 12, 100);
+    color: white;
+    border-radius: 7px;
+    padding-left: 10px;
+    height: 50px;
+}
 #grocery {
-    background-image: url("/");
+    /* background-image: url("https://firebasestorage.googleapis.com/v0/b/signup-bfcf8.appspot.com/o/Empire2%20Original%2Fshopping-cart-full-with-groceries-dark-backgrounds.jpg?alt=media&token=8988ce44-5143-42d8-ac5a-266a5148293d");
+    background-size: 100px 250px;
+    color: white;
+    font-weight: 1000;
+    font-size: 20px;
+    text-shadow: 3px 3px 3px black; */
+}
+#phones {
+    /* background-image: url("https://firebasestorage.googleapis.com/v0/b/signup-bfcf8.appspot.com/o/Empire2%20Original%2FScreenshot_20240711-184854_1.png?alt=media&token=e06c185a-8286-45a9-9e5c-92981e9d45be");
+    background-size: 100px 250px;
+    color: white;
+    text-shadow: 3px 3px 3px black;
+    font-weight: 1000;
+    font-size: 20px; */
+}
+#computing {
+    /* background-image: url("https://firebasestorage.googleapis.com/v0/b/signup-bfcf8.appspot.com/o/Empire2%20Original%2Fedited_20240711_190702.jpg?alt=media&token=6b395eb1-d264-49da-95f8-a9cedca0a266");
+    background-size: 100px 250px;
+    color: white;
+    font-weight: 1000;
+    font-size: 20px;
+    text-shadow: 3px 3px 3px black;
+    background-position: 0px -10px; */
+}
+#ref {
+    display: none;
+}
+.category-item-name {
+    border: none;
+    width: 110px;
+    overflow: hidden;
+    font-size: 11px;
+    height: 23px;
+    display: flex;
+    justify-content: center;
+}
+.category-item-image {
+    height: 120px;
+    width: 110px;
+}
+.category-prods {
+    border: 0.1px solid;
+    width: 110px;
+    border-radius: 5px;
+    overflow: hidden;
 }
 /* category items end*/
 .cart-head {
@@ -1411,6 +1498,12 @@ body::-webkit-scrollbar {
     align-items: center;
     font-size: 15px;
 }
+
+/* iphone 6s plus  */
+/* iphone 6s plus  */
+/* iphone 6s plus  */
+/* iphone 6s plus  */
+/* iphone 6s plus  */
 @media only screen and (min-width: 414px) {
     .homepage {
         width: 414px;
@@ -1444,5 +1537,45 @@ body::-webkit-scrollbar {
     }
     .adds {
         width: 414px;
+    }
+}
+/* iphone 6s plus  */
+/* iphone 6s plus  */
+/* iphone 6s plus  */
+
+/* media 430 */
+@media only screen and (min-width: 430px) {
+    .homepage {
+        width: 430px;
+    }
+    .buttom-nav {
+        width: 430px;
+    }
+    .category-box {
+        width: 430px;
+    }
+    .new-products {
+        width: 430px;
+        gap: 30px;
+    }
+    #brandList {
+        width: 430px;
+    }
+    .top-picks-box {
+        margin-left: 10px;
+        width: 430px;
+        gap: 40px;
+    }
+    .top-picks {
+        margin-left: 25px;
+    }
+    .popular {
+        width: 430px;
+    }
+    .giftcards {
+        width: 430px;
+    }
+    .adds {
+        width: 430px;
     }
 }
