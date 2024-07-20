@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="register.css" />
         <script src="firescript.js"></script>
     </head>
+
     <body onload="loadAllScript()">
         <div class="my-body">
             <div class="p-page">
@@ -233,6 +234,28 @@
                 <!-- homepage -->
                 <div class="home-container">
                     <div id="home" class="homepage">
+                        <div class="search-bar">
+                            <input
+                                onclick="openSearchPage()"
+                                type="search"
+                                name="search-product"
+                                id="search-product"
+                                placeholder="Search"
+                                value=""
+                            />
+                            <svg
+                                class="search-icon"
+                                viewBox="0 0 48 48"
+                                xmlns="http://www.w3.org/2000/svg"
+                                height="1.5em"
+                                width="1.5em"
+                            >
+                                <path
+                                    fill="currentColor"
+                                    d="M38.7 40.85 26.65 28.8q-1.5 1.3-3.5 2.025-2 .725-4.25.725-5.4 0-9.15-3.75T6 18.75q0-5.3 3.75-9.05 3.75-3.75 9.1-3.75 5.3 0 9.025 3.75 3.725 3.75 3.725 9.05 0 2.15-.7 4.15-.7 2-2.1 3.75L40.95 38.7q.45.4.45 1.025 0 .625-.5 1.125-.45.45-1.1.45-.65 0-1.1-.45Zm-19.85-12.3q4.05 0 6.9-2.875Q28.6 22.8 28.6 18.75t-2.85-6.925Q22.9 8.95 18.85 8.95q-4.1 0-6.975 2.875T9 18.75q0 4.05 2.875 6.925t6.975 2.875Z"
+                                />
+                            </svg>
+                        </div>
                         <div class="adds" id=""></div>
 
                         <div class="top-picks-box">
@@ -509,47 +532,43 @@
                                 class="cat-hov"
                                 >Computing</span
                             >
-                            <span onclick="btnSelect(3)" id="men">Men</span>
-                            <span onclick="btnSelect(4)" id="women">Women</span>
-                            <span onclick="btnSelect(5)" id="children"
-                                >Children</span
-                            >
-                            <span onclick="btnSelect(6)" id="machinery"
+
+                            <span onclick="btnSelect(3)" id="machinery"
                                 >Machinery</span
                             >
-                            <span onclick="btnSelect(7)" id="electronics"
+                            <span onclick="btnSelect(4)" id="electronics"
                                 >Electronics</span
                             >
-                            <span onclick="btnSelect(8)" id="fashion"
+                            <span onclick="btnSelect(5)" id="fashion"
                                 >Fashion</span
                             >
-                            <span onclick="btnSelect(9)" id="sports"
+                            <span onclick="btnSelect(6)" id="sports"
                                 >Sports</span
                             >
-                            <span onclick="btnSelect(10)" id="gaming"
+                            <span onclick="btnSelect(7)" id="gaming"
                                 >Gaming</span
                             >
-                            <span onclick="btnSelect(11)" id="home-and-office"
+                            <span onclick="btnSelect(8)" id="home-and-office"
                                 >Home & Office</span
                             >
-                            <span onclick="btnSelect(12)" id="health"
+                            <span onclick="btnSelect(9)" id="health"
                                 >Health & Beauty</span
                             >
-                            <span onclick="btnSelect(13)" id="garden"
+                            <span onclick="btnSelect(10)" id="garden"
                                 >Garden & Outdoors</span
                             >
                             <span
-                                onclick="btnSelect(14)"
+                                onclick="btnSelect(11)"
                                 id="musical-instruments"
                                 >Musical Instruments</span
                             >
-                            <span onclick="btnSelect(15)" id="miscellaneous"
+                            <span onclick="btnSelect(12)" id="miscellaneous"
                                 >Miscellaneous</span
                             >
-                            <span onclick="btnSelect(16)" id="books"
+                            <span onclick="btnSelect(13)" id="books"
                                 >Books & Movies</span
                             >
-                            <span onclick="btnSelect(17)" id="automobile"
+                            <span onclick="btnSelect(14)" id="automobile"
                                 >Automobile</span
                             >
                         </div>
@@ -558,12 +577,10 @@
                         <div id="ref"></div>
                         <div class="category-display">
                             <div class="see-more">See More <span>></span></div>
-                            <div class="for-gros show" id="card1"></div>
-                            <div class="for-gros" id="card2"></div>
-                            <div class="for-gros" id="card3"></div>
-                            <div class="for-gros" id="menP"></div>
-                            <div class="for-gros" id="womenP"></div>
-                            <div class="for-gros" id="childrenP"></div>
+                            <div class="for-gros show" id="groceryP"></div>
+                            <div class="for-gros" id="phoneP"></div>
+                            <div class="for-gros" id="computingP"></div>
+
                             <div class="for-gros" id="machinaryP"></div>
                             <div class="for-gros" id="elecP"></div>
                             <div class="for-gros" id="fashionP"></div>
@@ -584,7 +601,24 @@
                     <!-- Feed Page  -->
                     <div id="feedBox" class="feedpage">
                         <h2>Feeds</h2>
-                        <div id="feedList" class="feed-list"></div>
+                        <div id="feedList" class="feed-list">
+                            <!--                             <button onclick="displayfeedPage()">
+                                Load More
+                            </button> -->
+                        </div>
+                        <div class="loader-container">
+                            <div class="banter-loader">
+                                <div class="banter-loader__box"></div>
+                                <div class="banter-loader__box"></div>
+                                <div class="banter-loader__box"></div>
+                                <div class="banter-loader__box"></div>
+                                <div class="banter-loader__box"></div>
+                                <div class="banter-loader__box"></div>
+                                <div class="banter-loader__box"></div>
+                                <div class="banter-loader__box"></div>
+                                <div class="banter-loader__box"></div>
+                            </div>
+                        </div>
                     </div>
                     <!-- Help Page  -->
                     <!-- Help Page  -->
@@ -703,26 +737,11 @@
             <!-- signUp and login form -->
             <div class="form-container">
                 <!-- logo -->
-                <div class="logpage-logo">
-                    <span
-                        ><svg
-                            class="w-6 h-6 text-gray-800 dark:text-white"
-                            aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="20"
-                            height="20"
-                            fill="currentColor"
-                            viewBox="0 0 24 24"
-                        >
-                            <path
-                                fill-rule="evenodd"
-                                d="M4 4a1 1 0 0 1 1-1h1.5a1 1 0 0 1 .979.796L7.939 6H19a1 1 0 0 1 .979 1.204l-1.25 6a1 1 0 0 1-.979.796H9.605l.208 1H17a3 3 0 1 1-2.83 2h-2.34a3 3 0 1 1-4.009-1.76L5.686 5H5a1 1 0 0 1-1-1Z"
-                                clip-rule="evenodd"
-                            />
-                        </svg>
-                    </span>
-                    <span>Empire</span>
-                </div>
+                <img
+                    class="empviv-logo"
+                    src="https://firebasestorage.googleapis.com/v0/b/signup-bfcf8.appspot.com/o/Empire2%20Original%2FUntitled%20design_20240710_030124_0000.png?alt=media&token=e8741eb6-73dd-4894-b008-53c0ea569c5e"
+                    alt="Empviv"
+                />
                 <!-- logo -->
 
                 <!-- log in  -->

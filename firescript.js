@@ -86,9 +86,24 @@ auth.onAuthStateChanged(user => {
         // Redirect to home page when logged in
         formCnt.style.display = "none";
         navBar.style.display = "flex";
+        document.querySelector(".cart-btn").style.display = "block";
         cart();
-        catGros();
-        electronics();
+        catGros("Category/grocery", "groceryP");
+        catGros("Category/computing", "computingP");
+        catGros("Category/electronics", "elecP");
+        catGros("Category/home&office", "homeAndOfficeP");
+        catGros("Category/phones", "phoneP");
+        catGros("Category/machinary", "machinaryP");
+        catGros("Category/fashion", "fashionP");
+        catGros("Category/sports", "sportsP");
+        catGros("Category/gaming", "gamingP");
+        catGros("Category/health&beauty", "healthP");
+        catGros("Category/garden&outdoors", "gardenP");
+        catGros("Category/music", "musicP");
+        catGros("Category/books&movies", "booksP");
+        catGros("Category/misc", "miscP");
+        catGros("Category/automobile", "automobileP");
+        displayfeedPage();
     } else {
         // alert("User is signed out");
         // Redirect to login page
@@ -365,6 +380,7 @@ function checkOut() {
 function openProductPage(image, product, sp, cp, id, seller) {
     const pPage = document.querySelector(".p-page");
     pPage.style.display = "flex";
+    pPage.style.position = "fixed";
     pageP = document.getElementById("prodInf");
     pageP.innerHTML = `<div class="product-page-card">
     <img class="product-page-image" src="${image}"
@@ -395,12 +411,12 @@ function closePPage() {
 
 // category data
 
-function catGros() {
-    db.ref("Category/grocery").on("value", function (snapshot) {
+function catGros(path, card) {
+    db.ref(path).on("value", function (snapshot) {
         snapshot.forEach(function (childSnapshot) {
             let groceries = childSnapshot.val();
 
-            document.getElementById("card1").innerHTML += `
+            document.getElementById(card).innerHTML += `
             <div class="category-prods">
             <div onclick="openProductPage('${groceries.image}','${groceries.name}','${groceries.sellingprice}','${groceries.costprice}','${groceries.identification}','${groceries.seller}','${groceries.description}',this)">
             <img class="category-item-image"
@@ -411,18 +427,61 @@ function catGros() {
         });
     });
 }
-function electronics() {
-    db.ref("Category/electronics").on("value", function (snapshot) {
-        snapshot.forEach(function (childSnapshot) {
-            let electronics = childSnapshot.val();
-            document.getElementById("elecP").innerHTML += `
-            <div class="category-prods">
-            <div onclick="openProductPage('${electronics.image}','${electronics.name}','${electronics.sellingprice}','${electronics.costprice}','${electronics.identification}','${electronics.seller}','${electronics.description}',this)">
-            <img class="category-item-image"
-            src="${electronics.image}" />
-            <div class="category-item-name">${electronics.name}</div>
-            </div>
-           </div> `;
+
+function displayfeedPage() {
+    const paths = ["Popular/products", "Category/grocery", "TopPicks/products"];
+    let limit = 10;
+    const promises = paths.map(path =>
+        db.ref(path).limitToFirst(limit).once("value")
+    );
+
+    Promise.all(promises).then(snapshots => {
+        let products = [];
+        snapshots.forEach(snapshot => {
+            snapshot.forEach(childSnapshot => {
+                products.push(childSnapshot.val());
+            });
         });
+        shuffleArray(products);
+        displayFeedProducts(products);
     });
+}
+
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
+function displayFeedProducts(products) {
+    const productsDiv = document.getElementById("feedList");
+    products.forEach(product => {
+        const productDiv = document.createElement("div");
+        productDiv.innerHTML = `<div class="new-arrival-product">
+        <div onclick="openProductPage('${product.image}','${product.name}','${product.sellingprice}','${product.costprice}','${product.identification}','${product.seller}','${product.description}',this)">
+        <img class="feed-image" src="${product.image}" height="160px"
+        width="170px"/>
+        <div class="new-arrival-name">${product.name}</div>
+        <div class="new-arrival-sp">${product.sellingprice}</div>
+        <div class="new-arrival-cp">${product.costprice}</div>
+        <div class="new-arrival-seller">${product.seller}</div>
+        <div class="new-arrival-id">${product.identification}</div>
+        </div>
+                 <button
+            onclick="addCart('${product.image}','${product.name}','${product.sellingprice}','${product.seller}',this)"
+            class="add-to-cart-btn">Add to Cart</button>
+        </div>`; // Assuming product has a 'name' property
+        document.querySelector(".loader-container").style.display = "none";
+        productsDiv.appendChild(productDiv);
+    });
+}
+// search
+function openSearchPage() {
+    const sbar = document.querySelector(".search-bar");
+    const sicon = document.querySelector(".search-icon");
+    const inputF = document.getElementById("search-product");
+    sbar.classList.add("search-page");
+    inputF.classList.add("search-box");
+    sicon.classList.add("search-icn");
 }

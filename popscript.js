@@ -21,9 +21,6 @@ const grosP = document.getElementById("grosP");
 const elecP = document.getElementById("elecP");
 const phoneP = document.getElementById("phoneP");
 const computingP = document.getElementById("computingP");
-const menP = document.getElementById("menP");
-const womenP = document.getElementById("womenP");
-const childrenP = document.getElementById("childrenP");
 const machinaryP = document.getElementById("machinaryP");
 const fashionP = document.getElementById("fashionP");
 const sportsP = document.getElementById("sportsP");
@@ -143,7 +140,7 @@ autoScroll();
 
 window.addEventListener("scroll", function () {
     if (window.scrollY + window.innerHeight >= document.body.clientHeight) {
-        showProducts();
+        displayfeedPage();
     }
 });
 
