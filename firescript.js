@@ -18,7 +18,7 @@ function signUp() {
     const email = $("#signup-email").val();
     const password = $("#signup-password").val();
     const username = $("#userName").val();
-    if ((email === "", password === "")) {
+    if ((email === "", password === "", username === "")) {
         noteBox.style.display = "block";
         notification.innerText = "Enter Email and Password";
     } else {
@@ -28,7 +28,7 @@ function signUp() {
                 var userId = firebase.auth().currentUser.uid;
                 let dbId = 1599263;
                 db.ref(`USER/ADDRESS/${userId}`).set({
-                    username: username,
+                    account: username,
                     database: dbId
                 });
                 // alert("Sign up successful: ", user);
@@ -275,40 +275,62 @@ function count() {
 }
 count();
 // ADDRESS
-// function submitaddress() {
-//     const userName = document.getElementById("adrName").value;
-//     var phone = document.getElementById("phone").value;
-//     const location = document.getElementById("location").value;
-//     const region = document.getElementById("region").value;
-//     const city = document.getElementById("city").value;
-//     let checkUser = 8283450;
-//     db.ref(`USER/ADDRESS/${userID}`).set({
-//         user: usEmail,
-//         username2: userName,
-//         contact: phone,
-//         location: location,
-//         region: region,
-//         city: city,
-//         database: checkUser
-//     });
-//     alert("Address book saved!");
-// }
-// //
-// //
-// function checkOut() {
-//     db.ref(`USER/ADDRESS/${userID}`).on("value", function (snapshot) {
-//         snapshot.forEach(function (childSnapshot) {
-//             let checkAddress = snapshot.val();
-//             if (checkAddress.database === 1599263) {
-//                 document.querySelector(".adressbook-container").style.display =
-//                     "flex";
-//             } else {
-//                 document.querySelector(".make-order").style.display = "flex";
-//             }
-//         });
-//     });
-// }
+function submitaddress() {
+    let user = firebase.auth().currentUser.uid;
+    const mail = firebase.auth().currentUser.email;
+    let checkUser = 8283450;
+    const userName = document.getElementById("adrName").value;
+    const gender = document.querySelector('input[name="gender"]:checked').value;
+    const phone = document.getElementById("phone").value;
+    const birthday = document.getElementById("birthday").value;
+    const location = document.getElementById("location").value;
+    const city = document.getElementById("city").value;
+    if (
+        (userName === "",
+        gender === "",
+        phone === "",
+        birthday === "",
+        location === "",
+        city === "")
+    ) {
+        noteBox.style.display = "block";
+        notification.innerText = "Invalid User Credentials";
+    } else {
+        db.ref(`USER/ADDRESS/${user}`).update({
+            username: userName,
+            contact: phone,
+            birthday: birthday,
+            gender: gender,
+            email: mail,
+            location: location,
+            city: city,
+            database: checkUser
+        });
+        noteBox.style.display = "block";
+        notification.innerText = "Address Book Created Successfully";
+        document.querySelector(".adressbook-container").style.display = "none";
+    }
+    event.preventDefault();
+}
+function closeAddressInput() {
+    document.querySelector(".adressbook-container").style.display = "none";
+}
 //
+//
+function checkOut() {
+    let user = firebase.auth().currentUser.uid;
+    db.ref(`USER/ADDRESS/${user}`).on("value", function (snapshot) {
+        snapshot.forEach(function (childSnapshot) {
+            let checkAddress = snapshot.val();
+            if (checkAddress.database === 1599263) {
+                document.querySelector(".adressbook-container").style.display =
+                    "flex";
+            } else {
+                document.querySelector(".make-order").style.display = "flex";
+            }
+        });
+    });
+}
 function cart() {
     let user = firebase.auth().currentUser.uid;
     db.ref(`USER/CART/${user}`).on("value", snapshot => {
@@ -343,27 +365,34 @@ function cart() {
             li.appendChild(removeButton);
             cartItems.appendChild(li);
             count();
-            calculateSubtotal();
+            getProductData();
         });
     });
 }
-
-function calculateSubtotal() {
-    let total = [];
+function getProductData() {
     let user = firebase.auth().currentUser.uid;
-    db.ref(`USER/CART/${user}`).once("value", function (snapshot) {
+    var database = firebase.database();
+    var ref = database.ref(`USER/CART/${user}`);
+
+    ref.on("value", function (snapshot) {
+        var sellingPrices = [];
+
         snapshot.forEach(function (childSnapshot) {
-            var price = childSnapshot.val().price;
-            total += price;
+            var sellingPrice = childSnapshot.val().price;
+            sellingPrices.push(parseInt(sellingPrice));
         });
-        document.getElementById("tot").innerHTML = ` ${total}`;
+
+        var sum = sellingPrices.reduce(function (a, b) {
+            return a + b;
+        }, 0);
+
+        document.getElementById("tot").innerText = sum;
     });
 }
 
-function checkOut() {
+function order() {
     let user = firebase.auth().currentUser.uid;
     var cartRef = db.ref(`USER/CART/${user}`);
-    var checkPage = db.ref(`CheckOuts/${user}`);
 
     cartRef.once("value", function (snapshot) {
         snapshot.forEach(function (childSnapshot) {
@@ -376,7 +405,9 @@ function checkOut() {
     });
     db.ref(`USER/CART/${user}`).set("");
 }
-
+function closeOrderPage(){
+	document.querySelector(".make-order").style.display = "none";
+}
 function openProductPage(image, product, sp, cp, id, seller) {
     const pPage = document.querySelector(".p-page");
     pPage.style.display = "flex";
@@ -484,4 +515,70 @@ function openSearchPage() {
     sbar.classList.add("search-page");
     inputF.classList.add("search-box");
     sicon.classList.add("search-icn");
+    document.querySelector(".close-search-page").style.display = "block";
 }
+
+function closeSearchpage() {
+    const sbar = document.querySelector(".search-bar");
+    const sicon = document.querySelector(".search-icon");
+    const inputF = document.getElementById("search-product");
+    sbar.classList.remove("search-page");
+    inputF.classList.remove("search-box");
+    sicon.classList.remove("search-icn");
+    document.querySelector(".close-search-page").style.display = "none";
+    document.getElementById("searchResults").style.display = "none";
+}
+
+function searchProducts() {
+    const searchInput = document
+        .getElementById("search-product")
+        .value.toLowerCase();
+    if (searchInput === "") {
+    } else {
+        const searchResults = document.getElementById("searchResults");
+        searchResults.innerHTML = "";
+
+        const databasePaths = [
+            "Popular/products",
+            "Category/grocery",
+            "TopPicks/products",
+            "New/products"
+        ];
+
+        databasePaths.forEach(path => {
+            firebase
+                .database()
+                .ref(path)
+                .on("value", snapshot => {
+                    snapshot.forEach(childSnapshot => {
+                        const product = childSnapshot.val();
+                        const productName = childSnapshot
+                            .val()
+                            .name.toLowerCase();
+                        if (productName.includes(searchInput)) {
+                            const li = document.createElement("div");
+                            li.innerHTML = `<div class="new-arrival-product">
+        <div onclick="openProductPage('${product.image}','${product.name}','${product.sellingprice}','${product.costprice}','${product.identification}','${product.seller}','${product.description}',this)">
+        <img class="feed-image" src="${product.image}" height="160px"
+        width="170px"/>
+        <div class="new-arrival-name">${product.name}</div>
+        <div class="new-arrival-sp">${product.sellingprice}</div>
+        <div class="new-arrival-cp">${product.costprice}</div>
+        <div class="new-arrival-seller">${product.seller}</div>
+        <div class="new-arrival-id">${product.identification}</div>
+        </div>
+                 <button
+            onclick="addCart('${product.image}','${product.name}','${product.sellingprice}','${product.seller}',this)"
+            class="add-to-cart-btn">Add to Cart</button>
+        </div>`;
+                            searchResults.appendChild(li);
+                        }
+                    });
+                });
+        });
+    }
+}
+function openResultPage() {
+    document.getElementById("searchResults").style.display = "grid";
+}
+// search end
