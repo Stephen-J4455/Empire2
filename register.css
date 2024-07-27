@@ -613,12 +613,12 @@ body {
 .search-page {
     transition: 0.3s ease;
     background-color: white;
-    height: 680px;
+    height: 740px;
     z-index: 1;
 }
 .close-search-page {
     position: relative;
-    top: -315px;
+    top: -345px;
     left: 0;
     color: rgb(2, 25, 100);
 }
