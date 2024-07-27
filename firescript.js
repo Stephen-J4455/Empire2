@@ -88,6 +88,7 @@ auth.onAuthStateChanged(user => {
         navBar.style.display = "flex";
         document.querySelector(".cart-btn").style.display = "block";
         cart();
+        getUserAddress();
         catGros("Category/grocery", "groceryP");
         catGros("Category/computing", "computingP");
         catGros("Category/electronics", "elecP");
@@ -315,6 +316,21 @@ function submitaddress() {
 function closeAddressInput() {
     document.querySelector(".adressbook-container").style.display = "none";
 }
+function getUserAddress() {
+    let user = firebase.auth().currentUser.uid;
+    db.ref(`USER/ADDRESS/${user}`).once("value", function (snapshot) {
+        const addrVal = snapshot.val();
+        document.querySelector(".address-container").innerHTML = `<div>
+        <div>Name: ${addrVal.username}</div>
+        <div>Email: ${addrVal.email}</div>
+        <div>Contact: ${addrVal.contact}</div>
+        <div>Location: ${addrVal.location}</div>
+        <div>Gender: ${addrVal.gender}</div>
+        <div>Birthday: ${addrVal.birthday}</div>
+        <div>City: ${addrVal.city}</div>
+        </div>`;
+    });
+}
 //
 //
 function checkOut() {
@@ -379,21 +395,21 @@ function getProductData() {
 
         snapshot.forEach(function (childSnapshot) {
             var sellingPrice = childSnapshot.val().price;
-            sellingPrices.push(parseInt(sellingPrice));
+            sellingPrices.push(parseFloat(sellingPrice));
         });
 
         var sum = sellingPrices.reduce(function (a, b) {
             return a + b;
         }, 0);
 
-        document.getElementById("tot").innerText = sum;
+        document.getElementById("tot").innerText = sum.toFixed(2);
     });
 }
 
 function order() {
     let user = firebase.auth().currentUser.uid;
     var cartRef = db.ref(`USER/CART/${user}`);
-
+    const checkPage = db.ref(`CHECKOUT/${user}`);
     cartRef.once("value", function (snapshot) {
         snapshot.forEach(function (childSnapshot) {
             var childKey = childSnapshot.key;
@@ -405,8 +421,8 @@ function order() {
     });
     db.ref(`USER/CART/${user}`).set("");
 }
-function closeOrderPage(){
-	document.querySelector(".make-order").style.display = "none";
+function closeOrderPage() {
+    document.querySelector(".make-order").style.display = "none";
 }
 function openProductPage(image, product, sp, cp, id, seller) {
     const pPage = document.querySelector(".p-page");
@@ -460,7 +476,28 @@ function catGros(path, card) {
 }
 
 function displayfeedPage() {
-    const paths = ["Popular/products", "Category/grocery", "TopPicks/products"];
+    const paths = [
+        "Popular/products",
+        "Category/grocery",
+        "TopPicks/products",
+        "New/products",
+        "Category/computing",
+        "Category/phones",
+        "Category/men",
+        "Category/women",
+        "Category/children",
+        "Category/machinary",
+        "Category/electronics",
+        "Category/fashion",
+        "Category/sports",
+        "Category/gaming",
+        "Category/home&office",
+        "Category/health&beauty",
+        "Category/garden&outdoors",
+        "Category/music",
+        "Category/books&movies",
+        "Category/automobile"
+    ];
     let limit = 10;
     const promises = paths.map(path =>
         db.ref(path).limitToFirst(limit).once("value")
@@ -510,21 +547,17 @@ function displayFeedProducts(products) {
 // search
 function openSearchPage() {
     const sbar = document.querySelector(".search-bar");
-    const sicon = document.querySelector(".search-icon");
     const inputF = document.getElementById("search-product");
     sbar.classList.add("search-page");
     inputF.classList.add("search-box");
-    sicon.classList.add("search-icn");
     document.querySelector(".close-search-page").style.display = "block";
 }
 
 function closeSearchpage() {
     const sbar = document.querySelector(".search-bar");
-    const sicon = document.querySelector(".search-icon");
     const inputF = document.getElementById("search-product");
     sbar.classList.remove("search-page");
     inputF.classList.remove("search-box");
-    sicon.classList.remove("search-icn");
     document.querySelector(".close-search-page").style.display = "none";
     document.getElementById("searchResults").style.display = "none";
 }
@@ -541,8 +574,8 @@ function searchProducts() {
         const databasePaths = [
             "Popular/products",
             "Category/grocery",
-            "TopPicks/products",
-            "New/products"
+            "New/products",
+            "TopPicks/products"
         ];
 
         databasePaths.forEach(path => {

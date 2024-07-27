@@ -60,11 +60,11 @@ function openAccountPage() {
     category.style.display = "none";
     feed.style.display = "none";
     document.querySelector(".cart-btn").style.display = "none";
-    document.getElementById("activehome").style.color = "white";
-    document.getElementById("activehome2").style.color = "white";
-    document.getElementById("activehome3").style.color = "white";
+    document.getElementById("activehome").style.color = "rgb(2, 40, 100)";
+    document.getElementById("activehome2").style.color = "rgb(2, 40, 100)";
+    document.getElementById("activehome3").style.color = "rgb(2, 40, 100)";
     document.getElementById("activehome4").style.color = "darkorange";
-    document.getElementById("activehome5").style.color = "white";
+    document.getElementById("activehome5").style.color = "rgb(2, 40, 100)";
 }
 function home() {
     accountPage.style.display = "none";
@@ -74,10 +74,10 @@ function home() {
     feed.style.display = "none";
     document.querySelector(".cart-btn").style.display = "block";
     document.getElementById("activehome").style.color = "darkorange";
-    document.getElementById("activehome2").style.color = "white";
-    document.getElementById("activehome3").style.color = "white";
-    document.getElementById("activehome4").style.color = "white";
-    document.getElementById("activehome5").style.color = "white";
+    document.getElementById("activehome2").style.color = "rgb(2, 40, 100)";
+    document.getElementById("activehome3").style.color = "rgb(2, 40, 100)";
+    document.getElementById("activehome4").style.color = "rgb(2, 40, 100)";
+    document.getElementById("activehome5").style.color = "rgb(2, 40, 100)";
 }
 function openFeed() {
     accountPage.style.display = "none";
@@ -86,11 +86,11 @@ function openFeed() {
     category.style.display = "none";
     feed.style.display = "block";
     document.querySelector(".cart-btn").style.display = "block";
-    document.getElementById("activehome").style.color = "white";
-    document.getElementById("activehome2").style.color = "white";
+    document.getElementById("activehome").style.color = "rgb(2, 40, 100)";
+    document.getElementById("activehome2").style.color = "rgb(2, 40, 100)";
     document.getElementById("activehome3").style.color = "darkorange";
-    document.getElementById("activehome4").style.color = "white";
-    document.getElementById("activehome5").style.color = "white";
+    document.getElementById("activehome4").style.color = "rgb(2, 40, 100)";
+    document.getElementById("activehome5").style.color = "rgb(2, 40, 100)";
 }
 
 function openCategory() {
@@ -100,11 +100,11 @@ function openCategory() {
     category.style.display = "block";
     feed.style.display = "none";
     document.querySelector(".cart-btn").style.display = "block";
-    document.getElementById("activehome").style.color = "white";
+    document.getElementById("activehome").style.color = "rgb(2, 40, 100)";
     document.getElementById("activehome2").style.color = "darkorange";
-    document.getElementById("activehome3").style.color = "white";
-    document.getElementById("activehome4").style.color = "white";
-    document.getElementById("activehome5").style.color = "white";
+    document.getElementById("activehome3").style.color = "rgb(2, 40, 100)";
+    document.getElementById("activehome4").style.color = "rgb(2, 40, 100)";
+    document.getElementById("activehome5").style.color = "rgb(2, 40, 100)";
 }
 function openHelp() {
     accountPage.style.display = "none";
@@ -113,10 +113,10 @@ function openHelp() {
     category.style.display = "none";
     feed.style.display = "none";
     document.querySelector(".cart-btn").style.display = "none";
-    document.getElementById("activehome").style.color = "white";
-    document.getElementById("activehome2").style.color = "white";
-    document.getElementById("activehome3").style.color = "white";
-    document.getElementById("activehome4").style.color = "white";
+    document.getElementById("activehome").style.color = "rgb(2, 40, 100)";
+    document.getElementById("activehome2").style.color = "rgb(2, 40, 100)";
+    document.getElementById("activehome3").style.color = "rgb(2, 40, 100)";
+    document.getElementById("activehome4").style.color = "rgb(2, 40, 100)";
     document.getElementById("activehome5").style.color = "darkorange";
 }
 
@@ -183,20 +183,18 @@ window.addEventListener("load", function () {
 // open address book
 function openAddressBook() {
     const addressPress = document.getElementById("addressPage");
+    const expandIcon = document.getElementById("expandIcon");
     if (addressPress.style.display === "flex") {
         addressPress.style.display = "none";
+        expandIcon.style.rotate = "0deg";
+        expandIcon.style.transition = "0.3s ease";
     } else {
         addressPress.style.display = "flex";
+        expandIcon.style.rotate = "180deg";
+        expandIcon.style.transition = "0.3s ease";
     }
 }
-function closeAddressBook() {
-    const addressPress = document.getElementById("addressPage");
-    if (addressPress.style.display === "flex") {
-        addressPress.style.display = "none";
-    } else {
-        addressPress.style.display = "flex";
-    }
-}
+
 // category page
 function btnSelect(cardNum) {
     var catP = document.getElementsByClassName("for-gros");

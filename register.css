@@ -306,17 +306,134 @@ body {
     border: none;
     background-color: white;
 }
+/* account page */
 .account {
     display: none;
     position: fixed;
     background-color: white;
-    top: 0;
-    bottom: 0;
     width: 100%;
     z-index: 2;
     overflow-y: scroll;
-    height: fit-content;
+    height: 100vh;
 }
+.account-header {
+    color: aliceblue;
+    height: fit-content;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    background-color: rgb(4, 12, 60);
+}
+.logout-btn {
+    border: none;
+    background: transparent;
+    color: aliceblue;
+}
+.logout-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 15px 3px;
+}
+.logout-text {
+    font-size: 12px;
+    color: darkred;
+}
+#userEmail {
+}
+.empire-container {
+    color: #2b2b2b;
+    overflow-y: scroll;
+    position: relative;
+    top: 85px;
+    height: fit-content;
+    width: 100%;
+}
+.empire-header {
+    background-color: rgb(4, 12, 60);
+    padding: 10px 10px;
+    color: white;
+    font-size: 20px;
+    position: relative;
+}
+.userProfile {
+    border: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.account-list {
+    display: flex;
+    flex-direction: column;
+    padding: 1px 10px;
+    gap: 10px;
+}
+.setting {
+    border: none;
+    padding: -10px;
+}
+.setting-list {
+    margin-bottom: 60px;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.setting-item {
+    border: none;
+    display: flex;
+    position: relative;
+    left: -40px;
+    width: 100%;
+    align-items: center;
+    gap: 60px 60px;
+    padding: 5px 20px;
+}
+.li {
+    border: 0.5px solid rgb(2, 42, 100);
+    padding: 5px 3px;
+    display: flex;
+    align-items: center;
+    border-radius: 7px;
+    font-weight: 500;
+    gap: 20px;
+    user-select: none;
+}
+.li:hover {
+    transition: 0.3s ease;
+    padding: 7px 5px;
+    font-weight: 700;
+    border-radius: 3px;
+    background-color: rgb(225, 226, 350);
+}
+.ng {
+}
+#addressPage {
+    display: none;
+    flex-direction: column;
+    border: none;
+    position: relative;
+    left: -40px;
+    height: fit-content;
+    width: 354px;
+    padding: 2px 2px;
+}
+
+.address-container {
+    border: 2px solid rgb(175, 170, 222);
+    border-radius: 5px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+    font-display: Helvetica Neue;
+    font-weight: 700;
+    font-size: 17px;
+    width: 99%;
+    min-height: 140px;
+}
+/* ac end */
 .category {
     display: none;
     position: absolute;
@@ -358,18 +475,18 @@ body {
 .buttom-nav {
     position: fixed;
     bottom: 0;
-
     height: 50px;
     width: 360px;
     display: flex;
     flex-direction: row;
     border: none;
     gap: 40px;
-    color: white;
-    background-color: rgba(4, 12, 42);
+    color: rgb(2, 40, 100);
+    background-color: whitesmoke;
     justify-content: center;
     align-items: center;
     z-index: 3;
+    font-weight: 570;
 }
 .buttom-nav span:nth-child(1) {
     display: flex;
@@ -471,53 +588,46 @@ body {
     display: flex;
     flex-direction: row;
     align-items: center;
-    background-color: rgb(2, 25, 100);
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    background-color: white;
 }
-.search-icon {
-    position: absolute;
-    top: 7px;
-    left: 170px;
-    color: darkorange;
-}
-.search-icn {
-    transition: 0.3s ease;
-    left: 215px;
-}
+
 #search-product {
     height: 35px;
-    width: 200px;
+    width: 180px;
     margin: 0px 3px;
     padding: 1px 4px;
-    border-radius: 10px;
-    border: 0.1px solid white;
+    border-radius: 7px;
+    border: 0.1px solid black;
     outline: none;
-    background: linear-gradient(to left, #1c084d, #5c16d4);
-    color: white;
+    color: black;
 }
 .search-box {
-    position: relative;
-    top: -230px;
+    position: absolute;
+    transition: 3s ease;
+    top: 7px;
+    left: 50px;
 }
 .search-page {
     transition: 0.3s ease;
     background-color: white;
-    height: 500px;
+    height: 680px;
     z-index: 1;
 }
 .close-search-page {
-    position: absolute;
-    top: 1px;
-    left: 250px;
+    position: relative;
+    top: -315px;
+    left: 0;
     color: rgb(2, 25, 100);
-    display: none;
 }
 #searchResults {
     display: none;
     grid-template-columns: 50% 50%;
     padding: 0px 5px;
     overflow-y: scroll;
-    height: 670px;
-    padding-bottom: 50px;
+    height: 680px;
     border: none;
     width: 100%;
     background-color: white;
@@ -579,19 +689,13 @@ body {
 /* search  end*/
 .cart-btn {
     display: none;
-    border: 0.1px solid white;
     border-radius: 10px;
+    border: none;
     position: fixed;
     top: 0;
     right: 0;
-    margin: 5px 10px;
-    background: linear-gradient(
-        45deg,
-        rgb(2, 25, 100) 0%,
-        rgb(9, 130, 150) 100%
-    );
-    color: white;
-    padding: 3px 6px;
+    background: transparent;
+    color: rgb(2, 40, 100);
     z-index: 20;
     outline: none;
 }
@@ -612,11 +716,12 @@ body {
 .item-count {
     position: absolute;
     background-color: darkorange;
-    bottom: 2px;
-    right: 2px;
+    bottom: 30px;
+    right: 10px;
     border-radius: 10px;
-    padding: 1px 2px;
-    font-size: 10px;
+    padding: 0.5px 3px;
+    font-size: 11px;
+    color: white;
 }
 .cart-menu {
     z-index: 50;
@@ -760,78 +865,7 @@ body {
     justify-content: center;
     align-items: center;
 }
-.account-header {
-    color: aliceblue;
-    height: 120px;
-    width: 100%;
-    position: fixed;
-    top: 0;
-    background-color: rgb(4, 12, 42, 0.877);
-}
-.logout-btn {
-    border: none;
-    background: transparent;
-    color: aliceblue;
-}
-.logout-container {
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin-right: 2px;
-}
-.logout-text {
-    font-size: 12px;
-    color: darkred;
-}
-#userEmail {
-    position: relative;
-    top: -7px;
-    font-size: 14px;
-    margin-left: 4px;
-    color: darkgreen;
-    text-align: center;
-}
-.empire-container {
-    color: #2b2b2b;
-    top: 160px;
-    overflow-y: scroll;
-    position: fixed;
-    height: 600px;
-    width: 100%;
-}
-.empire-header {
-    background-color: #787878;
-    padding: 10px 10px;
-    color: aliceblue;
-    font-size: 20px;
-    position: relative;
-    top: -25px;
-}
-.userProfile {
-    z-index: 1;
-    color: darkgreen;
-    text-align: center;
-}
-.account-list {
-    position: relative;
-    top: -50px;
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    font-size: 15px;
-    background-color: #dbdbdb;
-    padding: 15px 10px;
-}
-.li {
-    display: flex;
-    flex-direction: row;
-    gap: 30px;
-    align-items: center;
-}
-.setting {
-    position: relative;
-    top: -50px;
-}
+
 .check-out-btn {
     position: fixed;
     bottom: 0;
@@ -1063,6 +1097,7 @@ body {
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
     transition: scroll-snap-align 3s;
+    margin-top: 45px;
 }
 .giftcards {
     scroll-snap-align: start;
@@ -1879,35 +1914,64 @@ body {
     background: rgb(175, 170, 300);
 }
 /* address end */
-.addr-close-btn {
-    color: rgb(175, 170, 222);
-    height: 40px;
-    width: 40px;
-    position: absolute;
-    right: 10px;
-    top: 10px;
-}
-.address-container {
-    border: 2px solid rgb(175, 170, 222);
-    border-radius: 5px;
-    position: absolute;
-    left: 0;
-    top: 100px;
-    width: 340px;
-    height: fit-content;
-    margin: 0px 2px;
-    padding: 5px 5px;
-}
+
 /* make order */
 .make-order {
     position: fixed;
     z-index: 60;
-    height: 99.5vh;
+    height: 100vh;
+
     width: 100%;
-    background-color: rgb(225, 227, 350);
+    background-color: white;
     display: none;
 }
-
+#fees {
+    height: fit-content;
+    width: 100%;
+    position: absolute;
+    top: 50px;
+    padding: 3px 7px;
+    background-color: whitesmoke;
+}
+#payment {
+    position: absolute;
+    top: 280px;
+    height: fit-content;
+    width: 100%;
+    margin: 0;
+    background-color: whitesmoke;
+    padding: 20px 10px;
+}
+.pay-box {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+}
+.make-order-btn {
+    position: fixed;
+    bottom: 0;
+    padding: 20px 5px;
+    width: 50%;
+    right: 0;
+    outline: none;
+    border: none;
+    background-color: black;
+    color: white;
+    font-weight: 500;
+}
+.add-more {
+    position: fixed;
+    bottom: 0;
+    padding: 20px 5px;
+    width: 50%;
+    left: 0;
+    outline: none;
+    border: none;
+    background-color: whitesmoke;
+    color: black;
+    font-weight: 500;
+}
 /* open product page  */
 .p-page {
     position: absolute;

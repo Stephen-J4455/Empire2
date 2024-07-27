@@ -14,6 +14,94 @@
 
     <body onload="loadAllScript()">
         <div class="my-body">
+            <div class="make-order">
+                <svg
+                    onclick="closeOrderPage()"
+                    viewBox="0 0 48 48"
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="1.5em"
+                    width="1.5em"
+                >
+                    <path
+                        fill="currentColor"
+                        d="m22.35 38.95-13.9-13.9q-.25-.25-.35-.5Q8 24.3 8 24q0-.3.1-.55.1-.25.35-.5L22.4 9q.4-.4 1-.4t1.05.45q.45.45.45 1.05 0 .6-.45 1.05L13.1 22.5h24.8q.65 0 1.075.425.425.425.425 1.075 0 .65-.425 1.075-.425.425-1.075.425H13.1l11.4 11.4q.4.4.4 1t-.45 1.05q-.45.45-1.05.45-.6 0-1.05-.45Z"
+                    />
+                </svg>
+                <div id="fees">
+                    <div class="number-of-items">
+                        Items Total:
+                        <ul id="itemPrice">
+                            0.00
+                        </ul>
+                    </div>
+
+                    <div class="delivery-fee-name">
+                        Delivery Fee:
+                        <ul id="deliveryPrice">
+                            0.00
+                        </ul>
+                    </div>
+
+                    <div class="moq-fee">
+                        International Customs Fee:
+                        <ul id="moqPrice">
+                            0.00
+                        </ul>
+                    </div>
+                </div>
+                <!-- payment method  -->
+                <div id="payment">
+                    <form>
+                        <input
+                            class="pay-box"
+                            checked=""
+                            type="radio"
+                            id="mobileMoney"
+                            name="paymentMethod"
+                            value="Mobile Money"
+                        />
+                        <label for="mobileMoney">
+                            <svg
+                                viewBox="0 0 48 48"
+                                xmlns="http://www.w3.org/2000/svg"
+                                height="1.5em"
+                                width="1.5em"
+                            >
+                                <path
+                                    fill="currentColor"
+                                    d="M11 44q-1.2 0-2.1-.9Q8 42.2 8 41V15q0-1.2.9-2.1.9-.9 2.1-.9h5.5v-.5q0-3.15 2.175-5.325Q20.85 4 24 4q3.15 0 5.325 2.175Q31.5 8.35 31.5 11.5v.5H37q1.2 0 2.1.9.9.9.9 2.1v26q0 1.2-.9 2.1-.9.9-2.1.9Zm8.5-32.5v.5h9v-.5q0-1.9-1.3-3.2Q25.9 7 24 7q-1.9 0-3.2 1.3-1.3 1.3-1.3 3.2ZM11 41h26V15h-5.5v4.5q0 .65-.425 1.075Q30.65 21 30 21q-.65 0-1.075-.425-.425-.425-.425-1.075V15h-9v4.5q0 .65-.425 1.075Q18.65 21 18 21q-.65 0-1.075-.425-.425-.425-.425-1.075V15H11v26Zm0 0V15v26Z"
+                                /></svg
+                            >Mobile Money on delivery</label
+                        >
+                        <input
+                            class="pay-box"
+                            type="radio"
+                            id="cash"
+                            name="paymentMethod"
+                            value="Cash"
+                        />
+                        <label for="cash"
+                            ><svg
+                                viewBox="0 0 48 48"
+                                xmlns="http://www.w3.org/2000/svg"
+                                height="1.5em"
+                                width="1.5em"
+                            >
+                                <path
+                                    fill="currentColor"
+                                    d="M11 44q-1.2 0-2.1-.9Q8 42.2 8 41V15q0-1.2.9-2.1.9-.9 2.1-.9h5.5v-.5q0-3.15 2.175-5.325Q20.85 4 24 4q3.15 0 5.325 2.175Q31.5 8.35 31.5 11.5v.5H37q1.2 0 2.1.9.9.9.9 2.1v26q0 1.2-.9 2.1-.9.9-2.1.9Zm8.5-32.5v.5h9v-.5q0-1.9-1.3-3.2Q25.9 7 24 7q-1.9 0-3.2 1.3-1.3 1.3-1.3 3.2ZM11 41h26V15h-5.5v4.5q0 .65-.425 1.075Q30.65 21 30 21q-.65 0-1.075-.425-.425-.425-.425-1.075V15h-9v4.5q0 .65-.425 1.075Q18.65 21 18 21q-.65 0-1.075-.425-.425-.425-.425-1.075V15H11v26Zm0 0V15v26Z"
+                                /></svg
+                            >Cash on delivery</label
+                        >
+                    </form>
+                </div>
+                <!-- Make order btn -->
+                <button class="add-more" type="submit">Shop For More</button>
+                <button onclick="order()" class="make-order-btn" type="submit">
+                    Confirm Order
+                </button>
+            </div>
+            <!-- product page  -->
             <div class="p-page">
                 <div onclick="closePPage()" class="close-p-page">
                     <svg
@@ -36,6 +124,8 @@
                         </g>
                     </svg>
                 </div>
+
+                <!-- product information  -->
                 <div id="prodInf" class="product-info-page"></div>
                 <div class="product-page-delivery-box">
                     <div class="delivery-fee">
@@ -176,8 +266,8 @@
                         class="w-6 h-6 text-gray-800 dark:text-white"
                         aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
+                        width="40"
+                        height="40"
                         fill="none"
                         viewBox="0 0 24 24"
                     >
@@ -185,7 +275,7 @@
                             stroke="currentColor"
                             stroke-linecap="round"
                             stroke-linejoin="round"
-                            stroke-width="2"
+                            stroke-width="1.3"
                             d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7H7.312"
                         />
                     </svg>
@@ -242,33 +332,20 @@
                                 name="search-product"
                                 id="search-product"
                                 placeholder="Search"
+                                onkeypress="searchProducts();openResultPage()"
                                 value=""
                             />
-
-                            <svg
-                                onclick="searchProducts();openResultPage()"
-                                class="search-icon"
-                                viewBox="0 0 48 48"
-                                xmlns="http://www.w3.org/2000/svg"
-                                height="2em"
-                                width="2em"
-                            >
-                                <path
-                                    fill="currentColor"
-                                    d="M38.7 40.85 26.65 28.8q-1.5 1.3-3.5 2.025-2 .725-4.25.725-5.4 0-9.15-3.75T6 18.75q0-5.3 3.75-9.05 3.75-3.75 9.1-3.75 5.3 0 9.025 3.75 3.725 3.75 3.725 9.05 0 2.15-.7 4.15-.7 2-2.1 3.75L40.95 38.7q.45.4.45 1.025 0 .625-.5 1.125-.45.45-1.1.45-.65 0-1.1-.45Zm-19.85-12.3q4.05 0 6.9-2.875Q28.6 22.8 28.6 18.75t-2.85-6.925Q22.9 8.95 18.85 8.95q-4.1 0-6.975 2.875T9 18.75q0 4.05 2.875 6.925t6.975 2.875Z"
-                                />
-                            </svg>
                             <svg
                                 onclick="closeSearchpage()"
                                 class="close-search-page"
                                 viewBox="0 0 48 48"
                                 xmlns="http://www.w3.org/2000/svg"
-                                height="2.5em"
-                                width="2.5em"
+                                height="3em"
+                                width="3em"
                             >
                                 <path
                                     fill="currentColor"
-                                    d="M11.5 38q-.65 0-1.075-.425Q10 37.15 10 36.5q0-.65.425-1.075Q10.85 35 11.5 35h25q.65 0 1.075.425Q38 35.85 38 36.5q0 .65-.425 1.075Q37.15 38 36.5 38Zm1.75-7.6q-.9 0-1.35-.8-.45-.8.1-1.55L22.75 11.9q.45-.7 1.25-.7t1.25.7L36 28.05q.55.75.1 1.55-.45.8-1.35.8Zm10.8-3Zm-8.1 0h16.1L24 15.5Z"
+                                    d="m26.95 34.9-9.9-9.9q-.25-.25-.35-.5-.1-.25-.1-.55 0-.3.1-.55.1-.25.35-.5L27 12.95q.45-.45 1.075-.45t1.075.45q.45.45.425 1.1-.025.65-.475 1.1l-8.8 8.8 8.85 8.85q.45.45.45 1.05 0 .6-.45 1.05-.45.45-1.1.45-.65 0-1.1-.45Z"
                                 />
                             </svg>
                             <div id="searchResults">
@@ -325,8 +402,8 @@
                                     class="w-6 h-6 text-gray-800 dark:text-white"
                                     aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
-                                    width="70"
-                                    height="70"
+                                    width="40"
+                                    height="40"
                                     fill="currentColor"
                                     viewBox="0 0 24 24"
                                 >
@@ -336,8 +413,8 @@
                                         clip-rule="evenodd"
                                     />
                                 </svg>
+                                <div id="userEmail"></div>
                             </div>
-                            <div id="userEmail"></div>
 
                             <div class="logout-container">
                                 <button class="logout-btn" onclick="logout()">
@@ -377,9 +454,9 @@
                                         class="w-6 h-6 text-gray-800 dark:text-white"
                                         aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg"
-                                        width="24"
-                                        height="24"
-                                        fill="black"
+                                        width="40"
+                                        height="40"
+                                        fill="rgb(2,42,100)"
                                         viewBox="0 0 24 24"
                                     >
                                         <path
@@ -395,9 +472,9 @@
                                         class="w-[18px] h-[18px] text-gray-800 dark:text-white"
                                         aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg"
-                                        width="24"
-                                        height="24"
-                                        fill="black"
+                                        width="40"
+                                        height="40"
+                                        fill="rgb(2,42,100)"
                                         viewBox="0 0 24 24"
                                     >
                                         <path
@@ -418,9 +495,9 @@
                                         class="w-[17px] h-[17px] text-gray-800 dark:text-white"
                                         aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg"
-                                        width="24"
-                                        height="24"
-                                        fill="black"
+                                        width="40"
+                                        height="40"
+                                        fill="rgb(2,42,100)"
                                         viewBox="0 0 24 24"
                                     >
                                         <path
@@ -436,9 +513,9 @@
                                         class="w-6 h-6 text-gray-800 dark:text-white"
                                         aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg"
-                                        width="24"
-                                        height="24"
-                                        fill="block"
+                                        width="40"
+                                        height="40"
+                                        fill="rgb(2,42,100)"
                                         viewBox="0 0 24 24"
                                     >
                                         <path
@@ -452,9 +529,9 @@
                                         class="w-[14px] h-[14px] text-gray-800 dark:text-white"
                                         aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg"
-                                        width="24"
-                                        height="24"
-                                        fill="black"
+                                        width="40"
+                                        height="40"
+                                        fill="rgb(2,42,100)"
                                         viewBox="0 0 24 24"
                                     >
                                         <path
@@ -468,16 +545,16 @@
                                         class="w-[24px] h-[24px] text-gray-800 dark:text-white"
                                         aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg"
-                                        width="24"
-                                        height="24"
-                                        fill="black"
+                                        width="40"
+                                        height="40"
+                                        fill="rgb(2,42,100)"
                                         viewBox="0 0 24 24"
                                     >
                                         <path
                                             stroke="currentColor"
                                             stroke-linecap="round"
                                             stroke-linejoin="round"
-                                            stroke-width="2"
+                                            stroke-width="0"
                                             d="M20.283 8h-4.285m3.85 3h-3.85m4.061-6H11v11h8.27l1.715-9.847A.983.983 0 0 0 20.059 5ZM6.581 13.23h-.838A13.752 13.752 0 0 1 5.622 11c-.02-.745.02-1.49.12-2.23h1.04c.252 0 .496-.088.683-.245a.927.927 0 0 0 .329-.61l.2-1.872a.888.888 0 0 0-.045-.39.936.936 0 0 0-.212-.34 1.017 1.017 0 0 0-.341-.231A1.08 1.08 0 0 0 6.983 5h-2.06a1.27 1.27 0 0 0-.699.204 1.135 1.135 0 0 0-.442.543A15.066 15.066 0 0 0 3.007 11a15.656 15.656 0 0 0 .795 5.229c.165.462 1.342.771 1.864.771h1.116c.142 0 .283-.028.413-.082.13-.053.246-.132.341-.23a.936.936 0 0 0 .212-.34.889.889 0 0 0 .046-.391l-.201-1.873a.927.927 0 0 0-.33-.609 1.059 1.059 0 0 0-.682-.245ZM10 18v1h10v-1a2 2 0 0 0-2-2h-6a2 2 0 0 0-2 2Z"
                                         />
                                     </svg>
@@ -488,9 +565,9 @@
                                         class="w-[24px] h-[24px] text-gray-800 dark:text-white"
                                         aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg"
-                                        width="24"
-                                        height="24"
-                                        fill="black"
+                                        width="40"
+                                        height="40"
+                                        fill="rgb(2,42,100)"
                                         viewBox="0 0 24 24"
                                     >
                                         <path
@@ -502,31 +579,37 @@
                             </ul>
                             <div class="setting">
                                 <h4 class="empire-header">Settings</h4>
-                                <ul class="account-list">
-                                    <div onclick="openAddressBook()">
-                                        Address Book
-                                    </div>
-                                    <div id="addressPage">
+                                <ul class="setting-list">
+                                    <div
+                                        class="setting-item"
+                                        onclick="openAddressBook()"
+                                    >
                                         <svg
-                                            onclick="closeAddressBook()"
-                                            class="addr-close-btn"
-                                            class="w-[35px] h-[35px] text-gray-800 dark:text-white"
-                                            aria-hidden="true"
+                                            viewBox="0 0 48 48"
                                             xmlns="http://www.w3.org/2000/svg"
-                                            width="30"
-                                            height="24"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
+                                            height="40"
+                                            width="40"
                                         >
                                             <path
-                                                stroke="currentColor"
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                stroke-width="2"
-                                                d="m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                                                fill="rgb(2,45,100)"
+                                                d="M28 17.6q0-.3.2-.575.2-.275.45-.375 1.5-.55 3.075-.85 1.575-.3 3.275-.3 1.1 0 2.15.125 1.05.125 2.05.375.3.1.55.375.25.275.25.625 0 .55-.375.85-.375.3-.925.15-.85-.25-1.775-.375Q36 17.5 35 17.5q-1.45 0-2.8.275-1.35.275-2.65.825-.7.25-1.125-.025Q28 18.3 28 17.6Zm0 11q0-.3.2-.6t.45-.4q1.5-.55 3.075-.825Q33.3 26.5 35 26.5q1.1 0 2.15.125 1.05.125 2.05.375.3.1.55.375.25.275.25.625 0 .55-.375.85-.375.3-.925.15-.85-.25-1.775-.375Q36 28.5 35 28.5q-1.45 0-2.8.25-1.35.25-2.65.8-.7.25-1.125 0Q28 29.3 28 28.6Zm0-5.5q0-.3.2-.575.2-.275.45-.375 1.5-.55 3.075-.85Q33.3 21 35 21q1.1 0 2.15.125 1.05.125 2.05.375.3.1.55.375.25.275.25.625 0 .55-.375.85-.375.3-.925.15-.85-.25-1.775-.375Q36 23 35 23q-1.45 0-2.8.275-1.35.275-2.65.825-.7.25-1.125-.025Q28 23.8 28 23.1ZM12.4 33q2.7 0 5.225.625 2.525.625 4.975 1.875V14.15q-2.25-1.5-4.875-2.325Q15.1 11 12.4 11q-1.9 0-3.725.475Q6.85 11.95 5 12.65v21.7q1.55-.7 3.525-1.025Q10.5 33 12.4 33Zm13.2 2.5q2.5-1.25 4.9-1.875Q32.9 33 35.6 33q1.9 0 3.925.3t3.475.8V12.65q-1.7-.85-3.6-1.25-1.9-.4-3.8-.4-2.7 0-5.225.825-2.525.825-4.775 2.325ZM13.8 23.55Zm10.3 15.9q-.4 0-.725-.075-.325-.075-.575-.275-2.35-1.45-5-2.25t-5.4-.8q-1.85 0-3.6.45t-3.5 1.1q-1.15.55-2.225-.15Q2 36.75 2 35.45V12.3q0-.75.35-1.375T3.4 9.95q2.1-1 4.375-1.475Q10.05 8 12.4 8q3.15 0 6.125.85t5.575 2.6q2.55-1.75 5.475-2.6Q32.5 8 35.6 8q2.35 0 4.6.475 2.25.475 4.35 1.475.7.35 1.075.975T46 12.3v23.15q0 1.4-1.125 2.125-1.125.725-2.225.025-1.7-.7-3.45-1.125-1.75-.425-3.6-.425-2.7 0-5.3.8-2.6.8-4.9 2.25-.25.2-.575.275-.325.075-.725.075Z"
                                             />
                                         </svg>
-
+                                        Address Book
+                                        <svg
+                                            id="expandIcon"
+                                            viewBox="0 0 48 48"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            height="1.5em"
+                                            width="1.5em"
+                                        >
+                                            <path
+                                                fill="currentColor"
+                                                d="M24 30.15q-.3 0-.55-.1-.25-.1-.5-.35l-9.9-9.9q-.4-.4-.375-1.075.025-.675.425-1.075.5-.5 1.075-.425.575.075 1.025.475l8.8 8.8 8.8-8.8q.4-.4 1.075-.45.675-.05 1.075.45.5.4.425 1.05-.075.65-.475 1.1l-9.85 9.85q-.25.25-.5.35-.25.1-.55.1Z"
+                                            />
+                                        </svg>
+                                    </div>
+                                    <div id="addressPage">
                                         <h3 class="addr-page-header">
                                             USER'S ADDRESS BOOK
                                         </h3>
@@ -534,8 +617,50 @@
                                         <div class="test-checkout"></div>
                                     </div>
 
-                                    <span>Account Management</span>
-                                    <span>Log Info</span>
+                                    <span class="setting-item"
+                                        ><svg
+                                            viewBox="0 0 48 48"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            height="40"
+                                            width="40"
+                                        >
+                                            <path
+                                                fill="rgb(2,40,100)"
+                                                d="M20 23.75q-3.3 0-5.4-2.1-2.1-2.1-2.1-5.4 0-3.3 2.1-5.4 2.1-2.1 5.4-2.1 3.3 0 5.4 2.1 2.1 2.1 2.1 5.4 0 3.3-2.1 5.4-2.1 2.1-5.4 2.1ZM5.5 39.8q-.65 0-1.075-.425Q4 38.95 4 38.3v-3.2q0-1.75.875-3.15T7.4 29.8q3.6-1.6 6.675-2.3 3.075-.7 5.925-.7h1.15q-.3.7-.45 1.375-.15.675-.25 1.625H20q-2.9 0-5.675.625T8.6 32.5q-.8.4-1.2 1.125Q7 34.35 7 35.1v1.7h13.45q.25.9.6 1.625t.85 1.375ZM20 20.75q1.95 0 3.225-1.275Q24.5 18.2 24.5 16.25q0-1.95-1.275-3.225Q21.95 11.75 20 11.75q-1.95 0-3.225 1.275Q15.5 14.3 15.5 16.25q0 1.95 1.275 3.225Q18.05 20.75 20 20.75Zm0-4.5Zm.45 20.55Zm14.25-.85q1.65 0 2.825-1.175Q38.7 33.6 38.7 31.95q0-1.65-1.175-2.825Q36.35 27.95 34.7 27.95q-1.65 0-2.825 1.175Q30.7 30.3 30.7 31.95q0 1.65 1.175 2.825Q33.05 35.95 34.7 35.95Zm-1.85 2.75q-.85-.25-1.725-.725-.875-.475-1.475-1.075l-2.2.5q-.25.1-.5 0t-.35-.35l-.65-1.15q-.15-.2-.1-.45.05-.25.25-.45l1.9-1.8q-.1-.45-.1-1.25t.1-1.25l-1.9-1.8q-.2-.2-.25-.45-.05-.25.1-.45l.65-1.15q.1-.25.35-.35.25-.1.5 0l2.2.5q.6-.6 1.475-1.075.875-.475 1.725-.725l.4-2.65q.05-.3.25-.475t.5-.175h1.4q.3 0 .5.175t.25.475l.4 2.65q.85.25 1.725.725.875.475 1.475 1.075l2.2-.5q.25-.1.5 0t.35.35l.65 1.15q.15.2.1.45-.05.25-.25.45l-1.9 1.8q.1.45.1 1.25t-.1 1.25l1.9 1.8q.2.2.25.45.05.25-.1.45l-.65 1.15q-.1.25-.35.35-.25.1-.5 0l-2.2-.5q-.6.6-1.475 1.075-.875.475-1.725.725l-.4 2.65q-.05.3-.25.475t-.5.175H34q-.3 0-.5-.175t-.25-.475Z"
+                                            /></svg
+                                        >Account Management<svg
+                                            viewBox="0 0 48 48"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            height="1.5em"
+                                            width="1.5em"
+                                        >
+                                            <path
+                                                fill="currentColor"
+                                                d="M24 30.15q-.3 0-.55-.1-.25-.1-.5-.35l-9.9-9.9q-.4-.4-.375-1.075.025-.675.425-1.075.5-.5 1.075-.425.575.075 1.025.475l8.8 8.8 8.8-8.8q.4-.4 1.075-.45.675-.05 1.075.45.5.4.425 1.05-.075.65-.475 1.1l-9.85 9.85q-.25.25-.5.35-.25.1-.55.1Z"
+                                            /></svg
+                                    ></span>
+                                    <span class="setting-item"
+                                        ><svg
+                                            viewBox="0 0 48 48"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            height="40"
+                                            width="40"
+                                        >
+                                            <path
+                                                fill="rgb(2,40,100)"
+                                                d="M19.5 31.65q-.45-.45-.45-1.1 0-.65.45-1.05l4-4h-16q-.65 0-1.075-.425Q6 24.65 6 24q0-.65.425-1.075Q6.85 22.5 7.5 22.5h15.9l-4.05-4.05q-.4-.4-.4-1.025 0-.625.45-1.075.45-.45 1.075-.45t1.075.45L28.2 23q.25.25.35.5.1.25.1.55 0 .3-.1.55-.1.25-.35.5l-6.6 6.6q-.4.4-1.025.4-.625 0-1.075-.45ZM25.95 42q-.65 0-1.075-.425-.425-.425-.425-1.075 0-.65.425-1.075Q25.3 39 25.95 39H39V9H25.95q-.65 0-1.075-.425-.425-.425-.425-1.075 0-.65.425-1.075Q25.3 6 25.95 6H39q1.2 0 2.1.9.9.9.9 2.1v30q0 1.2-.9 2.1-.9.9-2.1.9Z"
+                                            /></svg
+                                        >Log Info<svg
+                                            viewBox="0 0 48 48"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            height="1.5em"
+                                            width="1.5em"
+                                        >
+                                            <path
+                                                fill="currentColor"
+                                                d="M24 30.15q-.3 0-.55-.1-.25-.1-.5-.35l-9.9-9.9q-.4-.4-.375-1.075.025-.675.425-1.075.5-.5 1.075-.425.575.075 1.025.475l8.8 8.8 8.8-8.8q.4-.4 1.075-.45.675-.05 1.075.45.5.4.425 1.05-.075.65-.475 1.1l-9.85 9.85q-.25.25-.5.35-.25.1-.55.1Z"
+                                            /></svg
+                                    ></span>
                                 </ul>
                             </div>
                         </div>
@@ -1028,20 +1153,6 @@
             </div>
             <!-- end of form -->
             <!-- make order page  -->
-            <div class="make-order">
-                <svg
-                    onclick="closeOrderPage()"
-                    viewBox="0 0 48 48"
-                    xmlns="http://www.w3.org/2000/svg"
-                    height="1.5em"
-                    width="1.5em"
-                >
-                    <path
-                        fill="currentColor"
-                        d="m22.35 38.95-13.9-13.9q-.25-.25-.35-.5Q8 24.3 8 24q0-.3.1-.55.1-.25.35-.5L22.4 9q.4-.4 1-.4t1.05.45q.45.45.45 1.05 0 .6-.45 1.05L13.1 22.5h24.8q.65 0 1.075.425.425.425.425 1.075 0 .65-.425 1.075-.425.425-1.075.425H13.1l11.4 11.4q.4.4.4 1t-.45 1.05q-.45.45-1.05.45-.6 0-1.05-.45Z"
-                    />
-                </svg>
-            </div>
         </div>
         <script src="popscript.js"></script>
         <script src="firebase.js"></script>
