@@ -13,6 +13,7 @@ body {
         "Helvetica Neue",
         sans-serif;
     scroll-behavior: smooth;
+    width: 360px;
 }
 .my-body {
     height: fit-content;
@@ -269,23 +270,14 @@ body {
 }
 #passwordForm {
     display: none;
-    position: relative;
-    left: 20%;
+    position: absolute;
+    left: 5px;
     top: 120px;
     border: none;
     justify-content: center;
     align-items: center;
-    padding: 10px 20px;
     flex-direction: column;
     gap: 15px;
-}
-@keyframes click {
-    0% {
-        transform: scale(0.9);
-    }
-    100% {
-        transform: scale(1);
-    }
 }
 .back {
     color: indianred;
@@ -432,6 +424,54 @@ body {
     font-size: 17px;
     width: 99%;
     min-height: 140px;
+}
+.expIcon {
+    position: absolute;
+    left: 91%;
+}
+#accountManagement {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+    left: -40px;
+    width: 335px;
+    padding: 5px 10px;
+}
+#accountManagement span {
+    padding: 10px 0px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+#accountManagement span:nth-child(4) {
+    color: rgb(500, 10, 10);
+}
+#accountManagement div:nth-child(3) {
+    padding: 20px 3px;
+    display: flex;
+    gap: 5px;
+    display: none;
+}
+#changePass {
+    border: 0.1px solid;
+    border-radius: 10px;
+    height: 30px;
+    padding: 0px 7px;
+    outline: none;
+}
+#sendReset {
+    border: 0.1px solid;
+    border-radius: 10px;
+    height: 30px;
+    background-color: black;
+    color: white;
+    outline: none;
+}
+#sendReset:hover {
+    background-color: white;
+    color: black;
+    transition: 0.5s ease;
 }
 /* ac end */
 .category {

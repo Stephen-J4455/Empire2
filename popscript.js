@@ -214,3 +214,25 @@ function btnSelect(cardNum) {
         }
     }
 }
+// acc management
+function openAccMgt() {
+    const accBox = document.getElementById("accountManagement");
+    const icon = document.getElementById("mgtIc");
+    if (accBox.style.display === "flex") {
+        accBox.style.display = "none";
+        icon.style.rotate = "0deg";
+        icon.style.transition = "0.3s ease";
+    } else {
+        accBox.style.display = "flex";
+        icon.style.rotate = "180deg";
+        icon.style.transition = "0.3s ease";
+    }
+}
+function openPasswordReset() {
+    const resetPage = document.getElementById("passwordChange");
+    if (resetPage.style.display === "block") {
+        resetPage.style.display = "none";
+    } else {
+        resetPage.style.display = "block";
+    }
+}

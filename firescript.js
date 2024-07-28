@@ -38,9 +38,10 @@ function signUp() {
             })
             .catch(error => {
                 //alert("Error signing up: ", error);
+                noteBox.style.display = "block";
+                notification.innerText = "Error Signing Up! ";
             });
     }
-    event.preventDefault();
 }
 
 function login() {
@@ -53,25 +54,24 @@ function login() {
         auth.signInWithEmailAndPassword(email, password)
             .then(userCredential => {
                 const user = userCredential.user;
-                //alert("Login successful: ", user);
                 homePage.style.display = "block";
                 formCnt.style.display = "none";
-                location.reload();
             })
             .catch(error => {
-                // alert("Error logging in: ", error);
+                noteBox.style.display = "block";
+                notification.innerText = "Error Logging In! ";
             });
-        event.preventDefault();
     }
 }
 
 function logout() {
     auth.signOut()
         .then(() => {
-            alert("User signed out");
             document.getElementById("body-box").style.display = "none";
             formCnt.style.display = "block";
             homePage.style.display = "none";
+            noteBox.style.display = "block";
+            notification.innerText = "User Signed Out!";
         })
         .catch(error => {
             //alert("Error signing out: ", error);
@@ -117,18 +117,22 @@ auth.onAuthStateChanged(user => {
 function forgotPassword() {
     const email = document.getElementById("resetEmail").value;
     if (email === "") {
-        document.getElementById("error").style.display = "flex";
+        noteBox.style.display = "block";
+        notification.innerText = "Enter Email To Reset Password";
     } else {
         firebase
             .auth()
             .sendPasswordResetEmail(email)
             .then(function () {
-                // alert("Password reset email sent!");
+                noteBox.style.display = "block";
+                notification.innerText = "Password reset email sent! ";
             })
             .catch(function (error) {
-                //alert("Error resetting password: " + error.message);
+                noteBox.style.display = "block";
+                notification.innerText = "Error resetting password! ";
             });
     }
+    event.preventDefault();
 }
 function closeerror() {
     const close = document.querySelectorAll(".errorMessage");
@@ -137,6 +141,44 @@ function closeerror() {
     });
 }
 
+function deleteUserAccount() {
+    var account = firebase.auth().currentUser;
+    account
+        .delete()
+        .then(function () {
+            noteBox.style.display = "block";
+            notification.innerText = "Account Successfully Deleted ";
+            document.getElementById("body-box").style.display = "none";
+            formCnt.style.display = "block";
+            homePage.style.display = "none";
+        })
+        .catch(function (error) {
+            // An error happened
+            noteBox.style.display = "block";
+            notification.innerText = "Error Deleting Account";
+        });
+}
+function changeAccoutPassword() {
+    const input = document.getElementById("changePass").value;
+    if (input === "") {
+        noteBox.style.display = "block";
+        notification.innerText = "Enter Email To Reset Password ";
+    } else {
+        firebase
+            .auth()
+            .sendPasswordResetEmail(input)
+            .then(function () {
+                // alert("Password reset email sent!");
+                noteBox.style.display = "block";
+                notification.innerText = "Password reset email sent! ";
+            })
+            .catch(function (error) {
+                //alert("Error resetting password: " + error.message);
+                noteBox.style.display = "block";
+                notification.innerText = "Error resetting password! ";
+            });
+    }
+}
 // add firebase real time database to
 let db = firebase.database();
 
@@ -403,6 +445,7 @@ function getProductData() {
         }, 0);
 
         document.getElementById("tot").innerText = sum.toFixed(2);
+        document.getElementById("itemPrice").innerText = "Ghc" + sum.toFixed(2);
     });
 }
 
