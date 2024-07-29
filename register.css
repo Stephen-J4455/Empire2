@@ -473,6 +473,57 @@ body {
     color: black;
     transition: 0.5s ease;
 }
+#confirmDel {
+    border: none;
+    color: red;
+    font-weight: 500;
+    text-align: center;
+    height: fit-content;
+    display: none;
+    flex-direction: column;
+}
+#delAccBtn {
+    position: relative;
+    width: 160px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 10px;
+    height: 40px;
+    background-color: black;
+    color: white;
+    bottom: -40px;
+    left: -10px;
+}
+#cancelDel {
+    position: relative;
+    bottom: 0;
+    width: 160px;
+    right: -175px;
+    margin-right: 10px;
+    border: 0.1px solid;
+    border-radius: 10px;
+    height: 40px;
+    background-color: white;
+    color: black;
+}
+#passDelPage {
+    display: none;
+    margin-top: 10px;
+}
+#delPass {
+    border: 0.1px solid;
+    border-radius: 10px;
+    height: 40px;
+    padding: 0px 7px;
+    outline: none;
+}
+#deleteAccount {
+    border: none;
+    border-radius: 10px;
+    height: 40px;
+    background-color: black;
+    color: white;
+}
 /* ac end */
 .category {
     display: none;
@@ -502,6 +553,7 @@ body {
     gap: 3px;
 }
 /* feed page end */
+/* help page  */
 .help {
     display: none;
     position: fixed;
@@ -511,7 +563,14 @@ body {
     bottom: 0;
     width: 100%;
     z-index: 2;
+    overflow: scroll;
+    scroll-behavior: smooth;
 }
+.info-page {
+    height: 700;
+    margin-bottom: 230px;
+}
+/* help page  end*/
 .buttom-nav {
     position: fixed;
     bottom: 0;

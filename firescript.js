@@ -42,6 +42,7 @@ function signUp() {
                 notification.innerText = "Error Signing Up! ";
             });
     }
+    event.preventDefault();
 }
 
 function login() {
@@ -62,6 +63,7 @@ function login() {
                 notification.innerText = "Error Logging In! ";
             });
     }
+    event.preventDefault();
 }
 
 function logout() {
@@ -141,13 +143,59 @@ function closeerror() {
     });
 }
 
+// add firebase real time database to
+let db = firebase.database();
+
+function openAccDelPage() {
+    const delP = document.getElementById("confirmDel");
+    if (delP.style.display === "flex") {
+        delP.style.display = "none";
+    } else {
+        delP.style.display = "flex";
+    }
+}
+function proceedDel() {
+    const delP = document.getElementById("confirmDel");
+    const delPass = document.getElementById("passDelPage");
+    if (delPass.style.display === "block") {
+        delPass.style.display = "none";
+    } else {
+        delPass.style.display = "block";
+    }
+}
+function deleteAcc() {
+    const delIn = document.getElementById("delPass").value;
+    var mail = firebase.auth().currentUser.email;
+    if (delIn === mail) {
+        clearDatabase();
+        deleteUserAccount();
+    } else {
+        noteBox.style.display = "block";
+        notification.innerText = "Invalid Email";
+    }
+}
+function clearDatabase() {
+    let user = firebase.auth().currentUser.uid;
+    db.ref(`USER/ADDRESS/${user}`).remove();
+    db.ref(`USER/CART/${user}`)
+        .remove()
+        .then(function () {
+            noteBox.style.display = "block";
+            notification.innerText = "Clearing Database";
+        })
+        .catch(function (error) {
+            noteBox.style.display = "block";
+            notification.innerText = "Error removing database ";
+        });
+}
 function deleteUserAccount() {
     var account = firebase.auth().currentUser;
+
     account
         .delete()
         .then(function () {
             noteBox.style.display = "block";
-            notification.innerText = "Account Successfully Deleted ";
+            notification.innerText = "Account Successfully Deleted";
             document.getElementById("body-box").style.display = "none";
             formCnt.style.display = "block";
             homePage.style.display = "none";
@@ -179,9 +227,7 @@ function changeAccoutPassword() {
             });
     }
 }
-// add firebase real time database to
-let db = firebase.database();
-
+// homepage
 function topPicks() {
     db.ref("TopPicks/products").on("value", function (snapshot) {
         snapshot.forEach(function (childSnapshot) {
