@@ -294,9 +294,12 @@ body {
     top: 0;
     overflow-y: scroll;
     scroll-behavior: smooth;
-    width: 360px;
+    width: 100%;
     border: none;
     background-color: white;
+}
+#homePageBbox {
+    margin: 0;
 }
 /* account page */
 .account {
@@ -306,7 +309,7 @@ body {
     width: 100%;
     z-index: 2;
     overflow-y: scroll;
-    height: 100vh;
+    height: 98vh;
 }
 .account-header {
     color: aliceblue;
@@ -537,12 +540,13 @@ body {
 /* feed page */
 .feedpage {
     display: none;
-    position: static;
-    background-color: white;
-    top: 0;
-    width: 100%;
     z-index: 2;
-    overflow-y: scroll;
+    position: static;
+    top: 0;
+    scroll-behavior: smooth;
+    width: 100%;
+    border: none;
+    background-color: white;
 }
 .feed-list {
     display: grid;
@@ -586,6 +590,8 @@ body {
     align-items: center;
     z-index: 3;
     font-weight: 570;
+    overflow: hidden; /* Prevents content overflow */
+    box-sizing: border-box; /* Ensures padding and borders are included in the width and height */
 }
 .buttom-nav span:nth-child(1) {
     display: flex;
@@ -795,7 +801,7 @@ body {
     right: 0;
     background: transparent;
     color: rgb(2, 40, 100);
-    z-index: 20;
+    z-index: 49;
     outline: none;
 }
 .close-cart {
@@ -1755,24 +1761,20 @@ body {
     background: none;
 }
 .popular-head {
-    margin-left: 10px;
 }
 .brand {
     border: none;
-    width: 359px;
+    width: 15%;
     height: fit-content;
 }
 .brand-head {
-    margin-left: 10px;
 }
 .new-arrivals {
     border: none;
     width: 359px;
-    height: 300px;
     background: none;
 }
 .new-arrivals-head {
-    margin-left: 10px;
 }
 #topPickList {
     margin: 0px 5px;
@@ -2076,7 +2078,7 @@ body {
     position: absolute;
     width: 360px;
     height: 640px;
-    z-index: 51;
+    z-index: 49;
     display: none;
     background-color: white;
     flex-direction: column;
@@ -2105,6 +2107,12 @@ body {
     width: 360px;
     height: fit-content;
     box-shadow: 5px 0px 8px 1px rgb(112, 112, 112, 0.2);
+}
+.product-page-image {
+    white-space: nowrap;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    transition: scroll-snap-align 3s;
 }
 .product-page-name {
     position: relative;
@@ -2235,6 +2243,14 @@ body {
     margin: 0px 5px;
     border-radius: 7px;
 }
+.image-item {
+}
+.images-container {
+    overflow-x: scroll;
+    display: flex;
+    flex-direction: row;
+    scroll-snap-align: start;
+}
 /* top pop up */
 .info-noti {
     z-index: 999;
@@ -2255,12 +2271,9 @@ body {
 
 /* new prod */
 .new-products {
-    border: none;
     display: grid;
     grid-template-columns: auto auto;
-    justify-content: center;
-    gap: 7px;
-    padding: 5px 5px;
+    width: 100%;
 }
 .new-arrival-product {
     border: none;
@@ -2317,93 +2330,84 @@ body {
 /* iphone 6s plus  */
 /* iphone 6s plus  */
 /* iphone 6s plus  */
-@media only screen and (min-width: 414px) {
+@media only screen and (width: 360px) {
     .homepage {
-        width: 414px;
+        width: 100%;
     }
     .buttom-nav {
-        width: 414px;
+        width: 360px;
     }
     .category-box {
-        width: 414px;
+        width: 360px;
+    }
+    .cart-menu {
+        width: 360px;
     }
     .new-products {
-        width: 414px;
-        gap: 30px;
+        width: 360px;
+        justify-content: center;
+        gap: 2.5%;
     }
     #brandList {
-        width: 414px;
+        width: 100%;
     }
     .top-picks-box {
-        margin-left: 10px;
-        width: 414px;
-        gap: 40px;
+        width: 360px;
     }
     .top-picks {
         margin-left: 20px;
     }
     .popular {
-        width: 414px;
+        width: 360px;
     }
     .giftcards {
-        width: 414px;
+        width: 360px;
     }
     .adds {
-        width: 414px;
+        width: 360px;
     }
 }
 /* iphone 6s plus  */
 /* iphone 6s plus  */
 /* iphone 6s plus  */
-
-/* media 430 */
-@media only screen and (min-width: 420px) {
+/* Default styles for small screens */
+@media only screen and (min-width: 320px) and (max-width: 480px) {
     .homepage {
-        width: 420px;
-        overflow-x: hidden;
-        scroll-behavior: smooth;
+        width: 100%;
     }
     .buttom-nav {
-        width: 420px;
-        gap: 50px;
+        width: 100%;
     }
     .category-box {
-        width: 420px;
+        width: 100%;
+    }
+    .cart-menu {
+        width: 100%;
     }
     .new-products {
-        width: 420px;
-        gap: 30px;
+        width: 100%;
+        justify-content: center;
+        gap: 2.5%;
+    }
+    .p-page {
+        width: 100%;
     }
     #brandList {
-        width: 420px;
+        width: 100%;
     }
     .top-picks-box {
-        margin-left: 10px;
-        width: 420px;
-        gap: 40px;
+        width: 100%;
     }
     .top-picks {
-        margin-left: 25px;
+        margin-left: 20px;
     }
     .popular {
         width: 100%;
     }
     .giftcards {
-        width: 420px;
+        width: 100%;
     }
     .adds {
-        width: 420px;
-    }
-    .category-display {
-        width: 280px;
-        position: absolute;
-        right: -60px;
-    }
-    .for-gros {
-        gap: 10px;
-    }
-    .category-box span {
-        width: 110px;
-        border-inline-start: none;
+        width: 100%;
     }
 }

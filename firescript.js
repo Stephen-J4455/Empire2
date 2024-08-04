@@ -228,65 +228,180 @@ function changeAccoutPassword() {
     }
 }
 // homepage
+// function topPicks() {
+//     db.ref("TopPicks/products").on("value", function (snapshot) {
+//         snapshot.forEach(function (childSnapshot) {
+//             let topPick = childSnapshot.val();
+//             document.getElementById("topPickList").innerHTML += `<div
+//             onclick="openProductPage('${topPick.image1}','${topPick.name}','${topPick.sellingprice}','${topPick.costprice}','${topPick.identification}','${topPick.seller}','${topPick.description}',this)"
+//             class="top-prod"><img class="top-img"
+//             src="${topPick.image1}" height="160px"
+//             width="110px"/><div
+//             class="top-picks-name">${topPick.name}</div></div>`;
+//
+//             let lo = document.querySelectorAll(".topPick-loader ");
+//             lo.forEach(function (e) {
+//                 e.style.display = "none";
+//             });
+//         });
+//     });
+// }
+// topPicks();
 function topPicks() {
     db.ref("TopPicks/products").on("value", function (snapshot) {
+        let topPickListHTML = "";
+
         snapshot.forEach(function (childSnapshot) {
             let topPick = childSnapshot.val();
-            document.getElementById("topPickList").innerHTML += `<div
-            onclick="openProductPage('${topPick.image}','${topPick.name}','${topPick.sellingprice}','${topPick.costprice}','${topPick.identification}','${topPick.seller}','${topPick.description}',this)"
-            class="top-prod"><img class="top-img"
-            src="${topPick.image}" height="160px"
-            width="110px"/><div
-            class="top-picks-name">${topPick.name}</div></div>`;
+            let images = [];
 
-            let lo = document.querySelectorAll(".topPick-loader ");
-            lo.forEach(function (e) {
-                e.style.display = "none";
-            });
+            // Collect all images from the product path
+            for (let key in topPick) {
+                if (key.startsWith("image")) {
+                    images.push(topPick[key]);
+                }
+            }
+
+            topPickListHTML += `
+                <div onclick='openProductPage(${JSON.stringify(images)}, "${
+                    topPick.name
+                }", "${topPick.sellingprice}", "${topPick.costprice}", "${
+                    topPick.identification
+                }", "${topPick.seller}")'
+                class="top-prod">
+                    <img class="top-img" src="${
+                        images[0]
+                    }" height="140px" width="110px"/>
+                    <div class="top-picks-name">${topPick.name}</div>
+                </div>
+            `;
+        });
+
+        document.getElementById("topPickList").innerHTML = topPickListHTML;
+
+        let loaders = document.querySelectorAll(".topPick-loader");
+        loaders.forEach(function (loader) {
+            loader.style.display = "none";
         });
     });
 }
+
 topPicks();
 
+// function popular() {
+//     db.ref("Popular/products").on("value", function (snapshot) {
+//         snapshot.forEach(function (childSnapshot) {
+//             var images = [];
+//             let popular = childSnapshot.val();
+//             for (let key in popular) {
+//                 if (key.startsWith("image")) {
+//                     images.push(popular[key]);
+//                 }
+//             }
+//             let offCp = popular.costprice;
+//             let offSp = popular.sellingprice;
+//             document.getElementById(
+//                 "popularList"
+//             ).innerHTML += `<div class="popular-prod">
+//             <div onclick="openProductPage(${JSON.stringify(images)},'${
+//                 popular.name
+//             }','${popular.sellingprice}','${popular.costprice}','${
+//                 popular.identification
+//             }','${popular.seller}',this)">
+//
+//             <img class="popular-img" src="${images[0]}"
+//             height="150px" width="170px"/>
+//             <div
+//             class="popular-name">${popular.name}</div>
+//             <div class="price-box">
+//             <div class="popular-price">GHC ${popular.sellingprice}</div>
+//             <div class="popular-cprice">GHC ${popular.costprice}</div>
+//             </div>
+//       <div class="top-picks-name">Seller: ${popular.seller}</div>
+//             <div class="top-picks-id">ID:${popular.identification}</div>
+//             </div>
+//             <button class="add-to-cart-btn"
+//             onclick="addCart('${popular.image1}','${popular.name}','${
+//                 popular.sellingprice
+//             }','${popular.seller}',this)">Add to Cart</button>
+//              <div class="off-tag">-${parseInt(
+//                  ((offCp - offSp) / offCp) * 100
+//              )}%<div>
+//
+//             </div>`;
+//         });
+//     });
+// }
+// popular();
 function popular() {
     db.ref("Popular/products").on("value", function (snapshot) {
+        const popularList = document.getElementById("popularList");
+        popularList.innerHTML = ""; // Clear the list before adding new elements
+
         snapshot.forEach(function (childSnapshot) {
-            let popular = childSnapshot.val();
-            let offCp = popular.costprice;
-            let offSp = popular.sellingprice;
-            document.getElementById(
-                "popularList"
-            ).innerHTML += `<div class="popular-prod">
-            
-            <div onclick="openProductPage('${popular.image}','${
-                popular.name
-            }','${popular.sellingprice}','${popular.costprice}','${
-                popular.identification
-            }','${popular.seller}','${popular.description}',this)">
-                        
-            <img class="popular-img" src="${popular.image}"
-            height="150px" width="170px"/>
-            <div
-            class="popular-name">${popular.name}</div>
-            <div class="price-box">
-            <div class="popular-price">GHC ${popular.sellingprice}</div>
-            <div class="popular-cprice">GHC ${popular.costprice}</div>
-            </div>
-      <div class="top-picks-name">Seller: ${popular.seller}</div>
-            <div class="top-picks-id">ID:${popular.identification}</div>
-            </div>
-            <button class="add-to-cart-btn"
-            onclick="addCart('${popular.image}','${popular.name}','${
-                popular.sellingprice
-            }','${popular.seller}',this)">Add to Cart</button>
-             <div class="off-tag">-${parseInt(
-                 ((offCp - offSp) / offCp) * 100
-             )}%<div>
-            
-            </div>`;
+            const images = [];
+            const popular = childSnapshot.val();
+
+            for (const key in popular) {
+                if (key.startsWith("image")) {
+                    images.push(popular[key]);
+                }
+            }
+
+            const offCp = popular.costprice;
+            const offSp = popular.sellingprice;
+            const discount = parseInt(((offCp - offSp) / offCp) * 100);
+
+            const productDiv = document.createElement("div");
+            productDiv.className = "popular-prod";
+
+            productDiv.innerHTML = `
+                <div class="product-info">
+                    <img class="popular-img" src="${images[0]}" height="150px" width="170px"/>
+                    <div class="popular-name">${popular.name}</div>
+                    <div class="price-box">
+                        <div class="popular-price">GHC ${popular.sellingprice}</div>
+                        <div class="popular-cprice">GHC ${popular.costprice}</div>
+                    </div>
+                    <div class="top-picks-name">Seller: ${popular.seller}</div>
+                    <div class="top-picks-id">ID:${popular.identification}</div>
+                </div>
+                <button class="add-to-cart-btn">Add to Cart</button>
+                <div class="off-tag">-${discount}%</div>
+            `;
+
+            // Add event listener for opening product page
+            productDiv
+                .querySelector(".product-info")
+                .addEventListener("click", function () {
+                    openProductPage(
+                        images,
+                        popular.name,
+                        popular.sellingprice,
+                        popular.costprice,
+                        popular.identification,
+                        popular.seller
+                    );
+                });
+
+            // Add event listener for adding to cart
+            productDiv
+                .querySelector(".add-to-cart-btn")
+                .addEventListener("click", function () {
+                    addCart(
+                        popular.image1,
+                        popular.name,
+                        popular.sellingprice,
+                        popular.seller,
+                        this
+                    );
+                });
+
+            popularList.appendChild(productDiv);
         });
     });
 }
+
 popular();
 function brand() {
     db.ref("Brand/logo").on("value", function (snapshot) {
@@ -317,24 +432,58 @@ poster();
 
 function newArrivals() {
     db.ref("New/products").on("value", function (snapshot) {
+        const newList = document.querySelector(".new-products");
+        newList.innerHTML = "";
         snapshot.forEach(function (childSnapshot) {
+            const images = [];
             let newProduct = childSnapshot.val();
-            document.querySelector(".new-products").innerHTML += `<div
-            class="new-arrival-product">
-            <div onclick="openProductPage('${newProduct.image}','${newProduct.name}','${newProduct.sellingprice}','${newProduct.costprice}','${newProduct.identification}','${newProduct.seller}','${newProduct.description}',this)">
-            <img
-            src="${newProduct.image}" height="160px" width="170px"/>
-            <div class="new-arrival-name">${newProduct.name}</div>
-            <div class="new-arrival-sp">Ghc${newProduct.sellingprice}</div>
-            <div class="new-arrival-cp">Ghc${newProduct.costprice}</div>
-            <div class="new-arrival-seller">Seller: ${newProduct.seller}</div>
-            <div class="new-arrival-id">ID: ${newProduct.identification}</div>
-            </div>
-            <button
-            onclick="addCart('${newProduct.image}','${newProduct.name}','${newProduct.sellingprice}','${newProduct.seller}',this)"
-            class="add-to-cart-btn">Add to Cart</button>
-            
-            </div>`;
+            for (const key in newProduct) {
+                if (key.startsWith("image")) {
+                    images.push(newProduct[key]);
+                }
+            }
+
+            const newProd = document.createElement("div");
+            newProd.className = "new-pd";
+            newProd.innerHTML = `
+                <div class="new-arrival-product">
+                    <div class="new-click">
+                        <img src="${newProduct.image1}" height="160px" width="170px"/>
+                        <div class="new-arrival-name">${newProduct.name}</div>
+                        <div class="new-arrival-sp">Ghc${newProduct.sellingprice}</div>
+                        <div class="new-arrival-cp">Ghc${newProduct.costprice}</div>
+                        <div class="new-arrival-seller">Seller: ${newProduct.seller}</div>
+                        <div class="new-arrival-id">ID: ${newProduct.identification}</div>
+                    </div>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                </div>`;
+
+            newProd
+                .querySelector(".new-click")
+                .addEventListener("click", function () {
+                    openProductPage(
+                        images,
+                        newProduct.name,
+                        newProduct.sellingprice,
+                        newProduct.costprice,
+                        newProduct.identification,
+                        newProduct.seller
+                    );
+                });
+
+            newProd
+                .querySelector(".add-to-cart-btn")
+                .addEventListener("click", function () {
+                    addCart(
+                        newProduct.image1,
+                        newProduct.name,
+                        newProduct.sellingprice,
+                        newProduct.seller,
+                        this
+                    );
+                });
+
+            newList.appendChild(newProd);
         });
     });
 }
@@ -345,7 +494,7 @@ function addCart(image, product, price, seller, quantity) {
     let user = firebase.auth().currentUser.uid;
     const cartRef = db.ref(`USER/CART/${user}`);
     cartRef.child(product).set({
-        image: image,
+        image1: image,
         product: product,
         price: price,
         quantity: 1,
@@ -444,7 +593,7 @@ function cart() {
             const pro = childSnapshot.val();
             const li = document.createElement("div");
             li.innerHTML = `<div class="cartItem-div">
-            <img class="cart-img" src="${pro.image}"/>
+            <img class="cart-img" src="${pro.image1}"/>
             <div class="cart-dispaly">
             	<div class="cart-list-content">
             			<div class="cart-product-name">${pro.product}</div>
@@ -513,55 +662,93 @@ function order() {
 function closeOrderPage() {
     document.querySelector(".make-order").style.display = "none";
 }
-function openProductPage(image, product, sp, cp, id, seller) {
-    const pPage = document.querySelector(".p-page");
-    pPage.style.display = "flex";
-    pPage.style.position = "fixed";
-    pageP = document.getElementById("prodInf");
-    pageP.innerHTML = `<div class="product-page-card">
-    <img class="product-page-image" src="${image}"
-    height="260px" width="360px"/>
-    <div class="product-page-name">${product}</div>
-    <div class="price-card">
-    <div class="product-page-sellingprice">Gh¢ ${sp}</div>
-    <div class="product-page-costprice">Gh¢ ${cp}</div>
-    <div class="product-page-off"></div>
-    </div>
-    <div class="product-page-id">Product ID: ${id}</div>
-    <div class="product-page-seller">Seller: ${seller}</div>
-    	
-    	 <div class="product-page-cart-box">
-                    <button
-                    onclick="addCart('${image}','${product}','${sp}','${seller}',this)"
-                    class="product-page-cart-btn">Add To Cart</button>
-                    <button class="product-page-call-btn">Buy Now</button>
-                </div>
-    </div>
-    
-    `;
-}
+
 function closePPage() {
     const pPage = document.querySelector(".p-page");
     pPage.style.display = "none";
 }
 
-// category data
+// open product page
+// function openProductPage(images, product, sp, cp, id, seller) {
+//     const pPage = document.querySelector(".p-page");
+//     pPage.style.display = "flex";
+//     pPage.style.position = "fixed";
+//
+//     const pageP = document.getElementById("prodInf");
+//
+//     // Generate HTML for image carousel
+//     let imagesHTML = images
+//         .map(
+//             (img, index) => `
+//         <div class="carousel-item ${index === 0 ? "active" : ""}">
+//             <img class="product-page-image" src="${img}" height="300px" width="360px"/>
+//         </div>
+//     `
+//         )
+//         .join("");
+//
+//     pageP.innerHTML = `
+//         <div class="product-page-card">
+//             <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+//                 <div class="carousel-inner">
+//                     ${imagesHTML}
+//                 </div>
+//             </div>
+//             <div class="product-page-name">${product}</div>
+//             <div class="price-card">
+//                 <div class="product-page-sellingprice">Gh¢ ${sp}</div>
+//                 <div class="product-page-costprice">Gh¢ ${cp}</div>
+//                 <div class="product-page-off"></div>
+//             </div>
+//             <div class="product-page-id">Product ID: ${id}</div>
+//             <div class="product-page-seller">Seller: ${seller}</div>
+//             <div class="product-page-cart-box">
+//                 <button onclick="addCart('${images[0]}', '${product}', '${sp}', '${seller}', this)" class="product-page-cart-btn">Add To Cart</button>
+//                 <button class="product-page-call-btn">Buy Now</button>
+//             </div>
+//         </div>
+//     `;
+// }
+function openProductPage(images, product, sp, cp, id, seller) {
+    const pPage = document.querySelector(".p-page");
+    pPage.style.display = "flex";
+    pPage.style.position = "fixed";
 
-function catGros(path, card) {
-    db.ref(path).on("value", function (snapshot) {
-        snapshot.forEach(function (childSnapshot) {
-            let groceries = childSnapshot.val();
+    const pageP = document.getElementById("prodInf");
 
-            document.getElementById(card).innerHTML += `
-            <div class="category-prods">
-            <div onclick="openProductPage('${groceries.image}','${groceries.name}','${groceries.sellingprice}','${groceries.costprice}','${groceries.identification}','${groceries.seller}','${groceries.description}',this)">
-            <img class="category-item-image"
-            src="${groceries.image}" />
-            <div class="category-item-name">${groceries.name}</div>
+    // Calculate the percentage off
+    const percentageOff = Math.round(((cp - sp) / cp) * 100);
+
+    // Generate HTML for images
+    let imagesHTML = images
+        .map(
+            (img, index) => `
+        <div class="image-item">
+            <img class="product-page-image" src="${img}" height="300px" width="360px"/>
+        </div>
+    `
+        )
+        .join("");
+
+    pageP.innerHTML = `
+        <div class="product-page-card">
+            <div class="images-container">
+                ${imagesHTML}
             </div>
-           </div> `;
-        });
-    });
+            <div class="product-page-name">${product}</div>
+            <div class="price-card">
+                <div class="product-page-sellingprice">Gh¢ ${sp}</div>
+                <div class="product-page-costprice">Gh¢ ${cp}</div>
+                <div class="product-page-off">${percentageOff}% off</div>
+            </div>
+            <div class="product-page-id">Product ID: ${id}</div>
+            <div class="product-page-seller">Seller: ${seller}</div>
+            <div class="product-page-cart-box">
+                <button onclick="addCart('${images[0]}', '${product}', '${sp}', '${seller}', this)" class="product-page-cart-btn">Add To Cart</button>
+                <button class="product-page-call-btn">Buy Now</button>
+            </div>
+        </div>
+    `;
 }
 
 function displayfeedPage() {
@@ -615,10 +802,17 @@ function displayFeedProducts(products) {
     const productsDiv = document.getElementById("feedList");
     products.forEach(product => {
         const productDiv = document.createElement("div");
+        const images = [];
+        let i = 1;
+        while (product[`image${i}`]) {
+            images.push(product[`image${i}`]);
+            i++;
+        }
+        const imagesArray = JSON.stringify(images);
+
         productDiv.innerHTML = `<div class="new-arrival-product">
-        <div onclick="openProductPage('${product.image}','${product.name}','${product.sellingprice}','${product.costprice}','${product.identification}','${product.seller}','${product.description}',this)">
-        <img class="feed-image" src="${product.image}" height="160px"
-        width="170px"/>
+        <div onclick='openProductPage(${imagesArray}, "${product.name}", "${product.sellingprice}", "${product.costprice}", "${product.identification}", "${product.seller}")'>
+        <img class="feed-image" src="${product.image1}" height="160px" width="170px"/>
         <div class="new-arrival-name">${product.name}</div>
         <div class="new-arrival-sp">${product.sellingprice}</div>
         <div class="new-arrival-cp">${product.costprice}</div>
@@ -626,7 +820,7 @@ function displayFeedProducts(products) {
         <div class="new-arrival-id">${product.identification}</div>
         </div>
                  <button
-            onclick="addCart('${product.image}','${product.name}','${product.sellingprice}','${product.seller}',this)"
+            onclick="addCart('${product.image1}','${product.name}','${product.sellingprice}','${product.seller}',this)"
             class="add-to-cart-btn">Add to Cart</button>
         </div>`; // Assuming product has a 'name' property
         document.querySelector(".loader-container").style.display = "none";
@@ -673,15 +867,21 @@ function searchProducts() {
                 .ref(path)
                 .on("value", snapshot => {
                     snapshot.forEach(childSnapshot => {
+                        const images = [];
                         const product = childSnapshot.val();
                         const productName = childSnapshot
                             .val()
                             .name.toLowerCase();
+                        for (const key in product) {
+                            if (key.startsWith("image")) {
+                                images.push(product[key]);
+                            }
+                        }
                         if (productName.includes(searchInput)) {
                             const li = document.createElement("div");
                             li.innerHTML = `<div class="new-arrival-product">
-        <div onclick="openProductPage('${product.image}','${product.name}','${product.sellingprice}','${product.costprice}','${product.identification}','${product.seller}','${product.description}',this)">
-        <img class="feed-image" src="${product.image}" height="160px"
+        <div class="search-click">
+        <img class="feed-image" src="${product.image1}" height="160px"
         width="170px"/>
         <div class="new-arrival-name">${product.name}</div>
         <div class="new-arrival-sp">${product.sellingprice}</div>
@@ -690,9 +890,32 @@ function searchProducts() {
         <div class="new-arrival-id">${product.identification}</div>
         </div>
                  <button
-            onclick="addCart('${product.image}','${product.name}','${product.sellingprice}','${product.seller}',this)"
             class="add-to-cart-btn">Add to Cart</button>
         </div>`;
+                            li.querySelector(".search-click").addEventListener(
+                                "click",
+                                function () {
+                                    openProductPage(
+                                        images,
+                                        product.name,
+                                        product.sellingprice,
+                                        product.costprice,
+                                        product.identification,
+                                        product.seller
+                                    );
+                                }
+                            );
+                            li.querySelector(
+                                ".add-to-cart-btn"
+                            ).addEventListener("click", function () {
+                                addCart(
+                                    product.image1,
+                                    product.name,
+                                    product.sellingprice,
+                                    product.seller,
+                                    this
+                                );
+                            });
                             searchResults.appendChild(li);
                         }
                     });
@@ -704,3 +927,21 @@ function openResultPage() {
     document.getElementById("searchResults").style.display = "grid";
 }
 // search end
+// category data
+
+function catGros(path, card) {
+    db.ref(path).on("value", function (snapshot) {
+        snapshot.forEach(function (childSnapshot) {
+            let groceries = childSnapshot.val();
+
+            document.getElementById(card).innerHTML += `
+            <div class="category-prods">
+            <div onclick="openProductPage('${groceries.image1}','${groceries.name}','${groceries.sellingprice}','${groceries.costprice}','${groceries.identification}','${groceries.seller}','${groceries.description}',this)">
+            <img class="category-item-image"
+            src="${groceries.image1}" />
+            <div class="category-item-name">${groceries.name}</div>
+            </div>
+           </div> `;
+        });
+    });
+}
