@@ -579,11 +579,11 @@ body {
     position: fixed;
     bottom: 0;
     height: 50px;
-    width: 360px;
+    width: 100%;
     display: flex;
     flex-direction: row;
     border: none;
-    gap: 40px;
+    gap: 10%;
     color: rgb(2, 40, 100);
     background-color: whitesmoke;
     justify-content: center;
@@ -830,8 +830,8 @@ body {
 }
 .cart-menu {
     z-index: 50;
-    height: 100vh;
-    width: 360px;
+    height: 93%;
+    width: 100%;
     top: 0;
     display: none;
     flex-direction: column;
@@ -978,7 +978,7 @@ body {
     left: 0;
     border: none;
     width: 100%;
-    height: 40px;
+    height: 7%;
     background-color: rgb(4, 12, 48);
     color: aliceblue;
     outline: none;
@@ -1211,19 +1211,7 @@ body {
     width: 360px;
     display: inline-block;
 }
-/* page preloading animation  */
-.loading-animation {
-    display: block;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgb(4, 24, 48, 0.875);
-    z-index: 9999;
-    text-align: center;
-    padding-top: 20%;
-}
+
 .banter-loader {
     position: absolute;
     left: 50%;
@@ -2077,17 +2065,19 @@ body {
 /* open product page  */
 .p-page {
     position: absolute;
-    width: 360px;
-    height: 640px;
+    width: 100%;
+    height: 93%;
     z-index: 49;
     display: none;
     background-color: white;
     flex-direction: column;
     gap: 8px;
     overflow: scroll;
-    padding-bottom: 200px;
-    margin-bottom: 180px;
+    padding-bottom: 2px;
+    margin-bottom: 100%;
     overflow-x: hidden;
+    top: 0;
+    bottom: 0;
 }
 .close-p-page {
     height: 24px;
@@ -2105,7 +2095,7 @@ body {
     display: flex;
     flex-direction: column;
     background-color: white;
-    width: 360px;
+    width: 100%;
     height: fit-content;
     box-shadow: 5px 0px 8px 1px rgb(112, 112, 112, 0.2);
 }
@@ -2152,13 +2142,14 @@ body {
 .product-page-cart-box {
     position: fixed;
     bottom: 0;
-    width: 360px;
-    height: 60px;
+    width: 100%;
+    height: 7%;
     display: flex;
-    flex-direction: row;
+    flex-direction: row-reverse;
+    box-shadow: -3px 0px 4px darkgray;
 }
 .product-page-cart-btn {
-    width: 180px;
+    width: 70%;
     border: none;
     outline: none;
     font-weight: 500;
@@ -2166,7 +2157,7 @@ body {
     background-color: white;
 }
 .product-page-call-btn {
-    width: 180px;
+    width: 30%;
     border: none;
     outline: none;
     font-weight: 500;
@@ -2187,7 +2178,7 @@ body {
     display: flex;
     flex-direction: column;
     background-color: white;
-    width: 359px;
+    width: 100%;
     height: fit-content;
     padding: 40px 0px;
     box-shadow: 3px 0px 8px 1px rgb(112, 112, 112, 0.2);
@@ -2198,7 +2189,7 @@ body {
     display: grid;
     grid-template-columns: auto auto;
     background-color: white;
-    width: 360px;
+    width: 100%;
     height: fit-content;
     padding: 10px 0px;
     box-shadow: 3px 0px 8px 1px rgb(112, 112, 112, 0.2);
@@ -2209,7 +2200,7 @@ body {
     display: flex;
     flex-direction: column;
     background-color: white;
-    width: 360px;
+    width: 100%;
     height: fit-content;
     padding: 10px 10px;
     box-shadow: 3px 0px 8px 1px rgb(112, 112, 112, 0.2);

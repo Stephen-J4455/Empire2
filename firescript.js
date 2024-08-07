@@ -227,26 +227,7 @@ function changeAccoutPassword() {
             });
     }
 }
-// homepage
-// function topPicks() {
-//     db.ref("TopPicks/products").on("value", function (snapshot) {
-//         snapshot.forEach(function (childSnapshot) {
-//             let topPick = childSnapshot.val();
-//             document.getElementById("topPickList").innerHTML += `<div
-//             onclick="openProductPage('${topPick.image1}','${topPick.name}','${topPick.sellingprice}','${topPick.costprice}','${topPick.identification}','${topPick.seller}','${topPick.description}',this)"
-//             class="top-prod"><img class="top-img"
-//             src="${topPick.image1}" height="160px"
-//             width="110px"/><div
-//             class="top-picks-name">${topPick.name}</div></div>`;
-//
-//             let lo = document.querySelectorAll(".topPick-loader ");
-//             lo.forEach(function (e) {
-//                 e.style.display = "none";
-//             });
-//         });
-//     });
-// }
-// topPicks();
+
 function topPicks() {
     db.ref("TopPicks/products").on("value", function (snapshot) {
         let topPickListHTML = "";
@@ -262,12 +243,17 @@ function topPicks() {
                 }
             }
 
+            // Adjusted to pass all necessary parameters to openProductPage
             topPickListHTML += `
                 <div onclick='openProductPage(${JSON.stringify(images)}, "${
                     topPick.name
                 }", "${topPick.sellingprice}", "${topPick.costprice}", "${
                     topPick.identification
-                }", "${topPick.seller}")'
+                }", "${topPick.seller}", "${topPick.productSize || ""}", "${
+                    topPick.color || ""
+                }", "${topPick.additionalInfo || ""}", "${
+                    topPick.description || ""
+                }")'
                 class="top-prod">
                     <img class="top-img" src="${
                         images[0]
@@ -288,51 +274,6 @@ function topPicks() {
 
 topPicks();
 
-// function popular() {
-//     db.ref("Popular/products").on("value", function (snapshot) {
-//         snapshot.forEach(function (childSnapshot) {
-//             var images = [];
-//             let popular = childSnapshot.val();
-//             for (let key in popular) {
-//                 if (key.startsWith("image")) {
-//                     images.push(popular[key]);
-//                 }
-//             }
-//             let offCp = popular.costprice;
-//             let offSp = popular.sellingprice;
-//             document.getElementById(
-//                 "popularList"
-//             ).innerHTML += `<div class="popular-prod">
-//             <div onclick="openProductPage(${JSON.stringify(images)},'${
-//                 popular.name
-//             }','${popular.sellingprice}','${popular.costprice}','${
-//                 popular.identification
-//             }','${popular.seller}',this)">
-//
-//             <img class="popular-img" src="${images[0]}"
-//             height="150px" width="170px"/>
-//             <div
-//             class="popular-name">${popular.name}</div>
-//             <div class="price-box">
-//             <div class="popular-price">GHC ${popular.sellingprice}</div>
-//             <div class="popular-cprice">GHC ${popular.costprice}</div>
-//             </div>
-//       <div class="top-picks-name">Seller: ${popular.seller}</div>
-//             <div class="top-picks-id">ID:${popular.identification}</div>
-//             </div>
-//             <button class="add-to-cart-btn"
-//             onclick="addCart('${popular.image1}','${popular.name}','${
-//                 popular.sellingprice
-//             }','${popular.seller}',this)">Add to Cart</button>
-//              <div class="off-tag">-${parseInt(
-//                  ((offCp - offSp) / offCp) * 100
-//              )}%<div>
-//
-//             </div>`;
-//         });
-//     });
-// }
-// popular();
 function popular() {
     db.ref("Popular/products").on("value", function (snapshot) {
         const popularList = document.getElementById("popularList");
@@ -364,7 +305,7 @@ function popular() {
                         <div class="popular-cprice">GHC ${popular.costprice}</div>
                     </div>
                     <div class="top-picks-name">Seller: ${popular.seller}</div>
-                    <div class="top-picks-id">ID:${popular.identification}</div>
+                    <div class="top-picks-id">ID: ${popular.identification}</div>
                 </div>
                 <button class="add-to-cart-btn">Add to Cart</button>
                 <div class="off-tag">-${discount}%</div>
@@ -380,7 +321,11 @@ function popular() {
                         popular.sellingprice,
                         popular.costprice,
                         popular.identification,
-                        popular.seller
+                        popular.seller,
+                        popular.productSize,
+                        popular.color,
+                        popular.additionalInfo,
+                        popular.description
                     );
                 });
 
@@ -389,11 +334,16 @@ function popular() {
                 .querySelector(".add-to-cart-btn")
                 .addEventListener("click", function () {
                     addCart(
-                        popular.image1,
+                        images, // Use the array of images
                         popular.name,
                         popular.sellingprice,
                         popular.seller,
-                        this
+                        popular.identification,
+                        popular.productSize,
+                        popular.color,
+                        popular.additionalInfo,
+                        popular.description,
+                        1 // Assuming quantity to be 1 for now
                     );
                 });
 
@@ -403,6 +353,7 @@ function popular() {
 }
 
 popular();
+
 function brand() {
     db.ref("Brand/logo").on("value", function (snapshot) {
         snapshot.forEach(function (childSnapshot) {
@@ -417,6 +368,7 @@ function brand() {
     });
 }
 brand();
+
 function poster() {
     db.ref("Posters/flyers").on("value", function (snapshot) {
         snapshot.forEach(function (childSnapshot) {
@@ -467,7 +419,11 @@ function newArrivals() {
                         newProduct.sellingprice,
                         newProduct.costprice,
                         newProduct.identification,
-                        newProduct.seller
+                        newProduct.seller,
+                        newProduct.productSize || "",
+                        newProduct.color || "",
+                        newProduct.additionalInfo || "",
+                        newProduct.description || ""
                     );
                 });
 
@@ -475,11 +431,16 @@ function newArrivals() {
                 .querySelector(".add-to-cart-btn")
                 .addEventListener("click", function () {
                     addCart(
-                        newProduct.image1,
+                        images, // Use the array of images
                         newProduct.name,
                         newProduct.sellingprice,
                         newProduct.seller,
-                        this
+                        newProduct.identification,
+                        newProduct.productSize || "",
+                        newProduct.color || "",
+                        newProduct.additionalInfo || "",
+                        newProduct.description || "",
+                        1 // Assuming quantity to be 1 for now
                     );
                 });
 
@@ -490,18 +451,43 @@ function newArrivals() {
 newArrivals();
 // cart
 
-function addCart(image, product, price, seller, quantity) {
+function addCart(
+    image,
+    product,
+    price,
+    seller,
+    identification,
+    productSize,
+    color,
+    additionalInfo,
+    description,
+    quantity
+) {
     let user = firebase.auth().currentUser.uid;
-    const cartRef = db.ref(`USER/CART/${user}`);
-    cartRef.child(product).set({
-        image1: image,
-        product: product,
-        price: price,
-        quantity: 1,
-        seller: seller
+    const cartRef = db.ref(`USER/CART/${user}/${product}`);
+
+    cartRef.once("value").then(snapshot => {
+        if (snapshot.exists()) {
+            // Item already in cart, update quantity
+            const currentData = snapshot.val();
+            const newQuantity = (currentData.quantity || 0) + quantity;
+            cartRef.update({ quantity: newQuantity });
+        } else {
+            // New item, set initial values
+            cartRef.set({
+                image1: image,
+                product: product,
+                price: price,
+                seller: seller,
+                id: identification,
+                size: productSize,
+                color: color,
+                additionalInfo: additionalInfo,
+                description: description,
+                quantity: quantity
+            });
+        }
     });
-    //count();
-    // calculateSubtotal();
 }
 
 function count() {
@@ -647,16 +633,23 @@ function getProductData() {
 function order() {
     let user = firebase.auth().currentUser.uid;
     var cartRef = db.ref(`USER/CART/${user}`);
+    const addressRef = db.ref(`USER/ADDRESS/${user}`);
     const checkPage = db.ref(`CHECKOUT/${user}`);
     cartRef.once("value", function (snapshot) {
         snapshot.forEach(function (childSnapshot) {
             var childKey = childSnapshot.key;
             var childData = childSnapshot.val();
-            checkPage.child(childKey).push(childData);
+            checkPage.child(childKey).update(childData);
+            addressRef.once("value", function (snapshot) {
+                var addressData = snapshot.val();
+                checkPage.child(childKey).update(addressData);
+            });
             noteBox.style.display = "block";
             notification.innerText = "Order Successful";
+            closeOrderPage();
         });
     });
+
     db.ref(`USER/CART/${user}`).set("");
 }
 function closeOrderPage() {
@@ -668,63 +661,31 @@ function closePPage() {
     pPage.style.display = "none";
 }
 
-// open product page
-// function openProductPage(images, product, sp, cp, id, seller) {
-//     const pPage = document.querySelector(".p-page");
-//     pPage.style.display = "flex";
-//     pPage.style.position = "fixed";
-//
-//     const pageP = document.getElementById("prodInf");
-//
-//     // Generate HTML for image carousel
-//     let imagesHTML = images
-//         .map(
-//             (img, index) => `
-//         <div class="carousel-item ${index === 0 ? "active" : ""}">
-//             <img class="product-page-image" src="${img}" height="300px" width="360px"/>
-//         </div>
-//     `
-//         )
-//         .join("");
-//
-//     pageP.innerHTML = `
-//         <div class="product-page-card">
-//             <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-//                 <div class="carousel-inner">
-//                     ${imagesHTML}
-//                 </div>
-//             </div>
-//             <div class="product-page-name">${product}</div>
-//             <div class="price-card">
-//                 <div class="product-page-sellingprice">Gh¢ ${sp}</div>
-//                 <div class="product-page-costprice">Gh¢ ${cp}</div>
-//                 <div class="product-page-off"></div>
-//             </div>
-//             <div class="product-page-id">Product ID: ${id}</div>
-//             <div class="product-page-seller">Seller: ${seller}</div>
-//             <div class="product-page-cart-box">
-//                 <button onclick="addCart('${images[0]}', '${product}', '${sp}', '${seller}', this)" class="product-page-cart-btn">Add To Cart</button>
-//                 <button class="product-page-call-btn">Buy Now</button>
-//             </div>
-//         </div>
-//     `;
-// }
-function openProductPage(images, product, sp, cp, id, seller) {
+function openProductPage(
+    images,
+    product,
+    sp,
+    cp,
+    id,
+    seller,
+    productSize,
+    color,
+    additionalInfo,
+    description
+) {
     const pPage = document.querySelector(".p-page");
     pPage.style.display = "flex";
     pPage.style.position = "fixed";
 
     const pageP = document.getElementById("prodInf");
 
-    // Calculate the percentage off
     const percentageOff = Math.round(((cp - sp) / cp) * 100);
 
-    // Generate HTML for images
-    let imagesHTML = images
+    const imagesHTML = images
         .map(
-            (img, index) => `
+            img => `
         <div class="image-item">
-            <img class="product-page-image" src="${img}" height="300px" width="360px"/>
+            <img class="product-page-image" src="${img}" height="300px" width="360px" />
         </div>
     `
         )
@@ -744,13 +705,28 @@ function openProductPage(images, product, sp, cp, id, seller) {
             <div class="product-page-id">Product ID: ${id}</div>
             <div class="product-page-seller">Seller: ${seller}</div>
             <div class="product-page-cart-box">
-                <button onclick="addCart('${images[0]}', '${product}', '${sp}', '${seller}', this)" class="product-page-cart-btn">Add To Cart</button>
+                <button id="add-to-cart-btn" class="product-page-cart-btn">Add To Cart</button>
                 <button class="product-page-call-btn">Buy Now</button>
             </div>
         </div>
     `;
-}
 
+    const addToCartBtn = document.getElementById("add-to-cart-btn");
+    addToCartBtn.addEventListener("click", () => {
+        addCart(
+            images,
+            product,
+            sp,
+            seller,
+            id,
+            productSize,
+            color,
+            additionalInfo,
+            description,
+            1 // Assuming quantity to be 1 for now
+        );
+    });
+}
 function displayfeedPage() {
     const paths = [
         "Popular/products",
@@ -811,22 +787,39 @@ function displayFeedProducts(products) {
         const imagesArray = JSON.stringify(images);
 
         productDiv.innerHTML = `<div class="new-arrival-product">
-        <div onclick='openProductPage(${imagesArray}, "${product.name}", "${product.sellingprice}", "${product.costprice}", "${product.identification}", "${product.seller}")'>
-        <img class="feed-image" src="${product.image1}" height="160px" width="170px"/>
-        <div class="new-arrival-name">${product.name}</div>
-        <div class="new-arrival-sp">${product.sellingprice}</div>
-        <div class="new-arrival-cp">${product.costprice}</div>
-        <div class="new-arrival-seller">${product.seller}</div>
-        <div class="new-arrival-id">${product.identification}</div>
+        <div onclick='openProductPage(${imagesArray}, "${product.name}", "${
+            product.sellingprice
+        }", "${product.costprice}", "${product.identification}", "${
+            product.seller
+        }", "${product.productSize || ""}", "${product.color || ""}", "${
+            product.additionalInfo || ""
+        }", "${product.description || ""}")'>
+            <img class="feed-image" src="${
+                product.image1
+            }" height="160px" width="170px"/>
+            <div class="new-arrival-name">${product.name}</div>
+            <div class="new-arrival-sp">${product.sellingprice}</div>
+            <div class="new-arrival-cp">${product.costprice}</div>
+            <div class="new-arrival-seller">${product.seller}</div>
+            <div class="new-arrival-id">${product.identification}</div>
         </div>
-                 <button
-            onclick="addCart('${product.image1}','${product.name}','${product.sellingprice}','${product.seller}',this)"
+        <button
+            onclick="addCart('${product.image1}','${product.name}','${
+                product.sellingprice
+            }','${product.seller}','${product.identification}','${
+                product.productSize || ""
+            }','${product.color || ""}','${product.additionalInfo || ""}','${
+                product.description || ""
+            }', 1)"
             class="add-to-cart-btn">Add to Cart</button>
-        </div>`; // Assuming product has a 'name' property
+        </div>`;
+
         document.querySelector(".loader-container").style.display = "none";
         productsDiv.appendChild(productDiv);
     });
 }
+
+displayfeedPage();
 // search
 function openSearchPage() {
     const sbar = document.querySelector(".search-bar");
@@ -850,78 +843,89 @@ function searchProducts() {
         .getElementById("search-product")
         .value.toLowerCase();
     if (searchInput === "") {
-    } else {
-        const searchResults = document.getElementById("searchResults");
-        searchResults.innerHTML = "";
+        return; // Do nothing if the search input is empty
+    }
 
-        const databasePaths = [
-            "Popular/products",
-            "Category/grocery",
-            "New/products",
-            "TopPicks/products"
-        ];
+    const searchResults = document.getElementById("searchResults");
+    searchResults.innerHTML = "";
 
-        databasePaths.forEach(path => {
-            firebase
-                .database()
-                .ref(path)
-                .on("value", snapshot => {
-                    snapshot.forEach(childSnapshot => {
-                        const images = [];
-                        const product = childSnapshot.val();
-                        const productName = childSnapshot
-                            .val()
-                            .name.toLowerCase();
-                        for (const key in product) {
-                            if (key.startsWith("image")) {
-                                images.push(product[key]);
-                            }
+    const databasePaths = [
+        "Popular/products",
+        "Category/grocery",
+        "New/products",
+        "TopPicks/products"
+    ];
+
+    databasePaths.forEach(path => {
+        firebase
+            .database()
+            .ref(path)
+            .on("value", snapshot => {
+                snapshot.forEach(childSnapshot => {
+                    const images = [];
+                    const product = childSnapshot.val();
+                    const productName = product.name.toLowerCase();
+                    for (const key in product) {
+                        if (key.startsWith("image")) {
+                            images.push(product[key]);
                         }
-                        if (productName.includes(searchInput)) {
-                            const li = document.createElement("div");
-                            li.innerHTML = `<div class="new-arrival-product">
-        <div class="search-click">
-        <img class="feed-image" src="${product.image1}" height="160px"
-        width="170px"/>
-        <div class="new-arrival-name">${product.name}</div>
-        <div class="new-arrival-sp">${product.sellingprice}</div>
-        <div class="new-arrival-cp">${product.costprice}</div>
-        <div class="new-arrival-seller">${product.seller}</div>
-        <div class="new-arrival-id">${product.identification}</div>
-        </div>
-                 <button
-            class="add-to-cart-btn">Add to Cart</button>
-        </div>`;
-                            li.querySelector(".search-click").addEventListener(
-                                "click",
-                                function () {
-                                    openProductPage(
-                                        images,
-                                        product.name,
-                                        product.sellingprice,
-                                        product.costprice,
-                                        product.identification,
-                                        product.seller
-                                    );
-                                }
-                            );
-                            li.querySelector(
-                                ".add-to-cart-btn"
-                            ).addEventListener("click", function () {
+                    }
+                    if (productName.includes(searchInput)) {
+                        const li = document.createElement("div");
+                        const imagesArray = JSON.stringify(images);
+                        li.innerHTML = `<div class="new-arrival-product">
+                            <div class="search-click">
+                                <img class="feed-image" src="${product.image1}" height="160px" width="170px"/>
+                                <div class="new-arrival-name">${product.name}</div>
+                                <div class="new-arrival-sp">${product.sellingprice}</div>
+                                <div class="new-arrival-cp">${product.costprice}</div>
+                                <div class="new-arrival-seller">${product.seller}</div>
+                                <div class="new-arrival-id">${product.identification}</div>
+                            </div>
+                            <button class="add-to-cart-btn">Add to Cart</button>
+                        </div>`;
+
+                        li.querySelector(".search-click").addEventListener(
+                            "click",
+                            function () {
+                                openProductPage(
+                                    images,
+                                    product.name,
+                                    product.sellingprice,
+                                    product.costprice,
+                                    product.identification,
+                                    product.seller,
+                                    product.productSize || "",
+                                    product.color || "",
+                                    product.additionalInfo || "",
+                                    product.description || ""
+                                );
+                            }
+                        );
+
+                        li.querySelector(".add-to-cart-btn").addEventListener(
+                            "click",
+                            function () {
                                 addCart(
-                                    product.image1,
+                                    images, // Use the array of images
                                     product.name,
                                     product.sellingprice,
                                     product.seller,
-                                    this
+                                    product.identification,
+                                    product.productSize || "",
+                                    product.color || "",
+                                    product.additionalInfo || "",
+                                    product.description || "",
+                                    1 // Assuming quantity to be 1 for now
                                 );
-                            });
-                            searchResults.appendChild(li);
-                        }
-                    });
+                            }
+                        );
+
+                        searchResults.appendChild(li);
+                    }
                 });
-        });
-    }
+            });
+    });
 }
 function openResultPage() {
     document.getElementById("searchResults").style.display = "grid";
@@ -931,17 +935,80 @@ function openResultPage() {
 
 function catGros(path, card) {
     db.ref(path).on("value", function (snapshot) {
-        snapshot.forEach(function (childSnapshot) {
-            let groceries = childSnapshot.val();
+        const cardElement = document.getElementById(card);
+        cardElement.innerHTML = ""; // Clear previous contents
 
-            document.getElementById(card).innerHTML += `
-            <div class="category-prods">
-            <div onclick="openProductPage('${groceries.image1}','${groceries.name}','${groceries.sellingprice}','${groceries.costprice}','${groceries.identification}','${groceries.seller}','${groceries.description}',this)">
-            <img class="category-item-image"
-            src="${groceries.image1}" />
-            <div class="category-item-name">${groceries.name}</div>
-            </div>
-           </div> `;
+        snapshot.forEach(function (childSnapshot) {
+            const groceries = childSnapshot.val();
+            const images = [];
+            let i = 1;
+            while (groceries[`image${i}`]) {
+                images.push(groceries[`image${i}`]);
+                i++;
+            }
+
+            // Escape HTML characters for security
+            function escapeHtml(text) {
+                const map = {
+                    "&": "&amp;",
+                    "<": "&lt;",
+                    ">": "&gt;",
+                    '"': "&quot;",
+                    "'": "&#039;"
+                };
+                return text.replace(/[&<>"']/g, function (m) {
+                    return map[m];
+                });
+            }
+
+            const name = escapeHtml(groceries.name);
+            const sellingPrice = escapeHtml(groceries.sellingprice);
+            const costPrice = escapeHtml(groceries.costprice);
+            const identification = escapeHtml(groceries.identification);
+            const seller = escapeHtml(groceries.seller);
+            const productSize = groceries.productSize
+                ? escapeHtml(groceries.productSize)
+                : "";
+            const color = groceries.color ? escapeHtml(groceries.color) : "";
+            const additionalInfo = groceries.additionalInfo
+                ? escapeHtml(groceries.additionalInfo)
+                : "";
+            const description = groceries.description
+                ? escapeHtml(groceries.description)
+                : "";
+
+            // Create elements and attach event listener
+            const categoryProdDiv = document.createElement("div");
+            categoryProdDiv.className = "category-prods";
+
+            const productDiv = document.createElement("div");
+            productDiv.addEventListener("click", () => {
+                openProductPage(
+                    images,
+                    name,
+                    sellingPrice,
+                    costPrice,
+                    identification,
+                    seller,
+                    productSize,
+                    color,
+                    additionalInfo,
+                    description
+                );
+            });
+
+            const img = document.createElement("img");
+            img.className = "category-item-image";
+            img.src = groceries.image1;
+            productDiv.appendChild(img);
+
+            const nameDiv = document.createElement("div");
+            nameDiv.className = "category-item-name";
+            nameDiv.textContent = name;
+            productDiv.appendChild(nameDiv);
+
+            categoryProdDiv.appendChild(productDiv);
+            cardElement.appendChild(categoryProdDiv);
         });
     });
 }

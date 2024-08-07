@@ -173,8 +173,7 @@ navhover();
 
 // page preloading animation
 window.addEventListener("load", function () {
-    var loadingAnimation = document.querySelector(".loading-animation");
-    loadingAnimation.style.display = "none";
+  
     if (localStorage.getItem("cartPage")) {
         document.querySelector(".cart-menu").style.display = "flex";
     }
