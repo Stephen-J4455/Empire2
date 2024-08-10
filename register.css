@@ -1746,7 +1746,7 @@ body {
 }
 .new-arrivals {
     border: none;
-    width: 359px;
+    width: 100%;
     background: none;
 }
 .new-arrivals-head {
@@ -2099,22 +2099,22 @@ body {
     font-weight: 300;
 }
 .price-card {
-    display: grid;
-    grid-template-columns: auto auto auto;
+    display: flex;
+    flex-direction: column;
 }
 .product-page-sellingprice {
     color: seagreen;
-    padding: 20px 10px;
+    padding: 1px 10px;
     font-weight: 700;
     font-size: 30px;
 }
 .product-page-costprice {
     color: red;
-    padding: 20px 10px;
+    padding: 10px 10px;
     display: flex;
     align-items: center;
     font-weight: 400;
-    text-decoration: 2px solid red line-through;
+    text-decoration: 1px solid red line-through;
 }
 .product-page-id {
     font-weight: 300;
@@ -2141,6 +2141,16 @@ body {
     font-weight: 500;
     color: black;
     background-color: white;
+}
+.product-page-off {
+    position: relative;
+    background-color: darkorange;
+    margin: 10px 10px;
+    padding: 10px 10px;
+    width: 100px;
+    color: white;
+    font-weight: 700;
+    border-radius: 5px;
 }
 .product-page-call-btn {
     width: 30%;
@@ -2252,6 +2262,7 @@ body {
     display: grid;
     grid-template-columns: auto auto;
     width: 100%;
+    gap: 5%;
 }
 .new-arrival-product {
     border: none;
@@ -2259,7 +2270,7 @@ body {
     overflow: hidden;
     padding-bottom: 3px;
     background-color: white;
-    width: 170px;
+    width: 100%;
     height: 300px;
 }
 .new-arrival-name {
@@ -2345,9 +2356,6 @@ body {
         width: 360px;
     }
 }
-/* iphone 6s plus  */
-/* iphone 6s plus  */
-/* iphone 6s plus  */
 /* Default styles for small screens */
 @media only screen and (min-width: 320px) and (max-width: 480px) {
     .homepage {
@@ -2364,8 +2372,7 @@ body {
     }
     .new-products {
         width: 100%;
-        justify-content: center;
-        gap: 2.5%;
+        gap: 5%;
     }
     .p-page {
         width: 100%;
