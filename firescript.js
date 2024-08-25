@@ -279,6 +279,8 @@ function popular() {
         const popularList = document.getElementById("popularList");
         popularList.innerHTML = ""; // Clear the list before adding new elements
 
+        const products = [];
+
         snapshot.forEach(function (childSnapshot) {
             const images = [];
             const popular = childSnapshot.val();
@@ -298,7 +300,7 @@ function popular() {
 
             productDiv.innerHTML = `
                 <div class="product-info">
-                    <img class="popular-img" src="${images[0]}" height="150px" width="170px"/>
+                    <img class="popular-img" src="${images[0]}" height="170px" width="170px"/>
                     <div class="popular-name">${popular.name}</div>
                     <div class="price-box">
                         <div class="popular-price">GHC ${popular.sellingprice}</div>
@@ -347,11 +349,21 @@ function popular() {
                     );
                 });
 
+            products.push(productDiv); // Store the product div
+        });
+
+        // Shuffle the products array
+        for (let i = products.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [products[i], products[j]] = [products[j], products[i]];
+        }
+
+        // Append shuffled products to the list
+        products.forEach(function (productDiv) {
             popularList.appendChild(productDiv);
         });
     });
 }
-
 popular();
 
 function brand() {
@@ -477,7 +489,42 @@ function addCart(
             cartRef.set({
                 image1: image,
                 product: product,
-                price: price,
+                price: parseFloat(price), // Convert price to integer before storing
+                seller: seller,
+                id: identification,
+                size: productSize,
+                color: color,
+                additionalInfo: additionalInfo,
+                description: description,
+                quantity: quantity
+            });
+        }
+    });
+}
+function like(
+    image,
+    product,
+    price,
+    seller,
+    identification,
+    productSize,
+    color,
+    additionalInfo,
+    description,
+    quantity
+) {
+    let user = firebase.auth().currentUser.uid;
+    const cartRef = db.ref(`USER/LIKE/${user}/${product}`);
+
+    cartRef.once("value").then(snapshot => {
+        if (snapshot.exists()) {
+            document.getElementById("likeIt").classList.add("like");
+        } else {
+            // New item, set initial values
+            cartRef.set({
+                image1: image,
+                product: product,
+                price: parseFloat(price), // Convert price to integer before storing
                 seller: seller,
                 id: identification,
                 size: productSize,
@@ -570,44 +617,164 @@ function checkOut() {
         });
     });
 }
+// function cartExtra() {
+//     const user = firebase.auth().currentUser;
+// 
+//     // Check if user is authenticated
+//     if (!user) {
+//         console.error("No authenticated user found.");
+//         return;
+//     }
+// 
+//     const userId = user.uid;
+//     const extra = document.getElementById("extra");
+// 
+//     // Clear the extra element before appending new liked items
+//     extra.innerHTML = "";
+// 
+//     db.ref(`USER/LIKE/${userId}`)
+//         .on("value", snapshot => {
+//             if (snapshot.exists()) {
+//                 snapshot.forEach(childSnapshot => {
+//                     const liked = childSnapshot.val();
+//                     const likedItem = document.createElement("div");
+//                     likedItem.className = "liked-item"; // Optional: Add a class for easier styling
+//                     likedItem.innerHTML = `<div class="likename">${liked.product}</div>`;
+//                     extra.appendChild(likedItem);
+//                 });
+//             } else {
+//                 console.log("No liked items found for this user.");
+//             }
+//         })
+//         .catch(error => {
+//             console.error("Error fetching liked items:", error);
+//         });
+// }
+// 
+
+// cartExtra();
+
 function cart() {
     let user = firebase.auth().currentUser.uid;
     db.ref(`USER/CART/${user}`).on("value", snapshot => {
         const cartItems = document.getElementById("cartList");
         cartItems.innerHTML = "";
+
+        if (!snapshot.hasChildren()) {
+            cartItems.innerHTML = "<div class='empty-cart'>Cart is empty</div>";
+            return;
+        }
+
         snapshot.forEach(childSnapshot => {
             const pro = childSnapshot.val();
             const li = document.createElement("div");
+            const totalPrice = (pro.price * pro.quantity).toFixed(2);
+
             li.innerHTML = `<div class="cartItem-div">
-            <img class="cart-img" src="${pro.image1}"/>
-            <div class="cart-dispaly">
-            	<div class="cart-list-content">
-            			<div class="cart-product-name">${pro.product}</div>
-            			<div class="price-flux"> Price: Ghc <div
-            			id="price">${pro.price}</div></div>
-            			<div class="cart-quantity"> Quantity:<text id="quant"
-            			class="quantity">
-        ${pro.quantity}</text></div>
-        <div class="cart-seller">${pro.seller}</div>
-             </div>
-          </div>
-        </div>`;
+                <img class="cart-img" src="${pro.image1}"/>
+                <div class="cart-display">
+                    <div class="cart-list-content">
+                        <div class="cart-product-name">${pro.product}</div>
+                        <div class="price-flux"> Price: Ghc <div id="price">${totalPrice}</div></div>
+                        <div class="cart-quantity"> Quantity: <div class="minus"></div><text id="quant"
+                        class="quantity">${pro.quantity}</text> <div
+                        class="plus"></div></div>
+                        <div class="cart-seller">${pro.seller}</div>
+                    </div>
+                </div>
+            </div>`;
+
             const removeButton = document.createElement("button");
-            removeButton.classList = "remove-btn";
+            removeButton.classList.add("remove-btn");
             removeButton.innerText = "Remove";
             removeButton.onclick = () => {
-                let user = firebase.auth().currentUser.uid;
-                db.ref(`USER/CART/${user}`).child(pro.product).remove();
-                calculateSubtotal();
+                db.ref(`USER/CART/${user}`).child(childSnapshot.key).remove();
+                calculateSubtotal(); // Update subtotal after removal
             };
 
-            li.appendChild(removeButton);
+            // reduce button
+            const redBtn = document.createElement("button");
+            redBtn.classList.add("qtn");
+            redBtn.innerText = "-";
+            redBtn.onclick = () => {
+                let newQuantity = pro.quantity - 1;
+                if (newQuantity > 0) {
+                    db.ref(`USER/CART/${user}`)
+                        .child(childSnapshot.key)
+                        .update({ quantity: newQuantity })
+                        .then(() => {
+                            li.querySelector("#quant").innerText = newQuantity;
+                            li.querySelector("#price").innerText = (
+                                pro.price * newQuantity
+                            ).toFixed(2);
+                            calculateSubtotal(); // Update subtotal after quantity reduction
+                        });
+                } else {
+                    db.ref(`USER/CART/${user}`)
+                        .child(childSnapshot.key)
+                        .remove()
+                        .then(() => {
+                            calculateSubtotal(); // Update subtotal after item removal
+                        });
+                }
+            };
+
+            // increase button
+            const incBtn = document.createElement("button");
+            incBtn.classList.add("qtn");
+            incBtn.innerText = "+";
+            incBtn.onclick = () => {
+                let newQuantity = pro.quantity + 1;
+                db.ref(`USER/CART/${user}`)
+                    .child(childSnapshot.key)
+                    .update({ quantity: newQuantity })
+                    .then(() => {
+                        li.querySelector("#quant").innerText = newQuantity;
+                        li.querySelector("#price").innerText = (
+                            pro.price * newQuantity
+                        ).toFixed(2);
+                        calculateSubtotal(); // Update subtotal after quantity increment
+                    });
+            };
+
+            // Append buttons inside cart-list-content
+            const cartListContent = li.querySelector(".cart-list-content");
+            const minus = li.querySelector(".minus");
+            const plus = li.querySelector(".plus");
+            cartListContent.appendChild(removeButton);
+            minus.appendChild(redBtn);
+            plus.appendChild(incBtn);
+
             cartItems.appendChild(li);
             count();
             getProductData();
         });
+
+        calculateSubtotal(); // Calculate subtotal when cart is first loaded
     });
 }
+
+// Function to calculate and display the subtotal
+function calculateSubtotal() {
+    let user = firebase.auth().currentUser.uid;
+    db.ref(`USER/CART/${user}`).once("value", snapshot => {
+        let subtotal = 0;
+
+        snapshot.forEach(childSnapshot => {
+            const pro = childSnapshot.val();
+            subtotal += pro.price * pro.quantity;
+        });
+
+        // Display the subtotal in the specified div
+        document.getElementById(
+            "subtotal"
+        ).innerText = `Subtotal: Ghc ${subtotal.toFixed(2)}`;
+        document.getElementById("itemPrice").innerText = `Ghc
+        ${subtotal.toFixed(2)}`;
+    });
+}
+cart();
+
 function getProductData() {
     let user = firebase.auth().currentUser.uid;
     var database = firebase.database();
@@ -625,7 +792,7 @@ function getProductData() {
             return a + b;
         }, 0);
 
-        document.getElementById("tot").innerText = sum.toFixed(2);
+        document.getElementById("subtotal").innerText = sum.toFixed(2);
         document.getElementById("itemPrice").innerText = "Ghc" + sum.toFixed(2);
     });
 }
@@ -706,7 +873,7 @@ function openProductPage(
             <div class="product-page-seller">Seller: ${seller}</div>
             <div class="product-page-cart-box">
                 <button id="add-to-cart-btn" class="product-page-cart-btn">Add To Cart</button>
-                <button class="product-page-call-btn"><svg viewBox="0 0 48 48"
+                <button id="like" class="product-page-call-btn"><svg id="likeIt" viewBox="0 0 48 48"
                 xmlns="http://www.w3.org/2000/svg" height="3.5em"
                 width="3em"><path fill="currentColor" d="m21.95
                 40.2-2.65-2.45Q13.1 32 8.55 26.775T4 15.85q0-4.5
@@ -721,6 +888,20 @@ function openProductPage(
     const addToCartBtn = document.getElementById("add-to-cart-btn");
     addToCartBtn.addEventListener("click", () => {
         addCart(
+            images,
+            product,
+            sp,
+            seller,
+            id,
+            productSize,
+            color,
+            additionalInfo,
+            description,
+            1 // Assuming quantity to be 1 for now
+        );
+    });
+    document.getElementById("like").addEventListener("click", () => {
+        like(
             images,
             product,
             sp,

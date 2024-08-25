@@ -173,10 +173,10 @@ navhover();
 
 // page preloading animation
 window.addEventListener("load", function () {
-  
     if (localStorage.getItem("cartPage")) {
         document.querySelector(".cart-menu").style.display = "flex";
     }
+    
 });
 
 // open address book
