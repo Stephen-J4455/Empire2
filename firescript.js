@@ -412,7 +412,8 @@ function newArrivals() {
             newProd.innerHTML = `
                 <div class="new-arrival-product">
                     <div class="new-click">
-                        <img src="${newProduct.image1}" height="160px" width="170px"/>
+                        <img src="${newProduct.image1}" height="160px"
+                        width="100%"/>
                         <div class="new-arrival-name">${newProduct.name}</div>
                         <div class="new-arrival-sp">Ghc${newProduct.sellingprice}</div>
                         <div class="new-arrival-cp">Ghc${newProduct.costprice}</div>
@@ -619,19 +620,19 @@ function checkOut() {
 }
 // function cartExtra() {
 //     const user = firebase.auth().currentUser;
-// 
+//
 //     // Check if user is authenticated
 //     if (!user) {
 //         console.error("No authenticated user found.");
 //         return;
 //     }
-// 
+//
 //     const userId = user.uid;
 //     const extra = document.getElementById("extra");
-// 
+//
 //     // Clear the extra element before appending new liked items
 //     extra.innerHTML = "";
-// 
+//
 //     db.ref(`USER/LIKE/${userId}`)
 //         .on("value", snapshot => {
 //             if (snapshot.exists()) {
@@ -650,7 +651,7 @@ function checkOut() {
 //             console.error("Error fetching liked items:", error);
 //         });
 // }
-// 
+//
 
 // cartExtra();
 
@@ -1061,9 +1062,11 @@ function searchProducts() {
                     if (productName.includes(searchInput)) {
                         const li = document.createElement("div");
                         const imagesArray = JSON.stringify(images);
-                        li.innerHTML = `<div class="new-arrival-product">
+                        li.innerHTML = `<div class="search-product-div">
                             <div class="search-click">
-                                <img class="feed-image" src="${product.image1}" height="160px" width="170px"/>
+                                <img class="search-image"
+                                src="${product.image1}" height="160px"
+                                width="100%"/>
                                 <div class="new-arrival-name">${product.name}</div>
                                 <div class="new-arrival-sp">${product.sellingprice}</div>
                                 <div class="new-arrival-cp">${product.costprice}</div>

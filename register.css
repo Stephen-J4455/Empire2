@@ -291,17 +291,17 @@ body {
     display: none;
     z-index: 2;
     position: absolute;
-    bottom: 50px;
     top: 0;
     overflow-y: scroll;
     scroll-behavior: smooth;
     width: 100%;
     border: none;
     background-color: white;
+    height: 94%;
 }
-#homePageBbox {
+/* #homePageBbox {
     margin: 0;
-}
+} */
 /* account page */
 .account {
     display: none;
@@ -694,7 +694,6 @@ body {
     position: fixed;
     top: 0;
     z-index: 1;
-    background-color: #dddddd;
 }
 
 #search-product {
@@ -706,6 +705,15 @@ body {
     border: 0.1px solid black;
     outline: none;
     color: black;
+    background: transparent;
+    backdrop-filter: blur(10px);
+    
+}
+.search-product-div {
+    height: 305px;
+    margin: 1%;
+    border-radius: 5px;
+    overflow: hidden;
 }
 .search-box {
     position: absolute;
@@ -714,29 +722,30 @@ body {
     left: 50px;
 }
 .search-page {
+    position: fixed;
+    bottom: 0;
     transition: 0.3s ease;
-    background-color: white;
-    height: 740px;
+    height: 100%;
     z-index: 1;
+    background-color: white;
 }
 .close-search-page {
-    position: relative;
-    top: -345px;
+    position: absolute;
+    top: 3px;
     left: 0;
     color: rgb(2, 25, 100);
+    display: none;
 }
 #searchResults {
     display: none;
     grid-template-columns: 50% 50%;
-    padding: 0px 5px;
     overflow-y: scroll;
-    height: 680px;
+    height: 87%;
     border: none;
     width: 100%;
     background-color: white;
     position: fixed;
     z-index: 1;
-    bottom: 50px;
     top: 45px;
 }
 .search-loader {
@@ -2305,18 +2314,17 @@ body {
 /* new prod */
 .new-products {
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: 50% 50%;
     width: 100%;
-    gap: 5%;
 }
 .new-arrival-product {
-    border: none;
     border-radius: 7px;
     overflow: hidden;
-    padding-bottom: 3px;
     background-color: white;
-    width: 100%;
+    width: 95%;
     height: 300px;
+    margin: 1%;
+    padding: 1px 2px;
 }
 .new-arrival-name {
     font-size: 12px;
@@ -2359,48 +2367,6 @@ body {
     font-size: 15px;
 }
 
-/* iphone 6s plus  */
-/* iphone 6s plus  */
-/* iphone 6s plus  */
-/* iphone 6s plus  */
-/* iphone 6s plus  */
-@media only screen and (width: 360px) {
-    .homepage {
-        width: 100%;
-    }
-    .buttom-nav {
-        width: 360px;
-    }
-    .category-box {
-        width: 360px;
-    }
-    .cart-menu {
-        width: 360px;
-    }
-    .new-products {
-        width: 360px;
-        justify-content: center;
-        gap: 2.5%;
-    }
-    #brandList {
-        width: 100%;
-    }
-    .top-picks-box {
-        width: 360px;
-    }
-    .top-picks {
-        margin-left: 20px;
-    }
-    .popular {
-        width: 360px;
-    }
-    .giftcards {
-        width: 360px;
-    }
-    .adds {
-        width: 360px;
-    }
-}
 /* Default styles for small screens */
 @media only screen and (min-width: 320px) and (max-width: 480px) {
     .homepage {
@@ -2417,7 +2383,6 @@ body {
     }
     .new-products {
         width: 100%;
-        gap: 5%;
     }
     .p-page {
         width: 100%;
