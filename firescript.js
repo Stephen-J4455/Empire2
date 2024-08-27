@@ -1010,12 +1010,15 @@ function displayFeedProducts(products) {
 
 displayfeedPage();
 // search
+
 function openSearchPage() {
     const sbar = document.querySelector(".search-bar");
     const inputF = document.getElementById("search-product");
     sbar.classList.add("search-page");
+    document.querySelector(".buttom-nav").innerText = "Search";
     inputF.classList.add("search-box");
     document.querySelector(".close-search-page").style.display = "block";
+    document.querySelector(".cart-btn").style.color = "#000066";
 }
 
 function closeSearchpage() {
@@ -1025,6 +1028,78 @@ function closeSearchpage() {
     inputF.classList.remove("search-box");
     document.querySelector(".close-search-page").style.display = "none";
     document.getElementById("searchResults").style.display = "none";
+    document.querySelector(".cart-btn").style.color = "white";
+    document.querySelector(
+        ".buttom-nav"
+    ).innerHTML = `                        <span onclick="home()" id="activehome"
+                            ><svg
+                                viewBox="0 0 48 48"
+                                xmlns="http://www.w3.org/2000/svg"
+                                height="3em"
+                                width="3em"
+                            >
+                                <path
+                                    fill="currentColor"
+                                    d="M11 42q-1.25 0-2.125-.875T8 39V19.5q0-.7.325-1.35.325-.65.875-1.05l13-9.75q.4-.3.85-.45.45-.15.95-.15.5 0 .95.15.45.15.85.45l13 9.75q.55.4.875 1.05.325.65.325 1.35V39q0 1.25-.875 2.125T37 42h-9V28h-8v14Z"
+                                />
+                            </svg>
+                            Home</span
+                        >
+                        <span onclick="openCategory()" id="activehome2">
+                            <svg
+                                viewBox="0 0 48 48"
+                                xmlns="http://www.w3.org/2000/svg"
+                                height="3em"
+                                width="3em"
+                            >
+                                <path
+                                    fill="currentColor"
+                                    d="M9 22.5q-1.25 0-2.125-.875T6 19.5V9q0-1.25.875-2.125T9 6h10.5q1.25 0 2.125.875T22.5 9v10.5q0 1.25-.875 2.125T19.5 22.5ZM9 42q-1.25 0-2.125-.875T6 39V28.5q0-1.25.875-2.125T9 25.5h10.5q1.25 0 2.125.875T22.5 28.5V39q0 1.25-.875 2.125T19.5 42Zm19.5-19.5q-1.25 0-2.125-.875T25.5 19.5V9q0-1.25.875-2.125T28.5 6H39q1.25 0 2.125.875T42 9v10.5q0 1.25-.875 2.125T39 22.5Zm0 19.5q-1.25 0-2.125-.875T25.5 39V28.5q0-1.25.875-2.125T28.5 25.5H39q1.25 0 2.125.875T42 28.5V39q0 1.25-.875 2.125T39 42Z"
+                                />
+                            </svg>
+                            Category</span
+                        >
+                        <span onclick="openFeed()" id="activehome3">
+                            <svg
+                                viewBox="0 0 48 48"
+                                xmlns="http://www.w3.org/2000/svg"
+                                height="3em"
+                                width="3em"
+                            >
+                                <path
+                                    fill="currentColor"
+                                    d="M13.05 36q-1.2 0-2.125-.9T10 33V15.95q0-.65.425-1.075.425-.425 1.075-.425.65 0 1.075.425Q13 15.3 13 15.95V33h21.15q.65 0 1.075.425.425.425.425 1.075 0 .65-.425 1.075Q34.8 36 34.15 36ZM19 30q-1.2 0-2.1-.9-.9-.9-.9-2.1V9q0-1.2.9-2.1.9-.9 2.1-.9h22q1.2 0 2.1.9.9.9.9 2.1v18q0 1.2-.9 2.1-.9.9-2.1.9Zm0-3h22V12.1H19V27ZM7 42q-1.2 0-2.1-.9Q4 40.2 4 39V21.95q0-.65.425-1.075.425-.425 1.075-.425.65 0 1.075.425Q7 21.3 7 21.95V39h21.1q.65 0 1.075.425.425.425.425 1.075 0 .65-.425 1.075Q28.75 42 28.1 42Z"
+                                /></svg
+                            >Feed</span
+                        >
+                        <span onclick="openAccountPage()" id="activehome4">
+                            <svg
+                                viewBox="0 0 48 48"
+                                xmlns="http://www.w3.org/2000/svg"
+                                height="3em"
+                                width="3em"
+                            >
+                                <path
+                                    fill="currentColor"
+                                    d="M11.1 35.25q3.15-2 6.225-3.025Q20.4 31.2 24 31.2q3.6 0 6.7 1.025t6.25 3.025q2.2-2.7 3.125-5.45Q41 27.05 41 24q0-7.25-4.875-12.125T24 7q-7.25 0-12.125 4.875T7 24q0 3.05.95 5.8t3.15 5.45ZM24 25.5q-2.9 0-4.875-1.975T17.15 18.65q0-2.9 1.975-4.875T24 11.8q2.9 0 4.875 1.975t1.975 4.875q0 2.9-1.975 4.875T24 25.5ZM24 44q-4.2 0-7.85-1.575-3.65-1.575-6.35-4.3Q7.1 35.4 5.55 31.75 4 28.1 4 23.95q0-4.1 1.575-7.75 1.575-3.65 4.3-6.35 2.725-2.7 6.375-4.275Q19.9 4 24.05 4q4.1 0 7.75 1.575 3.65 1.575 6.35 4.275 2.7 2.7 4.275 6.35Q44 19.85 44 24q0 4.1-1.575 7.75-1.575 3.65-4.275 6.375t-6.35 4.3Q28.15 44 24 44Z"
+                                />
+                            </svg>
+                            Account</span
+                        >
+                        <span onclick="openHelp()" id="activehome5">
+                            <svg
+                                viewBox="0 0 48 48"
+                                xmlns="http://www.w3.org/2000/svg"
+                                height="3em"
+                                width="3em"
+                            >
+                                <path
+                                    fill="currentColor"
+                                    d="M24.2 35.65q.8 0 1.35-.55t.55-1.35q0-.8-.55-1.35t-1.35-.55q-.8 0-1.35.55t-.55 1.35q0 .8.55 1.35t1.35.55ZM24.15 15q1.7 0 2.75.925t1.05 2.375q0 1-.6 1.975-.6.975-1.95 2.125-1.3 1.15-2.075 2.425-.775 1.275-.775 2.325 0 .55.425.875.425.325.975.325.6 0 1-.4t.5-1q.15-1 .675-1.775.525-.775 1.625-1.675 1.5-1.25 2.175-2.5.675-1.25.675-2.8 0-2.65-1.725-4.25t-4.575-1.6q-1.9 0-3.5.75t-2.65 2.2q-.4.55-.325 1.125.075.575.475.875.55.4 1.175.25.625-.15 1.025-.7.65-.9 1.575-1.375Q23 15 24.15 15ZM24 44q-4.2 0-7.85-1.525Q12.5 40.95 9.8 38.25q-2.7-2.7-4.25-6.35Q4 28.25 4 24q0-4.2 1.55-7.85Q7.1 12.5 9.8 9.8q2.7-2.7 6.35-4.25Q19.8 4 24 4q4.15 0 7.8 1.55 3.65 1.55 6.35 4.25 2.7 2.7 4.275 6.35Q44 19.8 44 24q0 4.25-1.575 7.9-1.575 3.65-4.275 6.35-2.7 2.7-6.35 4.225Q28.15 44 24 44Z"
+                                /></svg
+                            >Help</span
+                        >`;
+    document.getElementById("activehome").style.color = "darkorange";
 }
 
 function searchProducts() {

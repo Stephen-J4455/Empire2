@@ -713,7 +713,6 @@ body {
 }
 .search-page {
     position: fixed;
-    bottom: 0;
     transition: 0.3s ease;
     height: 100%;
     z-index: 1;
