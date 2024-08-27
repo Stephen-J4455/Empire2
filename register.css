@@ -46,7 +46,7 @@ body {
     text-align: center;
     font-weight: 900;
     font-size: 30px;
-    color: rgb(4, 12, 89);
+    color: #000066;
 }
 
 .form {
@@ -310,7 +310,7 @@ body {
     width: 100%;
     z-index: 2;
     overflow-y: scroll;
-    height: 98vh;
+    height: 93%;
 }
 .account-header {
     color: aliceblue;
@@ -319,7 +319,7 @@ body {
     position: fixed;
     top: 0;
     z-index: 1;
-    background-color: rgb(4, 12, 60);
+    background-color: #000066;
 }
 .logout-btn {
     border: none;
@@ -347,7 +347,7 @@ body {
     width: 100%;
 }
 .empire-header {
-    background-color: rgb(4, 12, 60);
+    background-color: #000066;
     padding: 10px 10px;
     color: white;
     font-size: 20px;
@@ -417,7 +417,6 @@ body {
 }
 
 .address-container {
-    border: 2px solid rgb(175, 170, 222);
     border-radius: 5px;
     position: relative;
     display: flex;
@@ -493,33 +492,24 @@ body {
     border: none;
     border-radius: 10px;
     height: 40px;
-    background-color: black;
+    background-color: green;
     color: white;
     bottom: -40px;
-    left: -10px;
+    left: 20%;
 }
-#cancelDel {
-    position: relative;
-    bottom: 0;
-    width: 160px;
-    right: -175px;
-    margin-right: 10px;
-    border: 0.1px solid;
-    border-radius: 10px;
-    height: 40px;
-    background-color: white;
-    color: black;
-}
+
 #passDelPage {
     display: none;
     margin-top: 10px;
 }
 #delPass {
+    position: relative;
     border: 0.1px solid;
     border-radius: 10px;
     height: 40px;
     padding: 0px 7px;
     outline: none;
+    top: 30px;
 }
 #deleteAccount {
     border: none;
@@ -527,6 +517,8 @@ body {
     height: 40px;
     background-color: black;
     color: white;
+    position: relative;
+    top: 30px;
 }
 /* ac end */
 .category {
@@ -585,7 +577,7 @@ body {
     flex-direction: row;
     border: none;
     gap: 10%;
-    color: rgb(2, 40, 100);
+    color: #000066;
     background-color: whitesmoke;
     justify-content: center;
     align-items: center;
@@ -664,7 +656,7 @@ body {
 }
 .add-to-cart-btn:hover {
     animation: cartAnime 0.3s forwards;
-    background-color: rgb(4, 12, 48);
+    background-color: #000066;
     transition: 0.3s ease;
     color: white;
 }
@@ -694,6 +686,7 @@ body {
     position: fixed;
     top: 0;
     z-index: 1;
+    background-color: #000066;
 }
 
 #search-product {
@@ -702,12 +695,9 @@ body {
     margin: 0px 3px;
     padding: 1px 4px;
     border-radius: 7px;
-    border: 0.1px solid black;
+    border: 0.1px solid white;
     outline: none;
     color: black;
-    background: transparent;
-    backdrop-filter: blur(10px);
-    
 }
 .search-product-div {
     height: 305px;
@@ -733,7 +723,7 @@ body {
     position: absolute;
     top: 3px;
     left: 0;
-    color: rgb(2, 25, 100);
+    color: #000066;
     display: none;
 }
 #searchResults {
@@ -807,7 +797,7 @@ body {
     top: 0;
     right: 0;
     background: transparent;
-    color: rgb(2, 40, 100);
+    color: white;
     z-index: 49;
     outline: none;
 }
@@ -958,14 +948,14 @@ body {
     border: none;
     width: 100%;
     height: 7%;
-    background-color: rgb(4, 12, 48);
+    background-color: #000066;
     color: aliceblue;
     outline: none;
     font-weight: 500;
 }
 .check-out-btn:hover {
     background-color: rgb(225, 225, 350);
-    color: rgb(4, 12, 48);
+    color: #000066;
     transition: 0.3s ease;
     font-weight: 700;
 }
@@ -2127,7 +2117,7 @@ body {
     top: 0;
     margin: 10px 10px;
     border-radius: 10px;
-    color: rgb(20, 40, 90);
+    color: #000066;
     backdrop-filter: blur(3px);
 }
 /* product page updated  */
@@ -2177,7 +2167,7 @@ body {
 .product-page-seller {
     font-weight: 600;
     padding: 5px 10px;
-    color: rgb(22, 55, 120);
+    color: #000066;
 }
 .product-page-cart-box {
     position: fixed;
@@ -2212,7 +2202,7 @@ body {
     outline: none;
     font-weight: 500;
     color: white;
-    background-color: rgb(4, 12, 48);
+    background-color: #000066;
 }
 .product-page-call-btn:hover {
     width: 600px;
@@ -2351,7 +2341,7 @@ body {
 }
 .off-tag {
     position: relative;
-    color: rgb(4, 36, 120);
+    color: #000066;
     background-color: darkorange;
     top: -270px;
     right: 0;

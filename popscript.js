@@ -78,6 +78,7 @@ function home() {
     document.getElementById("activehome3").style.color = "rgb(2, 40, 100)";
     document.getElementById("activehome4").style.color = "rgb(2, 40, 100)";
     document.getElementById("activehome5").style.color = "rgb(2, 40, 100)";
+    document.querySelector(".cart-btn").style.color = "white";
 }
 function openFeed() {
     accountPage.style.display = "none";
@@ -91,6 +92,7 @@ function openFeed() {
     document.getElementById("activehome3").style.color = "darkorange";
     document.getElementById("activehome4").style.color = "rgb(2, 40, 100)";
     document.getElementById("activehome5").style.color = "rgb(2, 40, 100)";
+    document.querySelector(".cart-btn").style.color = "#000066";
 }
 
 function openCategory() {
@@ -105,6 +107,7 @@ function openCategory() {
     document.getElementById("activehome3").style.color = "rgb(2, 40, 100)";
     document.getElementById("activehome4").style.color = "rgb(2, 40, 100)";
     document.getElementById("activehome5").style.color = "rgb(2, 40, 100)";
+    document.querySelector(".cart-btn").style.color = "#000066";
 }
 function openHelp() {
     accountPage.style.display = "none";
@@ -176,7 +179,6 @@ window.addEventListener("load", function () {
     if (localStorage.getItem("cartPage")) {
         document.querySelector(".cart-menu").style.display = "flex";
     }
-    
 });
 
 // open address book
@@ -234,4 +236,10 @@ function openPasswordReset() {
     } else {
         resetPage.style.display = "block";
     }
+}
+function shopMore() {
+    const cart = document.querySelector(".cart-menu");
+    const order = document.querySelector(".make-order");
+    cart.style.display = "none";
+    order.style.display = "none";
 }
