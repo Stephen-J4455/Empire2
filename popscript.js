@@ -142,7 +142,10 @@ autoScroll();
 // page loading script
 
 window.addEventListener("scroll", function () {
-    if (window.scrollY + window.innerHeight >= document.body.clientHeight) {
+    if (
+        window.scrollY + window.innerHeight >=
+        document.body.clientHeight
+    ) {
         displayfeedPage();
     }
 });

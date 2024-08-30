@@ -477,7 +477,9 @@ function addCart(
     quantity
 ) {
     let user = firebase.auth().currentUser.uid;
-    const cartRef = db.ref(`USER/CART/${user}/${product}`);
+    const cartRef = db.ref(`USER/CART/${user}/${identification}`); // Use identification as the key
+    const buttonId = `cart-btn-${identification}`;
+    const button = document.getElementById(buttonId);
 
     cartRef.once("value").then(snapshot => {
         if (snapshot.exists()) {
@@ -490,7 +492,7 @@ function addCart(
             cartRef.set({
                 image1: image,
                 product: product,
-                price: parseFloat(price), // Convert price to integer before storing
+                price: parseFloat(price),
                 seller: seller,
                 id: identification,
                 size: productSize,
@@ -500,8 +502,42 @@ function addCart(
                 quantity: quantity
             });
         }
+
+        // Change button text to "Added"
+        if (button) {
+            button.innerText = "Added";
+        }
+
+        // Store the added product ID in local storage
+        let addedProducts =
+            JSON.parse(localStorage.getItem("addedProducts")) || [];
+        if (!addedProducts.includes(identification)) {
+            addedProducts.push(identification);
+            localStorage.setItem(
+                "addedProducts",
+                JSON.stringify(addedProducts)
+            );
+        }
     });
 }
+
+function updateCartButtonsFromLocalStorage() {
+    let addedProducts = JSON.parse(localStorage.getItem("addedProducts")) || [];
+
+    addedProducts.forEach(productId => {
+        const button = document.getElementById(`cart-btn-${productId}`);
+        if (button) {
+            button.innerText = "Added";
+        }
+    });
+}
+
+// Call this function when the page loads
+document.addEventListener(
+    "DOMContentLoaded",
+    updateCartButtonsFromLocalStorage
+);
+
 function like(
     image,
     product,
