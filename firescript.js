@@ -265,7 +265,7 @@ function topPicks() {
 
         document.getElementById("topPickList").innerHTML = topPickListHTML;
 
-        let loaders = document.querySelectorAll(".topPick-loader");
+        let loaders = document.querySelector(".top-picks-loader");
         loaders.forEach(function (loader) {
             loader.style.display = "none";
         });
@@ -1039,7 +1039,7 @@ function displayFeedProducts(products) {
             class="add-to-cart-btn">Add to Cart</button>
         </div>`;
 
-        document.querySelector(".loader-container").style.display = "none";
+        document.getElementById("loaderGrid").style.display = "none";
         productsDiv.appendChild(productDiv);
     });
 }

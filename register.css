@@ -290,7 +290,8 @@ body {
 .homepage {
     display: none;
     z-index: 2;
-    position: absolute;
+    position: fixed;
+    top: 0;
     overflow-y: scroll;
     scroll-behavior: smooth;
     width: 100%;
@@ -527,17 +528,114 @@ body {
     z-index: 2;
 }
 /* feed page */
+.feed-head {
+    margin: 0;
+    position: absolute;
+}
 .feedpage {
-    display: none;
-    position: static;
+    display: none; /* Changed from none to block to make sure it's visible */
     z-index: 2;
     width: 100%;
-    background-color: white;
+    position: fixed;
+    top: 0;
+    height: 94%;
+    overflow: hidden; /* Make sure the parent is not scrolling */
 }
+
 .feed-list {
     display: grid;
     grid-template-columns: 50% 50%;
-    margin: 0px 0px 50px 0px;
+    overflow-y: auto; /* Enable vertical scrolling */
+    height: 100%; /* Make sure it fills the parent container */
+}
+/* feed loading  */
+.loading-effect {
+    position: relative;
+    background: #dddddd;
+    background-image: linear-gradient(
+        to right,
+        #dddddd 0%,
+        #e0e0e0 10%,
+        #f0f0f0 20%,
+        #e0e0e0 30%,
+        #dddddd 50%,
+        #dddddd 100%
+    );
+    background-repeat: no-repeat;
+    background-size: 800px 200px;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-fill-mode: forwards;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-name: loading;
+    -webkit-animation-timing-function: ease-in-out;
+    border-radius: 10px;
+}
+
+@-webkit-keyframes loading {
+    0% {
+        background-position: -400px 0;
+    }
+
+    100% {
+        background-position: 400px 0;
+    }
+}
+
+#loaderGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 columns grid */
+    grid-template-rows: repeat(2, 1fr); /* 2 rows grid */
+    width: 98%;
+    height: 93vh;
+    gap: 10px;
+    box-sizing: border-box;
+}
+
+.loader-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #f7f7f7;
+    border-radius: 15px;
+    padding: 0px 20px;
+    height: 100%;
+    max-height: calc(50vh - 15px); /* Constraints for grid items */
+}
+
+#imagePlaceholder {
+    width: 135px;
+    height: 120px;
+    border-radius: 15px;
+}
+
+#textContent {
+    width: 100%;
+    padding: 0.2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+#titlePlaceholder {
+    width: 100%;
+    height: 30px;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+}
+
+#descriptionPlaceholder {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.text-line {
+    width: 100%;
+    height: 10px;
+    border-radius: 5px;
 }
 /* feed page end */
 /* help page  */
@@ -1217,17 +1315,33 @@ body {
 }
 /* empviv logo end */
 .adds {
-    background-color: rgb(225, 226, 350);
     position: relative;
-    overflow-x: scroll;
-    overflow-y: hidden;
-    white-space: nowrap;
     width: 360px;
     height: 170px;
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
-    transition: scroll-snap-align 3s;
     margin-top: 45px;
+    background: #dddddd;
+    background-image: linear-gradient(
+        to right,
+        #dddddd 0%,
+        #e0e0e0 20%,
+        #f0f0f0 40%,
+        #e0e0e0 60%,
+        #dddddd 100%
+    );
+    background-repeat: no-repeat;
+    background-size: 800px 100%;
+    animation: shimmer 1.5s infinite linear;
+    overflow: hidden;
+}
+
+/* Keyframes for shimmer animation */
+@keyframes shimmer {
+    0% {
+        background-position: -800px 0;
+    }
+    100% {
+        background-position: 800px 0;
+    }
 }
 .giftcards {
     scroll-snap-align: start;
@@ -1767,6 +1881,52 @@ body {
     background: none;
     margin-left: 10px;
 }
+/* top-picks loader */
+.top-picks-loader {
+    position: relative;
+    width: 110px; /* Adjust the width as needed */
+    height: 150px; /* Adjust the height as needed */
+    background: #dddddd;
+    background-image: linear-gradient(
+        to right,
+        #dddddd 0%,
+        #e0e0e0 10%,
+        #f0f0f0 20%,
+        #e0e0e0 30%,
+        #dddddd 50%,
+        #dddddd 100%
+    );
+    background-repeat: no-repeat;
+    background-size: 800px 200px;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: picks-loading-effect;
+    animation-timing-function: ease-in-out;
+    border-radius: 10px;
+}
+
+@keyframes picks-loading-effect {
+    0% {
+        background-position: -400px 0;
+    }
+    100% {
+        background-position: 400px 0;
+    }
+}
+
+/* Center the loader vertically and horizontally */
+
+/* Grid container for top picks loaders */
+#topPicksContainer {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+/* top-picks loader end */
 .popular {
     border: none;
     width: 100%;

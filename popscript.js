@@ -141,16 +141,20 @@ autoScroll();
 
 // page loading script
 
-window.addEventListener("scroll", function () {
-    if (
-        window.scrollY + window.innerHeight >=
-        document.body.clientHeight
-    ) {
+// window.addEventListener("scroll", function () {
+//     if (window.scrollY + window.innerHeight >= document.body.clientHeight) {
+//         displayfeedPage();
+//     }
+// });
+document.getElementById("feedList").addEventListener("scroll", function () {
+    const feedList = document.getElementById("feedList");
+
+    // Check if scrolled to bottom
+    if (feedList.scrollTop + feedList.clientHeight >= feedList.scrollHeight) {
         displayfeedPage();
     }
 });
 
-//
 // add to cart function
 function openCartMenu() {
     // location.reload();
