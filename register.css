@@ -539,12 +539,14 @@ body {
     position: fixed;
     top: 0;
     height: 94%;
+    background-color: white;
     overflow: hidden; /* Make sure the parent is not scrolling */
 }
 
 .feed-list {
     display: grid;
     grid-template-columns: 50% 50%;
+    background-color: white;
     overflow-y: auto; /* Enable vertical scrolling */
     height: 100%; /* Make sure it fills the parent container */
 }
