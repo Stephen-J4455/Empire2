@@ -150,7 +150,10 @@ document.getElementById("feedList").addEventListener("scroll", function () {
     const feedList = document.getElementById("feedList");
 
     // Check if scrolled to bottom
-    if (feedList.scrollTop + feedList.clientHeight >= feedList.scrollHeight-5) {
+    if (
+        feedList.scrollTop + feedList.clientHeight >=
+        feedList.scrollHeight - 5
+    ) {
         displayfeedPage();
     }
 });
