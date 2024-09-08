@@ -15,6 +15,7 @@ const auth = app.auth();
 
 // Firebase Auth Functions
 function signUp() {
+	event.preventDefault();
     const email = $("#signup-email").val();
     const password = $("#signup-password").val();
     const username = $("#userName").val();
@@ -42,7 +43,6 @@ function signUp() {
                 notification.innerText = "Error Signing Up! ";
             });
     }
-    event.preventDefault();
 }
 
 function login() {
@@ -54,16 +54,17 @@ function login() {
     } else {
         auth.signInWithEmailAndPassword(email, password)
             .then(userCredential => {
+                location.reload();
                 const user = userCredential.user;
                 homePage.style.display = "block";
                 formCnt.style.display = "none";
             })
             .catch(error => {
                 noteBox.style.display = "block";
-                notification.innerText = "Error Logging In! ";
+                notification.innerText = `Error
+                Logging In!,${error}`;
             });
     }
-    event.preventDefault();
 }
 
 function logout() {
@@ -72,8 +73,8 @@ function logout() {
             document.getElementById("body-box").style.display = "none";
             formCnt.style.display = "block";
             homePage.style.display = "none";
-            noteBox.style.display = "block";
-            notification.innerText = "User Signed Out!";
+
+            removeDarkMode();
         })
         .catch(error => {
             //alert("Error signing out: ", error);
@@ -889,7 +890,7 @@ function openProductPage(
         .map(
             img => `
         <div class="image-item">
-            <img class="product-page-image" src="${img}" height="300px" width="360px" />
+            <img class="product-page-image" src="${img}"/>
         </div>
     `
         )
@@ -1054,7 +1055,6 @@ function openSearchPage() {
     document.querySelector(".buttom-nav").innerText = "Search";
     inputF.classList.add("search-box");
     document.querySelector(".close-search-page").style.display = "block";
-    document.querySelector(".cart-btn").style.color = "#000066";
 }
 
 function closeSearchpage() {
@@ -1064,10 +1064,8 @@ function closeSearchpage() {
     inputF.classList.remove("search-box");
     document.querySelector(".close-search-page").style.display = "none";
     document.getElementById("searchResults").style.display = "none";
-    document.querySelector(".cart-btn").style.color = "white";
-    document.querySelector(
-        ".buttom-nav"
-    ).innerHTML = `                        <span onclick="home()" id="activehome"
+    document.querySelector(".buttom-nav").innerHTML = ` <nav class="buttom-nav">
+                        <span onclick="navBtn(0)" class="nav-btn nav-select"
                             ><svg
                                 viewBox="0 0 48 48"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -1081,7 +1079,7 @@ function closeSearchpage() {
                             </svg>
                             Home</span
                         >
-                        <span onclick="openCategory()" id="activehome2">
+                        <span onclick="navBtn(1)" class="nav-btn">
                             <svg
                                 viewBox="0 0 48 48"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -1095,7 +1093,7 @@ function closeSearchpage() {
                             </svg>
                             Category</span
                         >
-                        <span onclick="openFeed()" id="activehome3">
+                        <span onclick="navBtn(2)" class="nav-btn">
                             <svg
                                 viewBox="0 0 48 48"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -1108,7 +1106,7 @@ function closeSearchpage() {
                                 /></svg
                             >Feed</span
                         >
-                        <span onclick="openAccountPage()" id="activehome4">
+                        <span onclick="navBtn(3)" class="nav-btn">
                             <svg
                                 viewBox="0 0 48 48"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -1122,7 +1120,7 @@ function closeSearchpage() {
                             </svg>
                             Account</span
                         >
-                        <span onclick="openHelp()" id="activehome5">
+                        <span onclick="navBtn(4)" class="nav-btn">
                             <svg
                                 viewBox="0 0 48 48"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -1134,7 +1132,8 @@ function closeSearchpage() {
                                     d="M24.2 35.65q.8 0 1.35-.55t.55-1.35q0-.8-.55-1.35t-1.35-.55q-.8 0-1.35.55t-.55 1.35q0 .8.55 1.35t1.35.55ZM24.15 15q1.7 0 2.75.925t1.05 2.375q0 1-.6 1.975-.6.975-1.95 2.125-1.3 1.15-2.075 2.425-.775 1.275-.775 2.325 0 .55.425.875.425.325.975.325.6 0 1-.4t.5-1q.15-1 .675-1.775.525-.775 1.625-1.675 1.5-1.25 2.175-2.5.675-1.25.675-2.8 0-2.65-1.725-4.25t-4.575-1.6q-1.9 0-3.5.75t-2.65 2.2q-.4.55-.325 1.125.075.575.475.875.55.4 1.175.25.625-.15 1.025-.7.65-.9 1.575-1.375Q23 15 24.15 15ZM24 44q-4.2 0-7.85-1.525Q12.5 40.95 9.8 38.25q-2.7-2.7-4.25-6.35Q4 28.25 4 24q0-4.2 1.55-7.85Q7.1 12.5 9.8 9.8q2.7-2.7 6.35-4.25Q19.8 4 24 4q4.15 0 7.8 1.55 3.65 1.55 6.35 4.25 2.7 2.7 4.275 6.35Q44 19.8 44 24q0 4.25-1.575 7.9-1.575 3.65-4.275 6.35-2.7 2.7-6.35 4.225Q28.15 44 24 44Z"
                                 /></svg
                             >Help</span
-                        >`;
+                        >
+                    </nav>`;
     document.getElementById("activehome").style.color = "darkorange";
 }
 

@@ -2,13 +2,15 @@ const signupForm = document.getElementById("signcontainer");
 const loginForm = document.getElementById("logcontainer");
 const reset = document.getElementById("passwordForm");
 const formCnt = document.querySelector(".form-container");
-const homePage = document.getElementById("home");
+const homePage = document.getElementById("homepage");
 const accountPage = document.querySelector(".account");
-const feed = document.querySelector(".feedpage");
-const help = document.querySelector(".help");
+const feed = document.getElementById("feedpage");
+const help = document.getElementById("help");
 const category = document.querySelector(".category");
 const navBar = document.querySelector(".buttom-nav");
-
+// dark mode
+const toggleSwitch = document.getElementById("switch");
+const currentTheme = localStorage.getItem("theme");
 // notification
 const notification = document.getElementById("note");
 const noteBox = document.querySelector(".notification");
@@ -52,77 +54,81 @@ function back() {
     loginForm.style.display = "block";
     reset.style.display = "none";
 }
+// window
+window.addEventListener("load", function () {
+    if (localStorage.getItem("cartPage")) {
+        document.querySelector(".cart-menu").style.display = "flex";
+    }
+});
+// theme
+// Load the theme from local storage on page load
+
+if (currentTheme) {
+    document.body.classList.add(currentTheme + "-mode");
+    if (currentTheme === "dark") {
+        toggleSwitch.checked = true;
+    }
+}
+
+toggleSwitch.addEventListener("change", function () {
+    const elements = [
+        document.querySelector(".buttom-nav"),
+        document.getElementById("category"),
+        document.getElementById("feed"),
+        document.querySelector(".loading-effect"),
+        document.querySelector(".loader-item")
+    ];
+
+    if (toggleSwitch.checked) {
+        document.body.classList.replace("light-mode", "dark-mode");
+        elements.forEach(element => {
+            if (element) {
+                element.classList.replace("light-mode", "dark-mode");
+            }
+        });
+        localStorage.setItem("theme", "dark");
+    } else {
+        document.body.classList.replace("dark-mode", "light-mode");
+        elements.forEach(element => {
+            if (element) {
+                element.classList.replace("dark-mode", "light-mode");
+            }
+        });
+        localStorage.setItem("theme", "light");
+    }
+});
+
+function removeDarkMode() {
+    // Remove the current theme from local storage
+    localStorage.removeItem("theme");
+
+    // Remove the dark-mode class from the body
+    document.body.classList.remove("dark-mode");
+
+    // Uncheck the toggle switch if it's checked
+    if (toggleSwitch.checked) {
+        toggleSwitch.checked = false;
+    }
+}
 // navBar controls
-function openAccountPage() {
-    accountPage.style.display = "block";
-    homePage.style.display = "none";
-    help.style.display = "none";
-    category.style.display = "none";
-    feed.style.display = "none";
-    document.querySelector(".cart-btn").style.display = "none";
-    document.getElementById("activehome").style.color = "rgb(2, 40, 100)";
-    document.getElementById("activehome2").style.color = "rgb(2, 40, 100)";
-    document.getElementById("activehome3").style.color = "rgb(2, 40, 100)";
-    document.getElementById("activehome4").style.color = "darkorange";
-    document.getElementById("activehome5").style.color = "rgb(2, 40, 100)";
+function navBtn(index) {
+    const nav = document.querySelectorAll(".nav-btn");
+    const pages = document.getElementsByClassName("navPage");
+    for (var i = 0; i < nav.length; i++) {
+        if (i == index) {
+            nav[i].classList.add("nav-select");
+        } else {
+            nav[i].classList.remove("nav-select");
+        }
+    }
+    for (var j = 0; j < pages.length; j++) {
+        if (j == index) {
+            pages[j].classList.add("navPageSelect");
+        } else {
+            pages[j].classList.remove("navPageSelect");
+        }
+    }
 }
-function home() {
-    accountPage.style.display = "none";
-    homePage.style.display = "block";
-    help.style.display = "none";
-    category.style.display = "none";
-    feed.style.display = "none";
-    document.querySelector(".cart-btn").style.display = "block";
-    document.getElementById("activehome").style.color = "darkorange";
-    document.getElementById("activehome2").style.color = "rgb(2, 40, 100)";
-    document.getElementById("activehome3").style.color = "rgb(2, 40, 100)";
-    document.getElementById("activehome4").style.color = "rgb(2, 40, 100)";
-    document.getElementById("activehome5").style.color = "rgb(2, 40, 100)";
-    document.querySelector(".cart-btn").style.color = "white";
-}
-function openFeed() {
-    accountPage.style.display = "none";
-    homePage.style.display = "none";
-    help.style.display = "none";
-    category.style.display = "none";
-    feed.style.display = "block";
-    document.querySelector(".cart-btn").style.display = "block";
-    document.getElementById("activehome").style.color = "rgb(2, 40, 100)";
-    document.getElementById("activehome2").style.color = "rgb(2, 40, 100)";
-    document.getElementById("activehome3").style.color = "darkorange";
-    document.getElementById("activehome4").style.color = "rgb(2, 40, 100)";
-    document.getElementById("activehome5").style.color = "rgb(2, 40, 100)";
-    document.querySelector(".cart-btn").style.color = "#000066";
-}
-
-function openCategory() {
-    accountPage.style.display = "none";
-    homePage.style.display = "none";
-    help.style.display = "none";
-    category.style.display = "block";
-    feed.style.display = "none";
-    document.querySelector(".cart-btn").style.display = "block";
-    document.getElementById("activehome").style.color = "rgb(2, 40, 100)";
-    document.getElementById("activehome2").style.color = "darkorange";
-    document.getElementById("activehome3").style.color = "rgb(2, 40, 100)";
-    document.getElementById("activehome4").style.color = "rgb(2, 40, 100)";
-    document.getElementById("activehome5").style.color = "rgb(2, 40, 100)";
-    document.querySelector(".cart-btn").style.color = "#000066";
-}
-function openHelp() {
-    accountPage.style.display = "none";
-    homePage.style.display = "none";
-    help.style.display = "block";
-    category.style.display = "none";
-    feed.style.display = "none";
-    document.querySelector(".cart-btn").style.display = "none";
-    document.getElementById("activehome").style.color = "rgb(2, 40, 100)";
-    document.getElementById("activehome2").style.color = "rgb(2, 40, 100)";
-    document.getElementById("activehome3").style.color = "rgb(2, 40, 100)";
-    document.getElementById("activehome4").style.color = "rgb(2, 40, 100)";
-    document.getElementById("activehome5").style.color = "darkorange";
-}
-
 //auto scroll
 function autoScroll() {
     const container = document.querySelector(".adds");
@@ -184,13 +190,6 @@ function navhover() {
 }
 navhover();
 
-// page preloading animation
-window.addEventListener("load", function () {
-    if (localStorage.getItem("cartPage")) {
-        document.querySelector(".cart-menu").style.display = "flex";
-    }
-});
-
 // open address book
 function openAddressBook() {
     const addressPress = document.getElementById("addressPage");
@@ -228,6 +227,7 @@ function btnSelect(cardNum) {
 // acc management
 function openAccMgt() {
     const accBox = document.getElementById("accountManagement");
+    const head = document.querySelectorAll(".setting-item");
     const icon = document.getElementById("mgtIc");
     if (accBox.style.display === "flex") {
         accBox.style.display = "none";
@@ -237,6 +237,7 @@ function openAccMgt() {
         accBox.style.display = "flex";
         icon.style.rotate = "180deg";
         icon.style.transition = "0.3s ease";
+        
     }
 }
 function openPasswordReset() {

@@ -14,6 +14,7 @@
         <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-database.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <link rel="stylesheet" href="register.css" />
+        <link rel="stylesheet" href="mode.css" />
         <script src="firescript.js"></script>
     </head>
 
@@ -358,7 +359,7 @@
                 </div>
                 <!-- homepage -->
                 <div class="home-container">
-                    <div id="home" class="homepage">
+                    <div id="homepage" class="navPage navPageSelect">
                         <!-- search-bar -->
                         <div class="search-bar">
                             <input
@@ -397,6 +398,48 @@
                                         <span></span>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="dark">
+                                <label class="toggle" for="switch">
+                                    <input
+                                        id="switch"
+                                        class="put"
+                                        type="checkbox"
+                                    />
+                                    <div class="icon icon--moon">
+                                        <svg
+                                            height="25"
+                                            width="25"
+                                            fill="currentColor"
+                                            viewBox="0
+                                            0 24
+                                            24"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                            <path
+                                                clip-rule="evenodd"
+                                                d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z"
+                                                fill-rule="evenodd"
+                                            ></path>
+                                        </svg>
+                                    </div>
+
+                                    <div class="icon icon--sun">
+                                        <svg
+                                            height="25"
+                                            width="25"
+                                            fill="currentColor"
+                                            viewBox="0
+                                            0 24
+                                            24"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                            <path
+                                                d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z"
+                                            ></path>
+                                        </svg>
+                                    </div>
+                                </label>
                             </div>
                         </div>
                         <!-- search-bar end -->
@@ -437,354 +480,10 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Account page  -->
-                    <!-- Account page  -->
-                    <!-- Account page  -->
-                    <!-- Account page  -->
-                    <div class="account">
-                        <div class="account-header">
-                            <h2>Account</h2>
-                            <div class="userProfile">
-                                <svg
-                                    class="w-6 h-6 text-gray-800 dark:text-white"
-                                    aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="40"
-                                    height="40"
-                                    fill="currentColor"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path
-                                        fill-rule="evenodd"
-                                        d="M12 20a7.966 7.966 0 0 1-5.002-1.756l.002.001v-.683c0-1.794 1.492-3.25 3.333-3.25h3.334c1.84 0 3.333 1.456 3.333 3.25v.683A7.966 7.966 0 0 1 12 20ZM2 12C2 6.477 6.477 2 12 2s10 4.477 10 10c0 5.5-4.44 9.963-9.932 10h-.138C6.438 21.962 2 17.5 2 12Zm10-5c-1.84 0-3.333 1.455-3.333 3.25S10.159 13.5 12 13.5c1.84 0 3.333-1.455 3.333-3.25S13.841 7 12 7Z"
-                                        clip-rule="evenodd"
-                                    />
-                                </svg>
-                                <div id="userEmail"></div>
-                            </div>
-
-                            <div class="logout-container">
-                                <button class="logout-btn" onclick="logout()">
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width="35"
-                                        height="35"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        stroke-width="2"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        class="icon icon-tabler icons-tabler-outline icon-tabler-logout"
-                                    >
-                                        <path
-                                            stroke="none"
-                                            d="M0 0h24v24H0z"
-                                            fill="none"
-                                        />
-                                        <path
-                                            d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2"
-                                        />
-                                        <path d="M9 12h12l-3 -3" />
-                                        <path d="M18 15l3 -3" />
-                                    </svg>
-                                </button>
-                                <div class="logout-text">Log Out</div>
-                            </div>
-                        </div>
-                        <!--  end of account header -->
-                        <div class="empire-container">
-                            <h4 class="empire-header">My Empviv Account.</h4>
-                            <ul class="account-list">
-                                <span class="li"
-                                    ><svg
-                                        class="w-6 h-6 text-gray-800 dark:text-white"
-                                        aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width="40"
-                                        height="40"
-                                        fill="rgb(2,42,100)"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <path
-                                            fill-rule="evenodd"
-                                            d="M5.024 3.783A1 1 0 0 1 6 3h12a1 1 0 0 1 .976.783L20.802 12h-4.244a1.99 1.99 0 0 0-1.824 1.205 2.978 2.978 0 0 1-5.468 0A1.991 1.991 0 0 0 7.442 12H3.198l1.826-8.217ZM3 14v5a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5h-4.43a4.978 4.978 0 0 1-9.14 0H3Z"
-                                            clip-rule="evenodd"
-                                        />
-                                    </svg>
-                                    Inbox</span
-                                >
-                                <span class="li"
-                                    ><svg
-                                        class="w-[18px] h-[18px] text-gray-800 dark:text-white"
-                                        aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width="40"
-                                        height="40"
-                                        fill="rgb(2,42,100)"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <path
-                                            fill-rule="evenodd"
-                                            d="M5 3a1 1 0 0 0 0 2h.687L7.82 15.24A3 3 0 1 0 11.83 17h2.34A3 3 0 1 0 17 15H9.813l-.208-1h8.145a1 1 0 0 0 .979-.796l1.25-6A1 1 0 0 0 19 6h-2.268A2 2 0 0 1 15 9a2 2 0 1 1-4 0 2 2 0 0 1-1.732-3h-1.33L7.48 3.796A1 1 0 0 0 6.5 3H5Z"
-                                            clip-rule="evenodd"
-                                        />
-                                        <path
-                                            fill-rule="evenodd"
-                                            d="M14 5a1 1 0 1 0-2 0v1h-1a1 1 0 1 0 0 2h1v1a1 1 0 1 0 2 0V8h1a1 1 0 1 0 0-2h-1V5Z"
-                                            clip-rule="evenodd"
-                                        />
-                                    </svg>
-                                    Orders</span
-                                >
-                                <span class="li"
-                                    ><svg
-                                        class="w-[17px] h-[17px] text-gray-800 dark:text-white"
-                                        aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width="40"
-                                        height="40"
-                                        fill="rgb(2,42,100)"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <path
-                                            fill-rule="evenodd"
-                                            d="M6 2a2 2 0 0 0-2 2v15a3 3 0 0 0 3 3h12a1 1 0 1 0 0-2h-2v-2h2a1 1 0 0 0 1-1V4a2 2 0 0 0-2-2h-8v16h5v2H7a1 1 0 1 1 0-2h1V2H6Z"
-                                            clip-rule="evenodd"
-                                        />
-                                    </svg>
-                                    Reviews</span
-                                >
-                                <span class="li"
-                                    ><svg
-                                        class="w-6 h-6 text-gray-800 dark:text-white"
-                                        aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width="40"
-                                        height="40"
-                                        fill="rgb(2,42,100)"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <path
-                                            d="m12.75 20.66 6.184-7.098c2.677-2.884 2.559-6.506.754-8.705-.898-1.095-2.206-1.816-3.72-1.855-1.293-.034-2.652.43-3.963 1.442-1.315-1.012-2.678-1.476-3.973-1.442-1.515.04-2.825.76-3.724 1.855-1.806 2.201-1.915 5.823.772 8.706l6.183 7.097c.19.216.46.34.743.34a.985.985 0 0 0 .743-.34Z"
-                                        />
-                                    </svg>
-                                    Saved Items</span
-                                >
-                                <span class="li"
-                                    ><svg
-                                        class="w-[14px] h-[14px] text-gray-800 dark:text-white"
-                                        aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width="40"
-                                        height="40"
-                                        fill="rgb(2,42,100)"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <path
-                                            d="M20 7h-.7c.229-.467.349-.98.351-1.5a3.5 3.5 0 0 0-3.5-3.5c-1.717 0-3.215 1.2-4.331 2.481C10.4 2.842 8.949 2 7.5 2A3.5 3.5 0 0 0 4 5.5c.003.52.123 1.033.351 1.5H4a2 2 0 0 0-2 2v2a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1V9a2 2 0 0 0-2-2Zm-9.942 0H7.5a1.5 1.5 0 0 1 0-3c.9 0 2 .754 3.092 2.122-.219.337-.392.635-.534.878Zm6.1 0h-3.742c.933-1.368 2.371-3 3.739-3a1.5 1.5 0 0 1 0 3h.003ZM13 14h-2v8h2v-8Zm-4 0H4v6a2 2 0 0 0 2 2h3v-8Zm6 0v8h3a2 2 0 0 0 2-2v-6h-5Z"
-                                        />
-                                    </svg>
-                                    Special Deals</span
-                                >
-                                <span class="li"
-                                    ><svg
-                                        class="w-[24px] h-[24px] text-gray-800 dark:text-white"
-                                        aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width="40"
-                                        height="40"
-                                        fill="rgb(2,42,100)"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <path
-                                            stroke="currentColor"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            stroke-width="0"
-                                            d="M20.283 8h-4.285m3.85 3h-3.85m4.061-6H11v11h8.27l1.715-9.847A.983.983 0 0 0 20.059 5ZM6.581 13.23h-.838A13.752 13.752 0 0 1 5.622 11c-.02-.745.02-1.49.12-2.23h1.04c.252 0 .496-.088.683-.245a.927.927 0 0 0 .329-.61l.2-1.872a.888.888 0 0 0-.045-.39.936.936 0 0 0-.212-.34 1.017 1.017 0 0 0-.341-.231A1.08 1.08 0 0 0 6.983 5h-2.06a1.27 1.27 0 0 0-.699.204 1.135 1.135 0 0 0-.442.543A15.066 15.066 0 0 0 3.007 11a15.656 15.656 0 0 0 .795 5.229c.165.462 1.342.771 1.864.771h1.116c.142 0 .283-.028.413-.082.13-.053.246-.132.341-.23a.936.936 0 0 0 .212-.34.889.889 0 0 0 .046-.391l-.201-1.873a.927.927 0 0 0-.33-.609 1.059 1.059 0 0 0-.682-.245ZM10 18v1h10v-1a2 2 0 0 0-2-2h-6a2 2 0 0 0-2 2Z"
-                                        />
-                                    </svg>
-                                    Pre-Orders</span
-                                >
-                                <span class="li"
-                                    ><svg
-                                        class="w-[24px] h-[24px] text-gray-800 dark:text-white"
-                                        aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width="40"
-                                        height="40"
-                                        fill="rgb(2,42,100)"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <path
-                                            d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z"
-                                        />
-                                    </svg>
-                                    Ratings</span
-                                >
-                            </ul>
-                            <div class="setting">
-                                <h4 class="empire-header">Settings</h4>
-                                <ul class="setting-list">
-                                    <div
-                                        class="setting-item"
-                                        onclick="openAddressBook()"
-                                    >
-                                        <svg
-                                            viewBox="0 0 48 48"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            height="40"
-                                            width="40"
-                                        >
-                                            <path
-                                                fill="rgb(2,45,100)"
-                                                d="M28 17.6q0-.3.2-.575.2-.275.45-.375 1.5-.55 3.075-.85 1.575-.3 3.275-.3 1.1 0 2.15.125 1.05.125 2.05.375.3.1.55.375.25.275.25.625 0 .55-.375.85-.375.3-.925.15-.85-.25-1.775-.375Q36 17.5 35 17.5q-1.45 0-2.8.275-1.35.275-2.65.825-.7.25-1.125-.025Q28 18.3 28 17.6Zm0 11q0-.3.2-.6t.45-.4q1.5-.55 3.075-.825Q33.3 26.5 35 26.5q1.1 0 2.15.125 1.05.125 2.05.375.3.1.55.375.25.275.25.625 0 .55-.375.85-.375.3-.925.15-.85-.25-1.775-.375Q36 28.5 35 28.5q-1.45 0-2.8.25-1.35.25-2.65.8-.7.25-1.125 0Q28 29.3 28 28.6Zm0-5.5q0-.3.2-.575.2-.275.45-.375 1.5-.55 3.075-.85Q33.3 21 35 21q1.1 0 2.15.125 1.05.125 2.05.375.3.1.55.375.25.275.25.625 0 .55-.375.85-.375.3-.925.15-.85-.25-1.775-.375Q36 23 35 23q-1.45 0-2.8.275-1.35.275-2.65.825-.7.25-1.125-.025Q28 23.8 28 23.1ZM12.4 33q2.7 0 5.225.625 2.525.625 4.975 1.875V14.15q-2.25-1.5-4.875-2.325Q15.1 11 12.4 11q-1.9 0-3.725.475Q6.85 11.95 5 12.65v21.7q1.55-.7 3.525-1.025Q10.5 33 12.4 33Zm13.2 2.5q2.5-1.25 4.9-1.875Q32.9 33 35.6 33q1.9 0 3.925.3t3.475.8V12.65q-1.7-.85-3.6-1.25-1.9-.4-3.8-.4-2.7 0-5.225.825-2.525.825-4.775 2.325ZM13.8 23.55Zm10.3 15.9q-.4 0-.725-.075-.325-.075-.575-.275-2.35-1.45-5-2.25t-5.4-.8q-1.85 0-3.6.45t-3.5 1.1q-1.15.55-2.225-.15Q2 36.75 2 35.45V12.3q0-.75.35-1.375T3.4 9.95q2.1-1 4.375-1.475Q10.05 8 12.4 8q3.15 0 6.125.85t5.575 2.6q2.55-1.75 5.475-2.6Q32.5 8 35.6 8q2.35 0 4.6.475 2.25.475 4.35 1.475.7.35 1.075.975T46 12.3v23.15q0 1.4-1.125 2.125-1.125.725-2.225.025-1.7-.7-3.45-1.125-1.75-.425-3.6-.425-2.7 0-5.3.8-2.6.8-4.9 2.25-.25.2-.575.275-.325.075-.725.075Z"
-                                            />
-                                        </svg>
-                                        Address Book
-                                        <svg
-                                            id="expandIcon"
-                                            class="expIcon"
-                                            viewBox="0 0 48 48"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            height="1.5em"
-                                            width="1.5em"
-                                        >
-                                            <path
-                                                fill="currentColor"
-                                                d="M24 30.15q-.3 0-.55-.1-.25-.1-.5-.35l-9.9-9.9q-.4-.4-.375-1.075.025-.675.425-1.075.5-.5 1.075-.425.575.075 1.025.475l8.8 8.8 8.8-8.8q.4-.4 1.075-.45.675-.05 1.075.45.5.4.425 1.05-.075.65-.475 1.1l-9.85 9.85q-.25.25-.5.35-.25.1-.55.1Z"
-                                            />
-                                        </svg>
-                                    </div>
-                                    <div id="addressPage">
-                                        <div class="address-container"></div>
-                                        <div class="test-checkout"></div>
-                                    </div>
-                                    <!-- account Management -->
-                                    <span
-                                        class="setting-item"
-                                        onclick="openAccMgt()"
-                                        ><svg
-                                            viewBox="0 0 48 48"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            height="40"
-                                            width="40"
-                                        >
-                                            <path
-                                                fill="rgb(2,40,100)"
-                                                d="M20 23.75q-3.3 0-5.4-2.1-2.1-2.1-2.1-5.4 0-3.3 2.1-5.4 2.1-2.1 5.4-2.1 3.3 0 5.4 2.1 2.1 2.1 2.1 5.4 0 3.3-2.1 5.4-2.1 2.1-5.4 2.1ZM5.5 39.8q-.65 0-1.075-.425Q4 38.95 4 38.3v-3.2q0-1.75.875-3.15T7.4 29.8q3.6-1.6 6.675-2.3 3.075-.7 5.925-.7h1.15q-.3.7-.45 1.375-.15.675-.25 1.625H20q-2.9 0-5.675.625T8.6 32.5q-.8.4-1.2 1.125Q7 34.35 7 35.1v1.7h13.45q.25.9.6 1.625t.85 1.375ZM20 20.75q1.95 0 3.225-1.275Q24.5 18.2 24.5 16.25q0-1.95-1.275-3.225Q21.95 11.75 20 11.75q-1.95 0-3.225 1.275Q15.5 14.3 15.5 16.25q0 1.95 1.275 3.225Q18.05 20.75 20 20.75Zm0-4.5Zm.45 20.55Zm14.25-.85q1.65 0 2.825-1.175Q38.7 33.6 38.7 31.95q0-1.65-1.175-2.825Q36.35 27.95 34.7 27.95q-1.65 0-2.825 1.175Q30.7 30.3 30.7 31.95q0 1.65 1.175 2.825Q33.05 35.95 34.7 35.95Zm-1.85 2.75q-.85-.25-1.725-.725-.875-.475-1.475-1.075l-2.2.5q-.25.1-.5 0t-.35-.35l-.65-1.15q-.15-.2-.1-.45.05-.25.25-.45l1.9-1.8q-.1-.45-.1-1.25t.1-1.25l-1.9-1.8q-.2-.2-.25-.45-.05-.25.1-.45l.65-1.15q.1-.25.35-.35.25-.1.5 0l2.2.5q.6-.6 1.475-1.075.875-.475 1.725-.725l.4-2.65q.05-.3.25-.475t.5-.175h1.4q.3 0 .5.175t.25.475l.4 2.65q.85.25 1.725.725.875.475 1.475 1.075l2.2-.5q.25-.1.5 0t.35.35l.65 1.15q.15.2.1.45-.05.25-.25.45l-1.9 1.8q.1.45.1 1.25t-.1 1.25l1.9 1.8q.2.2.25.45.05.25-.1.45l-.65 1.15q-.1.25-.35.35-.25.1-.5 0l-2.2-.5q-.6.6-1.475 1.075-.875.475-1.725.725l-.4 2.65q-.05.3-.25.475t-.5.175H34q-.3 0-.5-.175t-.25-.475Z"
-                                            /></svg
-                                        >Account Management<svg
-                                            class="expIcon"
-                                            id="mgtIc"
-                                            viewBox="0 0 48 48"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            height="1.5em"
-                                            width="1.5em"
-                                        >
-                                            <path
-                                                fill="currentColor"
-                                                d="M24 30.15q-.3 0-.55-.1-.25-.1-.5-.35l-9.9-9.9q-.4-.4-.375-1.075.025-.675.425-1.075.5-.5 1.075-.425.575.075 1.025.475l8.8 8.8 8.8-8.8q.4-.4 1.075-.45.675-.05 1.075.45.5.4.425 1.05-.075.65-.475 1.1l-9.85 9.85q-.25.25-.5.35-.25.1-.55.1Z"
-                                            /></svg
-                                    ></span>
-                                    <!-- ac mg page  -->
-                                    <div id="accountManagement">
-                                        <span
-                                            ><svg
-                                                viewBox="0 0 48 48"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                height="1.5em"
-                                                width="1.5em"
-                                            >
-                                                <path
-                                                    fill="currentColor"
-                                                    d="m19.7 42 7-7h13.8q1.45 0 2.475 1.025Q44 37.05 44 38.5q0 1.45-1.025 2.475Q41.95 42 40.5 42ZM7 39h2.2l22.15-22.15-2.2-2.2L7 36.8Zm30.7-24.3-6.4-6.4 2.1-2.1q.85-.85 2.125-.825 1.275.025 2.125.875L39.8 8.4q.85.85.85 2.1t-.85 2.1ZM5.5 42q-.65 0-1.075-.425Q4 41.15 4 40.5v-4.3q0-.3.1-.55.1-.25.35-.5L29.2 10.4l6.4 6.4-24.75 24.75q-.25.25-.5.35-.25.1-.55.1Zm24.75-26.25-1.1-1.1 2.2 2.2Z"
-                                                /></svg
-                                            >Change account name</span
-                                        >
-                                        <span
-                                            id="resetP"
-                                            onclick="openPasswordReset()"
-                                        >
-                                            <svg
-                                                viewBox="0 0 48 48"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                height="1.5em"
-                                                width="1.5em"
-                                            >
-                                                <path
-                                                    fill="currentColor"
-                                                    d="M5.5 38q-.65 0-1.075-.45Q4 37.1 4 36.45q0-.65.45-1.075.45-.425 1.1-.425H42.5q.65 0 1.075.425Q44 35.8 44 36.45q0 .65-.45 1.1-.45.45-1.1.45Zm-.55-13.25q-.4-.25-.55-.7-.15-.45.1-.85l1.4-2.4H3.1q-.45 0-.775-.325T2 19.65q0-.45.325-.775t.825-.325H5.9l-1.4-2.4q-.25-.4-.125-.85.125-.45.525-.7.4-.25.85-.1.45.15.7.55L7.8 17.4l1.35-2.35q.25-.5.7-.6.45-.1.85.15.4.25.525.7.125.45-.125.85l-1.4 2.4h2.8q.45 0 .775.325t.325.775q0 .5-.325.825-.325.325-.775.325H9.7l1.4 2.4q.25.4.125.875t-.525.675q-.4.25-.85.1-.45-.15-.7-.55L7.8 21.95 6.45 24.3q-.25.5-.675.6-.425.1-.825-.15Zm16.15-.05q-.4-.25-.525-.725t.125-.875l1.4-2.4h-2.8q-.45 0-.775-.325t-.325-.825q0-.45.325-.775t.825-.325h2.75l-1.4-2.4q-.25-.4-.125-.85.125-.45.525-.7.4-.25.85-.1.45.15.7.55L24 17.3l1.35-2.35q.25-.5.675-.6.425-.1.825.15.4.25.55.7.15.45-.1.85l-1.4 2.4h2.8q.45 0 .775.325t.325.775q0 .5-.325.825-.325.325-.775.325h-2.8l1.4 2.4q.25.4.125.9t-.525.7q-.4.25-.875.125t-.725-.575l-1.3-2.3-1.3 2.3q-.25.4-.725.55-.475.15-.875-.1Zm16.2 0q-.4-.25-.525-.725t.125-.875l1.4-2.4h-2.8q-.45 0-.775-.325t-.325-.825q0-.45.325-.775t.825-.325h2.75l-1.4-2.4q-.25-.4-.125-.85.125-.45.525-.7.4-.25.85-.1.45.15.7.55l1.35 2.35 1.35-2.35q.25-.5.65-.6.4-.1.85.15.4.25.55.7.15.45-.1.85l-1.4 2.4h2.8q.45 0 .775.325t.325.775q0 .5-.325.825-.325.325-.775.325h-2.8l1.4 2.4q.25.4.125.9t-.525.7q-.4.25-.875.125t-.725-.575l-1.3-2.3-1.3 2.3q-.25.4-.725.55-.475.15-.875-.1Z"
-                                                /></svg
-                                            >Change Password</span
-                                        >
-                                        <div id="passwordChange">
-                                            <input
-                                                type="email"
-                                                name="changePass"
-                                                id="changePass"
-                                                placeholder="E-mail"
-                                                value=""
-                                            /><button
-                                                onclick="changeAccoutPassword()"
-                                                id="sendReset"
-                                                type="submit"
-                                            >
-                                                Reset Password
-                                            </button>
-                                        </div>
-                                        <span onclick="openAccDelPage()"
-                                            ><svg
-                                                viewBox="0 0 48 48"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                height="1.5em"
-                                                width="1.5em"
-                                            >
-                                                <path
-                                                    fill="currentColor"
-                                                    d="M13.05 42q-1.2 0-2.1-.9-.9-.9-.9-2.1V10.5H9.5q-.65 0-1.075-.425Q8 9.65 8 9q0-.65.425-1.075Q8.85 7.5 9.5 7.5h7.9q0-.65.425-1.075Q18.25 6 18.9 6h10.2q.65 0 1.075.425.425.425.425 1.075h7.9q.65 0 1.075.425Q40 8.35 40 9q0 .65-.425 1.075-.425.425-1.075.425h-.55V39q0 1.2-.9 2.1-.9.9-2.1.9Zm0-31.5V39h21.9V10.5Zm5.3 22.7q0 .65.425 1.075.425.425 1.075.425.65 0 1.075-.425.425-.425.425-1.075V16.25q0-.65-.425-1.075-.425-.425-1.075-.425-.65 0-1.075.425-.425.425-.425 1.075Zm8.3 0q0 .65.425 1.075.425.425 1.075.425.65 0 1.075-.425.425-.425.425-1.075V16.25q0-.65-.425-1.075-.425-.425-1.075-.425-.65 0-1.075.425-.425.425-.425 1.075Zm-13.6-22.7V39 10.5Z"
-                                                /></svg
-                                            >Delete Account</span
-                                        >
-                                        <!--   confire delete -->
-                                        <div id="confirmDel">
-                                            Note, this process cannot be undone
-                                            and user may lose sensitive
-                                            information.
-                                            <button
-                                                onclick="proceedDel()"
-                                                id="delAccBtn"
-                                                type="submit"
-                                            >
-                                                Proceed
-                                            </button>
-                                        </div>
-                                        <!--            password to del acc -->
-                                        <div id="passDelPage">
-                                            <input
-                                                type="text"
-                                                name=""
-                                                id="delPass"
-                                                placeholder="Enter Email to delete account"
-                                            />
-                                            <button
-                                                onclick="deleteAcc()"
-                                                id="deleteAccount"
-                                                type="submit"
-                                            >
-                                                Delete Account
-                                            </button>
-                                        </div>
-                                    </div>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
                     <!-- Category Page  -->
                     <!-- Category Page  -->
                     <!-- Category Page  -->
-                    <div class="category">
+                    <div id="category" class="navPage">
                         <h2 class="category-head">Category</h2>
                         <div class="category-box">
                             <span
@@ -871,7 +570,7 @@
                     <!-- Feed Page  -->
                     <!-- Feed Page  -->
                     <!-- Feed Page  -->
-                    <div id="feedBox" class="feedpage">
+                    <div class="navPage" id="feedpage">
                         <h2 class="feed-head">Feeds</h2>
                         <div id="feedList" class="feed-list">
                             <div id="loaderGrid">
@@ -982,11 +681,354 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Account page  -->
+                    <!-- Account page  -->
+                    <!-- Account page  -->
+                    <!-- Account page  -->
+                    <div id="account" class="navPage">
+                        <div id="account-header">
+                            <h2>Account</h2>
+                            <div class="userProfile">
+                                <svg
+                                    class="w-6 h-6 text-gray-800 dark:text-white"
+                                    aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="40"
+                                    height="40"
+                                    fill="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        fill-rule="evenodd"
+                                        d="M12 20a7.966 7.966 0 0 1-5.002-1.756l.002.001v-.683c0-1.794 1.492-3.25 3.333-3.25h3.334c1.84 0 3.333 1.456 3.333 3.25v.683A7.966 7.966 0 0 1 12 20ZM2 12C2 6.477 6.477 2 12 2s10 4.477 10 10c0 5.5-4.44 9.963-9.932 10h-.138C6.438 21.962 2 17.5 2 12Zm10-5c-1.84 0-3.333 1.455-3.333 3.25S10.159 13.5 12 13.5c1.84 0 3.333-1.455 3.333-3.25S13.841 7 12 7Z"
+                                        clip-rule="evenodd"
+                                    />
+                                </svg>
+                                <div id="userEmail"></div>
+                            </div>
+                        </div>
+                        <div class="empire-container">
+                            <h4 class="empire-header">My Empviv Account.</h4>
+                            <ul class="account-list">
+                                <span class="li"
+                                    ><svg
+                                        class="w-6 h-6 text-gray-800 dark:text-white"
+                                        aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="30"
+                                        height="30"
+                                        fill="rgb(2,42,100)"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            fill-rule="evenodd"
+                                            d="M5.024 3.783A1 1 0 0 1 6 3h12a1 1 0 0 1 .976.783L20.802 12h-4.244a1.99 1.99 0 0 0-1.824 1.205 2.978 2.978 0 0 1-5.468 0A1.991 1.991 0 0 0 7.442 12H3.198l1.826-8.217ZM3 14v5a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5h-4.43a4.978 4.978 0 0 1-9.14 0H3Z"
+                                            clip-rule="evenodd"
+                                        />
+                                    </svg>
+                                    Inbox</span
+                                >
+                                <span class="li"
+                                    ><svg
+                                        class="w-[18px] h-[18px] text-gray-800 dark:text-white"
+                                        aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="30"
+                                        height="30"
+                                        fill="rgb(2,42,100)"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            fill-rule="evenodd"
+                                            d="M5 3a1 1 0 0 0 0 2h.687L7.82 15.24A3 3 0 1 0 11.83 17h2.34A3 3 0 1 0 17 15H9.813l-.208-1h8.145a1 1 0 0 0 .979-.796l1.25-6A1 1 0 0 0 19 6h-2.268A2 2 0 0 1 15 9a2 2 0 1 1-4 0 2 2 0 0 1-1.732-3h-1.33L7.48 3.796A1 1 0 0 0 6.5 3H5Z"
+                                            clip-rule="evenodd"
+                                        />
+                                        <path
+                                            fill-rule="evenodd"
+                                            d="M14 5a1 1 0 1 0-2 0v1h-1a1 1 0 1 0 0 2h1v1a1 1 0 1 0 2 0V8h1a1 1 0 1 0 0-2h-1V5Z"
+                                            clip-rule="evenodd"
+                                        />
+                                    </svg>
+                                    Orders</span
+                                >
+                                <span class="li"
+                                    ><svg
+                                        class="w-[17px] h-[17px] text-gray-800 dark:text-white"
+                                        aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="30"
+                                        height="30"
+                                        fill="rgb(2,42,100)"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            fill-rule="evenodd"
+                                            d="M6 2a2 2 0 0 0-2 2v15a3 3 0 0 0 3 3h12a1 1 0 1 0 0-2h-2v-2h2a1 1 0 0 0 1-1V4a2 2 0 0 0-2-2h-8v16h5v2H7a1 1 0 1 1 0-2h1V2H6Z"
+                                            clip-rule="evenodd"
+                                        />
+                                    </svg>
+                                    Reviews</span
+                                >
+                                <span class="li"
+                                    ><svg
+                                        class="w-6 h-6 text-gray-800 dark:text-white"
+                                        aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="30"
+                                        height="30"
+                                        fill="rgb(2,42,100)"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            d="m12.75 20.66 6.184-7.098c2.677-2.884 2.559-6.506.754-8.705-.898-1.095-2.206-1.816-3.72-1.855-1.293-.034-2.652.43-3.963 1.442-1.315-1.012-2.678-1.476-3.973-1.442-1.515.04-2.825.76-3.724 1.855-1.806 2.201-1.915 5.823.772 8.706l6.183 7.097c.19.216.46.34.743.34a.985.985 0 0 0 .743-.34Z"
+                                        />
+                                    </svg>
+                                    Saved Items</span
+                                >
+                                <span class="li"
+                                    ><svg
+                                        class="w-[14px] h-[14px] text-gray-800 dark:text-white"
+                                        aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="30"
+                                        height="30"
+                                        fill="rgb(2,42,100)"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            d="M20 7h-.7c.229-.467.349-.98.351-1.5a3.5 3.5 0 0 0-3.5-3.5c-1.717 0-3.215 1.2-4.331 2.481C10.4 2.842 8.949 2 7.5 2A3.5 3.5 0 0 0 4 5.5c.003.52.123 1.033.351 1.5H4a2 2 0 0 0-2 2v2a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1V9a2 2 0 0 0-2-2Zm-9.942 0H7.5a1.5 1.5 0 0 1 0-3c.9 0 2 .754 3.092 2.122-.219.337-.392.635-.534.878Zm6.1 0h-3.742c.933-1.368 2.371-3 3.739-3a1.5 1.5 0 0 1 0 3h.003ZM13 14h-2v8h2v-8Zm-4 0H4v6a2 2 0 0 0 2 2h3v-8Zm6 0v8h3a2 2 0 0 0 2-2v-6h-5Z"
+                                        />
+                                    </svg>
+                                    Special Deals</span
+                                >
+                                <span class="li"
+                                    ><svg
+                                        class="w-[24px] h-[24px] text-gray-800 dark:text-white"
+                                        aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="30"
+                                        height="30"
+                                        fill="rgb(2,42,100)"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            stroke="currentColor"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="0"
+                                            d="M20.283 8h-4.285m3.85 3h-3.85m4.061-6H11v11h8.27l1.715-9.847A.983.983 0 0 0 20.059 5ZM6.581 13.23h-.838A13.752 13.752 0 0 1 5.622 11c-.02-.745.02-1.49.12-2.23h1.04c.252 0 .496-.088.683-.245a.927.927 0 0 0 .329-.61l.2-1.872a.888.888 0 0 0-.045-.39.936.936 0 0 0-.212-.34 1.017 1.017 0 0 0-.341-.231A1.08 1.08 0 0 0 6.983 5h-2.06a1.27 1.27 0 0 0-.699.204 1.135 1.135 0 0 0-.442.543A15.066 15.066 0 0 0 3.007 11a15.656 15.656 0 0 0 .795 5.229c.165.462 1.342.771 1.864.771h1.116c.142 0 .283-.028.413-.082.13-.053.246-.132.341-.23a.936.936 0 0 0 .212-.34.889.889 0 0 0 .046-.391l-.201-1.873a.927.927 0 0 0-.33-.609 1.059 1.059 0 0 0-.682-.245ZM10 18v1h10v-1a2 2 0 0 0-2-2h-6a2 2 0 0 0-2 2Z"
+                                        />
+                                    </svg>
+                                    Pre-Orders</span
+                                >
+                                <span class="li"
+                                    ><svg
+                                        class="w-[24px] h-[24px] text-gray-800 dark:text-white"
+                                        aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="30"
+                                        height="30"
+                                        fill="rgb(2,42,100)"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z"
+                                        />
+                                    </svg>
+                                    Ratings</span
+                                >
+                            </ul>
+                            <div class="setting">
+                                <h4 class="empire-header">Settings</h4>
+                                <ul class="setting-list">
+                                    <div
+                                        class="setting-item"
+                                        onclick="openAddressBook()"
+                                    >
+                                        <svg
+                                            viewBox="0 0 48 48"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            height="30"
+                                            width="30"
+                                        >
+                                            <path
+                                                fill="rgb(2,45,100)"
+                                                d="M28 17.6q0-.3.2-.575.2-.275.45-.375 1.5-.55 3.075-.85 1.575-.3 3.275-.3 1.1 0 2.15.125 1.05.125 2.05.375.3.1.55.375.25.275.25.625 0 .55-.375.85-.375.3-.925.15-.85-.25-1.775-.375Q36 17.5 35 17.5q-1.45 0-2.8.275-1.35.275-2.65.825-.7.25-1.125-.025Q28 18.3 28 17.6Zm0 11q0-.3.2-.6t.45-.4q1.5-.55 3.075-.825Q33.3 26.5 35 26.5q1.1 0 2.15.125 1.05.125 2.05.375.3.1.55.375.25.275.25.625 0 .55-.375.85-.375.3-.925.15-.85-.25-1.775-.375Q36 28.5 35 28.5q-1.45 0-2.8.25-1.35.25-2.65.8-.7.25-1.125 0Q28 29.3 28 28.6Zm0-5.5q0-.3.2-.575.2-.275.45-.375 1.5-.55 3.075-.85Q33.3 21 35 21q1.1 0 2.15.125 1.05.125 2.05.375.3.1.55.375.25.275.25.625 0 .55-.375.85-.375.3-.925.15-.85-.25-1.775-.375Q36 23 35 23q-1.45 0-2.8.275-1.35.275-2.65.825-.7.25-1.125-.025Q28 23.8 28 23.1ZM12.4 33q2.7 0 5.225.625 2.525.625 4.975 1.875V14.15q-2.25-1.5-4.875-2.325Q15.1 11 12.4 11q-1.9 0-3.725.475Q6.85 11.95 5 12.65v21.7q1.55-.7 3.525-1.025Q10.5 33 12.4 33Zm13.2 2.5q2.5-1.25 4.9-1.875Q32.9 33 35.6 33q1.9 0 3.925.3t3.475.8V12.65q-1.7-.85-3.6-1.25-1.9-.4-3.8-.4-2.7 0-5.225.825-2.525.825-4.775 2.325ZM13.8 23.55Zm10.3 15.9q-.4 0-.725-.075-.325-.075-.575-.275-2.35-1.45-5-2.25t-5.4-.8q-1.85 0-3.6.45t-3.5 1.1q-1.15.55-2.225-.15Q2 36.75 2 35.45V12.3q0-.75.35-1.375T3.4 9.95q2.1-1 4.375-1.475Q10.05 8 12.4 8q3.15 0 6.125.85t5.575 2.6q2.55-1.75 5.475-2.6Q32.5 8 35.6 8q2.35 0 4.6.475 2.25.475 4.35 1.475.7.35 1.075.975T46 12.3v23.15q0 1.4-1.125 2.125-1.125.725-2.225.025-1.7-.7-3.45-1.125-1.75-.425-3.6-.425-2.7 0-5.3.8-2.6.8-4.9 2.25-.25.2-.575.275-.325.075-.725.075Z"
+                                            />
+                                        </svg>
+                                        Address Book
+                                        <svg
+                                            id="expandIcon"
+                                            class="expIcon"
+                                            viewBox="0 0 48 48"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            height="30"
+                                            width="30"
+                                        >
+                                            <path
+                                                fill="currentColor"
+                                                d="M24 30.15q-.3 0-.55-.1-.25-.1-.5-.35l-9.9-9.9q-.4-.4-.375-1.075.025-.675.425-1.075.5-.5 1.075-.425.575.075 1.025.475l8.8 8.8 8.8-8.8q.4-.4 1.075-.45.675-.05 1.075.45.5.4.425 1.05-.075.65-.475 1.1l-9.85 9.85q-.25.25-.5.35-.25.1-.55.1Z"
+                                            />
+                                        </svg>
+                                    </div>
+                                    <div id="addressPage">
+                                        <div class="address-container"></div>
+                                        <div class="test-checkout"></div>
+                                    </div>
+                                    <!-- account Management -->
+                                    <span
+                                        class="setting-item"
+                                        onclick="openAccMgt()"
+                                        ><svg
+                                            viewBox="0 0 48 48"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            height="30"
+                                            width="30"
+                                        >
+                                            <path
+                                                fill="rgb(2,40,100)"
+                                                d="M20 23.75q-3.3 0-5.4-2.1-2.1-2.1-2.1-5.4 0-3.3 2.1-5.4 2.1-2.1 5.4-2.1 3.3 0 5.4 2.1 2.1 2.1 2.1 5.4 0 3.3-2.1 5.4-2.1 2.1-5.4 2.1ZM5.5 39.8q-.65 0-1.075-.425Q4 38.95 4 38.3v-3.2q0-1.75.875-3.15T7.4 29.8q3.6-1.6 6.675-2.3 3.075-.7 5.925-.7h1.15q-.3.7-.45 1.375-.15.675-.25 1.625H20q-2.9 0-5.675.625T8.6 32.5q-.8.4-1.2 1.125Q7 34.35 7 35.1v1.7h13.45q.25.9.6 1.625t.85 1.375ZM20 20.75q1.95 0 3.225-1.275Q24.5 18.2 24.5 16.25q0-1.95-1.275-3.225Q21.95 11.75 20 11.75q-1.95 0-3.225 1.275Q15.5 14.3 15.5 16.25q0 1.95 1.275 3.225Q18.05 20.75 20 20.75Zm0-4.5Zm.45 20.55Zm14.25-.85q1.65 0 2.825-1.175Q38.7 33.6 38.7 31.95q0-1.65-1.175-2.825Q36.35 27.95 34.7 27.95q-1.65 0-2.825 1.175Q30.7 30.3 30.7 31.95q0 1.65 1.175 2.825Q33.05 35.95 34.7 35.95Zm-1.85 2.75q-.85-.25-1.725-.725-.875-.475-1.475-1.075l-2.2.5q-.25.1-.5 0t-.35-.35l-.65-1.15q-.15-.2-.1-.45.05-.25.25-.45l1.9-1.8q-.1-.45-.1-1.25t.1-1.25l-1.9-1.8q-.2-.2-.25-.45-.05-.25.1-.45l.65-1.15q.1-.25.35-.35.25-.1.5 0l2.2.5q.6-.6 1.475-1.075.875-.475 1.725-.725l.4-2.65q.05-.3.25-.475t.5-.175h1.4q.3 0 .5.175t.25.475l.4 2.65q.85.25 1.725.725.875.475 1.475 1.075l2.2-.5q.25-.1.5 0t.35.35l.65 1.15q.15.2.1.45-.05.25-.25.45l-1.9 1.8q.1.45.1 1.25t-.1 1.25l1.9 1.8q.2.2.25.45.05.25-.1.45l-.65 1.15q-.1.25-.35.35-.25.1-.5 0l-2.2-.5q-.6.6-1.475 1.075-.875.475-1.725.725l-.4 2.65q-.05.3-.25.475t-.5.175H34q-.3 0-.5-.175t-.25-.475Z"
+                                            /></svg
+                                        >Account Management<svg
+                                            class="expIcon"
+                                            id="mgtIc"
+                                            viewBox="0 0 48 48"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            height="30"
+                                            width="30"
+                                        >
+                                            <path
+                                                fill="currentColor"
+                                                d="M24 30.15q-.3 0-.55-.1-.25-.1-.5-.35l-9.9-9.9q-.4-.4-.375-1.075.025-.675.425-1.075.5-.5 1.075-.425.575.075 1.025.475l8.8 8.8 8.8-8.8q.4-.4 1.075-.45.675-.05 1.075.45.5.4.425 1.05-.075.65-.475 1.1l-9.85 9.85q-.25.25-.5.35-.25.1-.55.1Z"
+                                            /></svg
+                                    ></span>
+                                    <!-- ac mg page  -->
+                                    <div id="accountManagement">
+                                        <span
+                                            ><svg
+                                                viewBox="0 0 48 48"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                height="1.5em"
+                                                width="1.5em"
+                                            >
+                                                <path
+                                                    fill="currentColor"
+                                                    d="m19.7 42 7-7h13.8q1.45 0 2.475 1.025Q44 37.05 44 38.5q0 1.45-1.025 2.475Q41.95 42 40.5 42ZM7 39h2.2l22.15-22.15-2.2-2.2L7 36.8Zm30.7-24.3-6.4-6.4 2.1-2.1q.85-.85 2.125-.825 1.275.025 2.125.875L39.8 8.4q.85.85.85 2.1t-.85 2.1ZM5.5 42q-.65 0-1.075-.425Q4 41.15 4 40.5v-4.3q0-.3.1-.55.1-.25.35-.5L29.2 10.4l6.4 6.4-24.75 24.75q-.25.25-.5.35-.25.1-.55.1Zm24.75-26.25-1.1-1.1 2.2 2.2Z"
+                                                /></svg
+                                            >Change account name</span
+                                        >
+                                        <span
+                                            id="resetP"
+                                            onclick="openPasswordReset()"
+                                        >
+                                            <svg
+                                                viewBox="0 0 48 48"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                height="1.5em"
+                                                width="1.5em"
+                                            >
+                                                <path
+                                                    fill="currentColor"
+                                                    d="M5.5 38q-.65 0-1.075-.45Q4 37.1 4 36.45q0-.65.45-1.075.45-.425 1.1-.425H42.5q.65 0 1.075.425Q44 35.8 44 36.45q0 .65-.45 1.1-.45.45-1.1.45Zm-.55-13.25q-.4-.25-.55-.7-.15-.45.1-.85l1.4-2.4H3.1q-.45 0-.775-.325T2 19.65q0-.45.325-.775t.825-.325H5.9l-1.4-2.4q-.25-.4-.125-.85.125-.45.525-.7.4-.25.85-.1.45.15.7.55L7.8 17.4l1.35-2.35q.25-.5.7-.6.45-.1.85.15.4.25.525.7.125.45-.125.85l-1.4 2.4h2.8q.45 0 .775.325t.325.775q0 .5-.325.825-.325.325-.775.325H9.7l1.4 2.4q.25.4.125.875t-.525.675q-.4.25-.85.1-.45-.15-.7-.55L7.8 21.95 6.45 24.3q-.25.5-.675.6-.425.1-.825-.15Zm16.15-.05q-.4-.25-.525-.725t.125-.875l1.4-2.4h-2.8q-.45 0-.775-.325t-.325-.825q0-.45.325-.775t.825-.325h2.75l-1.4-2.4q-.25-.4-.125-.85.125-.45.525-.7.4-.25.85-.1.45.15.7.55L24 17.3l1.35-2.35q.25-.5.675-.6.425-.1.825.15.4.25.55.7.15.45-.1.85l-1.4 2.4h2.8q.45 0 .775.325t.325.775q0 .5-.325.825-.325.325-.775.325h-2.8l1.4 2.4q.25.4.125.9t-.525.7q-.4.25-.875.125t-.725-.575l-1.3-2.3-1.3 2.3q-.25.4-.725.55-.475.15-.875-.1Zm16.2 0q-.4-.25-.525-.725t.125-.875l1.4-2.4h-2.8q-.45 0-.775-.325t-.325-.825q0-.45.325-.775t.825-.325h2.75l-1.4-2.4q-.25-.4-.125-.85.125-.45.525-.7.4-.25.85-.1.45.15.7.55l1.35 2.35 1.35-2.35q.25-.5.65-.6.4-.1.85.15.4.25.55.7.15.45-.1.85l-1.4 2.4h2.8q.45 0 .775.325t.325.775q0 .5-.325.825-.325.325-.775.325h-2.8l1.4 2.4q.25.4.125.9t-.525.7q-.4.25-.875.125t-.725-.575l-1.3-2.3-1.3 2.3q-.25.4-.725.55-.475.15-.875-.1Z"
+                                                /></svg
+                                            >Change Password</span
+                                        >
+                                        <div id="passwordChange">
+                                            <input
+                                                type="email"
+                                                name="changePass"
+                                                id="changePass"
+                                                placeholder="E-mail"
+                                                value=""
+                                            /><button
+                                                onclick="changeAccoutPassword()"
+                                                id="sendReset"
+                                                type="submit"
+                                            >
+                                                Reset Password
+                                            </button>
+                                        </div>
+                                        <span onclick="openAccDelPage()"
+                                            ><svg
+                                                viewBox="0 0 48 48"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                height="1.5em"
+                                                width="1.5em"
+                                            >
+                                                <path
+                                                    fill="currentColor"
+                                                    d="M13.05 42q-1.2 0-2.1-.9-.9-.9-.9-2.1V10.5H9.5q-.65 0-1.075-.425Q8 9.65 8 9q0-.65.425-1.075Q8.85 7.5 9.5 7.5h7.9q0-.65.425-1.075Q18.25 6 18.9 6h10.2q.65 0 1.075.425.425.425.425 1.075h7.9q.65 0 1.075.425Q40 8.35 40 9q0 .65-.425 1.075-.425.425-1.075.425h-.55V39q0 1.2-.9 2.1-.9.9-2.1.9Zm0-31.5V39h21.9V10.5Zm5.3 22.7q0 .65.425 1.075.425.425 1.075.425.65 0 1.075-.425.425-.425.425-1.075V16.25q0-.65-.425-1.075-.425-.425-1.075-.425-.65 0-1.075.425-.425.425-.425 1.075Zm8.3 0q0 .65.425 1.075.425.425 1.075.425.65 0 1.075-.425.425-.425.425-1.075V16.25q0-.65-.425-1.075-.425-.425-1.075-.425-.65 0-1.075.425-.425.425-.425 1.075Zm-13.6-22.7V39 10.5Z"
+                                                /></svg
+                                            >Delete Account</span
+                                        >
+                                        <!--   confire delete -->
+                                        <div id="confirmDel">
+                                            Note, this process cannot be undone
+                                            and user may lose sensitive
+                                            information.
+                                            <button
+                                                onclick="proceedDel()"
+                                                id="delAccBtn"
+                                                type="submit"
+                                            >
+                                                Proceed
+                                            </button>
+                                        </div>
+                                        <!--            password to del acc -->
+                                        <div id="passDelPage">
+                                            <input
+                                                type="text"
+                                                name=""
+                                                id="delPass"
+                                                placeholder="Enter Email to delete account"
+                                            />
+                                            <button
+                                                onclick="deleteAcc()"
+                                                id="deleteAccount"
+                                                type="submit"
+                                            >
+                                                Delete Account
+                                            </button>
+                                        </div>
+                                    </div>
+                                </ul>
+                            </div>
+                            <div class="logout-container">
+                                <button class="logout-btn" onclick="logout()">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="35"
+                                        height="35"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="icon icon-tabler icons-tabler-outline icon-tabler-logout"
+                                    >
+                                        <path
+                                            stroke="none"
+                                            d="M0 0h24v24H0z"
+                                            fill="none"
+                                        />
+                                        <path
+                                            d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2"
+                                        />
+                                        <path d="M9 12h12l-3 -3" />
+                                        <path d="M18 15l3 -3" />
+                                    </svg>
+                                </button>
+                                <div class="logout-text">Log Out</div>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Help Page  -->
                     <!-- Help Page  -->
                     <!-- Help Page  -->
                     <!-- Help Page  -->
-                    <div class="help">
+                    <div class="navPage" id="help">
                         <h2>Info</h2>
                         <div class="info-page">
                             <h3>
@@ -1086,7 +1128,7 @@
                     </div>
                     <!--   begining of bottom navbar -->
                     <nav class="buttom-nav">
-                        <span onclick="home()" id="activehome"
+                        <span onclick="navBtn(0)" class="nav-btn nav-select"
                             ><svg
                                 viewBox="0 0 48 48"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -1100,7 +1142,7 @@
                             </svg>
                             Home</span
                         >
-                        <span onclick="openCategory()" id="activehome2">
+                        <span onclick="navBtn(1)" class="nav-btn">
                             <svg
                                 viewBox="0 0 48 48"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -1114,7 +1156,7 @@
                             </svg>
                             Category</span
                         >
-                        <span onclick="openFeed()" id="activehome3">
+                        <span onclick="navBtn(2)" class="nav-btn">
                             <svg
                                 viewBox="0 0 48 48"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -1127,7 +1169,7 @@
                                 /></svg
                             >Feed</span
                         >
-                        <span onclick="openAccountPage()" id="activehome4">
+                        <span onclick="navBtn(3)" class="nav-btn">
                             <svg
                                 viewBox="0 0 48 48"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -1141,7 +1183,7 @@
                             </svg>
                             Account</span
                         >
-                        <span onclick="openHelp()" id="activehome5">
+                        <span onclick="navBtn(4)" class="nav-btn">
                             <svg
                                 viewBox="0 0 48 48"
                                 xmlns="http://www.w3.org/2000/svg"
