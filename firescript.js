@@ -368,8 +368,9 @@ function popular() {
 popular();
 
 function brand() {
-    db.ref("Brand/logo").on("value", function (snapshot) {
+    db.ref("Brand").on("value", function (snapshot) {
         snapshot.forEach(function (childSnapshot) {
+	document.querySelector(".topPick-loader").style.display="none";
             let brand = childSnapshot.val();
             document.getElementById("brandList").innerHTML += `<div
              class="brand-prod">
@@ -383,7 +384,7 @@ function brand() {
 brand();
 
 function poster() {
-    db.ref("Posters/flyers").on("value", function (snapshot) {
+    db.ref("Advertisement").on("value", function (snapshot) {
         snapshot.forEach(function (childSnapshot) {
             let flyer = childSnapshot.val();
             document.querySelector(
