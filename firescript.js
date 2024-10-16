@@ -15,7 +15,7 @@ const auth = app.auth();
 
 // Firebase Auth Functions
 function signUp() {
-	event.preventDefault();
+    event.preventDefault();
     const email = $("#signup-email").val();
     const password = $("#signup-password").val();
     const username = $("#userName").val();
@@ -85,11 +85,13 @@ auth.onAuthStateChanged(user => {
     if (user) {
         // console.log("User is signed in: ", user);
         const use = document.getElementById("userEmail");
-        use.innerText = "User:  " + user.email;
+        use.innerText = user.email;
         // Redirect to home page when logged in
         formCnt.style.display = "none";
         navBar.style.display = "flex";
         document.querySelector(".cart-btn").style.display = "block";
+        setUpChat();
+        changeAccName();
         cart();
         getUserAddress();
         catGros("Category/grocery", "groceryP");
@@ -146,6 +148,7 @@ function closeerror() {
 
 // add firebase real time database to
 let db = firebase.database();
+const fs = firebase.firestore(app);
 
 function openAccDelPage() {
     const delP = document.getElementById("confirmDel");
@@ -370,7 +373,7 @@ popular();
 function brand() {
     db.ref("Brand").on("value", function (snapshot) {
         snapshot.forEach(function (childSnapshot) {
-	document.querySelector(".topPick-loader").style.display="none";
+            document.querySelector(".topPick-loader").style.display = "none";
             let brand = childSnapshot.val();
             document.getElementById("brandList").innerHTML += `<div
              class="brand-prod">
@@ -544,6 +547,7 @@ function like(
     image,
     product,
     price,
+    costPrice,
     seller,
     identification,
     productSize,
@@ -563,7 +567,8 @@ function like(
             cartRef.set({
                 image1: image,
                 product: product,
-                price: parseFloat(price), // Convert price to integer before storing
+                price: parseFloat(price),
+                costPrice: parseFloat(costPrice), // Convert price to integer before storing
                 seller: seller,
                 id: identification,
                 size: productSize,
@@ -656,42 +661,6 @@ function checkOut() {
         });
     });
 }
-// function cartExtra() {
-//     const user = firebase.auth().currentUser;
-//
-//     // Check if user is authenticated
-//     if (!user) {
-//         console.error("No authenticated user found.");
-//         return;
-//     }
-//
-//     const userId = user.uid;
-//     const extra = document.getElementById("extra");
-//
-//     // Clear the extra element before appending new liked items
-//     extra.innerHTML = "";
-//
-//     db.ref(`USER/LIKE/${userId}`)
-//         .on("value", snapshot => {
-//             if (snapshot.exists()) {
-//                 snapshot.forEach(childSnapshot => {
-//                     const liked = childSnapshot.val();
-//                     const likedItem = document.createElement("div");
-//                     likedItem.className = "liked-item"; // Optional: Add a class for easier styling
-//                     likedItem.innerHTML = `<div class="likename">${liked.product}</div>`;
-//                     extra.appendChild(likedItem);
-//                 });
-//             } else {
-//                 console.log("No liked items found for this user.");
-//             }
-//         })
-//         .catch(error => {
-//             console.error("Error fetching liked items:", error);
-//         });
-// }
-//
-
-// cartExtra();
 
 function cart() {
     let user = firebase.auth().currentUser.uid;
@@ -841,21 +810,37 @@ function order() {
     var cartRef = db.ref(`USER/CART/${user}`);
     const addressRef = db.ref(`USER/ADDRESS/${user}`);
     const checkPage = db.ref(`CHECKOUT/${user}`);
+    const timestamp = Date.now(); // Get the current timestamp
+
     cartRef.once("value", function (snapshot) {
         snapshot.forEach(function (childSnapshot) {
             var childKey = childSnapshot.key;
             var childData = childSnapshot.val();
+
+            // Add timestamp and status to the order data
+            childData.timestamp = timestamp;
+            childData.status = "active"; // Set status to "active"
+
+            // Update the CHECKOUT database with cart data, status, and timestamp
             checkPage.child(childKey).update(childData);
+
+            // Update with address information
             addressRef.once("value", function (snapshot) {
                 var addressData = snapshot.val();
+
+                // Add address details and timestamp to the order
+                addressData.timestamp = timestamp;
                 checkPage.child(childKey).update(addressData);
             });
+
+            // Show notification and close the order page
             noteBox.style.display = "block";
             notification.innerText = "Order Successful";
             closeOrderPage();
         });
     });
 
+    // Clear the user's cart after the order is placed
     db.ref(`USER/CART/${user}`).set("");
 }
 function closeOrderPage() {
@@ -882,7 +867,7 @@ function openProductPage(
     const pPage = document.querySelector(".p-page");
     pPage.style.display = "flex";
     pPage.style.position = "fixed";
-
+    pPage.scrollTop = 0;
     const pageP = document.getElementById("prodInf");
 
     const percentageOff = Math.round(((cp - sp) / cp) * 100);
@@ -923,7 +908,6 @@ function openProductPage(
             </div>
         </div>
     `;
-
     const addToCartBtn = document.getElementById("add-to-cart-btn");
     addToCartBtn.addEventListener("click", () => {
         addCart(
@@ -944,6 +928,7 @@ function openProductPage(
             images,
             product,
             sp,
+            cp,
             seller,
             id,
             productSize,
@@ -1313,4 +1298,209 @@ function catGros(path, card) {
             cardElement.appendChild(categoryProdDiv);
         });
     });
+}
+
+// saved items
+function savedItems() {
+    let user = firebase.auth().currentUser.uid;
+    const box = document.querySelector(".acc-page-content");
+    const inbox = document.querySelector(".acc-page");
+    inbox.classList.add("show-acc");
+    box.innerHTML = "";
+
+    db.ref(`USER/LIKE/${user}`).once("value", function (snapshot) {
+        snapshot.forEach(function (childSnapshot) {
+            let liked = childSnapshot.val();
+            const likedItem = document.createElement("div");
+            likedItem.classList = "liked-item";
+            likedItem.innerHTML = `
+                <div class="savedItems">
+                    <img
+                        src="${liked.image1}"
+                        class="liked-image">
+                    <div class="liked-info-box">
+                        <div class="liked-name">${liked.product}</div>
+                        <div class="liked-price">Price: Ghc${liked.price}</div>
+                        <div class="liked-id">ID: ${liked.id}</div>
+                        <div class="liked-seller">Seller: ${liked.seller}</div>
+                        <button class="liked-details">Details</button>
+                       
+                        <svg class="liked-delete" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" height="2.0em" width="2.0em"><path fill="currentColor" d="M13.05 42q-1.2 0-2.1-.9-.9-.9-.9-2.1V10.5H9.5q-.65 0-1.075-.425Q8 9.65 8 9q0-.65.425-1.075Q8.85 7.5 9.5 7.5h7.9q0-.65.425-1.075Q18.25 6 18.9 6h10.2q.65 0 1.075.425.425.425.425 1.075h7.9q.65 0 1.075.425Q40 8.35 40 9q0 .65-.425 1.075-.425.425-1.075.425h-.55V39q0 1.2-.9 2.1-.9.9-2.1.9Zm5.3-8.8q0 .65.425 1.075.425.425 1.075.425.65 0 1.075-.425.425-.425.425-1.075V16.25q0-.65-.425-1.075-.425-.425-1.075-.425-.65 0-1.075.425-.425.425-.425 1.075Zm8.3 0q0 .65.425 1.075.425.425 1.075.425.65 0 1.075-.425.425-.425.425-1.075V16.25q0-.65-.425-1.075-.425-.425-1.075-.425-.65 0-1.075.425-.425.425-.425 1.075Z"/></svg>
+                    </div>
+                </div>`;
+
+            box.appendChild(likedItem);
+
+            // Get the details button and add the event listener to open product page
+            likedItem
+                .querySelector(".liked-details")
+                .addEventListener("click", () => {
+                    openProductPage(
+                        liked.image1, // Assuming "images" is an array or a field in the liked object
+                        liked.product, // Product name
+                        liked.price, // Selling price
+                        liked.costPrice, // Cost price (if available)
+                        liked.id, // Product ID
+                        liked.seller, // Seller name
+                        liked.size, // Product size (if available)
+                        liked.color, // Product color (if available)
+                        liked.additionalInfo, // Additional info (if available)
+                        liked.description // Description
+                    );
+                });
+            likedItem
+                .querySelector(".liked-delete")
+                .addEventListener("click", () => {
+                    // Get the unique product ID to reference it in the database
+                    const productId = liked.product;
+
+                    // Remove the product from the database
+                    db.ref(`USER/LIKE/${user}/${productId}`)
+                        .remove()
+                        .then(() => {
+                            // Remove the item from the DOM
+                            likedItem.remove();
+                            console.log("Product removed from liked items.");
+                        })
+                        .catch(error => {
+                            console.error("Error removing product:", error);
+                        });
+                });
+            // end
+        });
+    });
+}
+
+function runOrder() {
+    let user = firebase.auth().currentUser.uid;
+    const box = document.querySelector(".acc-page-content");
+    const inbox = document.querySelector(".acc-page");
+    inbox.classList.add("show-acc");
+    box.innerHTML = "";
+
+    db.ref(`CHECKOUT/${user}`).once("value", function (snapshot) {
+        let ordersArray = [];
+
+        snapshot.forEach(function (childSnapshot) {
+            let orderData = childSnapshot.val();
+            orderData.orderKey = childSnapshot.key; // Save the key for reference
+            ordersArray.push(orderData); // Add each order to an array
+        });
+
+        // Check if no orders exist
+        if (ordersArray.length === 0) {
+            box.innerHTML = `<p>No orders yet.</p>`;
+            return;
+        }
+
+        // Sort the orders by timestamp (assuming each order has a timestamp field)
+        ordersArray.sort((a, b) => b.timestamp - a.timestamp); // Newest orders first
+
+        // Loop through the sorted orders and display them
+        ordersArray.forEach(function (orders) {
+            const item = document.createElement("div");
+            const isCanceled = orders.status === "canceled"; // Check if the status is "canceled"
+            var totalPrice = orders.price * orders.quantity;
+            item.innerHTML = `<div class="order-page-prod">
+                <img class="order-page-image" src="${orders.image1}">
+                <div class="order-page-prod-list">
+                    <div class="order-page-name">${orders.product}</div>
+                    <div class="order-page-price">Price:  Ghc${totalPrice}</div>
+                    <div class="order-page-quantity">Quantity: ${
+                        orders.quantity
+                    }</div>
+                    <div class="order-page-id">ID: ${orders.id}</div>
+                    <div class="order-page-description">Details: ${
+                        orders.description
+                    }</div>
+                    <button class="cancel-order" data-product-id="${
+                        orders.id
+                    }" ${isCanceled ? "disabled" : ""}>
+                        ${isCanceled ? "Order Canceled" : "Cancel Order"}
+                    </button>
+                </div>
+            </div>`;
+
+            box.append(item);
+        });
+
+        // Attach event listeners to cancel order buttons after DOM update
+        const cancelButtons = document.querySelectorAll(
+            ".cancel-order:not([disabled])"
+        ); // Only attach to non-disabled buttons
+        cancelButtons.forEach(button => {
+            button.addEventListener("click", e => {
+                const productId = e.target.getAttribute("data-product-id"); // Get product ID from button data attribute
+
+                // Check each product under the user's CHECKOUT path
+                db.ref(`CHECKOUT/${user}`).once(
+                    "value",
+                    function (checkoutSnapshot) {
+                        let productFound = false;
+
+                        checkoutSnapshot.forEach(function (childSnapshot) {
+                            let orderData = childSnapshot.val();
+
+                            if (orderData.id === productId) {
+                                productFound = true;
+
+                                // Update the status to "canceled"
+                                db.ref(`CHECKOUT/${user}/${childSnapshot.key}`)
+                                    .update({
+                                        status: "canceled"
+                                    })
+                                    .then(() => {
+                                        e.target.disabled = true; // Disable the button
+                                        e.target.textContent = "Order Canceled"; // Update button text
+                                        noteBox.style.display = "block";
+            notification.innerText ="Order has been canceled.";
+                                    })
+                                    .catch(error => {
+                                        console.error(
+                                            "Error updating product status: ",
+                                            error
+                                        );
+                                    });
+
+                                // Exit the loop early once the product is found and updated
+                                return true;
+                            }
+                        });
+
+                        if (!productFound) {
+                            alert("Product not found in the checkout list.");
+                        }
+                    }
+                );
+            });
+        });
+    });
+}
+
+// Changeuser name
+function changeAccName() {
+    let user = firebase.auth().currentUser.uid;
+    db.ref(`USER/ADDRESS/${user}`).once("value", function (snapshot) {
+        let name = snapshot.val();
+        document.getElementById("changeUsername").value = name.account;
+        document.getElementById("userID").innerText = name.account;
+    });
+}
+function saveName() {
+    let user = firebase.auth().currentUser.uid;
+    const changedName = document.getElementById("changeUsername").value;
+
+    db.ref(`USER/ADDRESS/${user}`)
+        .update({
+            account: changedName
+        })
+        .then(() => {
+            noteBox.style.display = "block";
+            notification.innerText = "Name Update Successful";
+            changeAccName();
+        })
+        .catch(error => {
+            noteBox.style.display = "block";
+            (notification.innerText = "Error updating username: "), error;
+        });
 }

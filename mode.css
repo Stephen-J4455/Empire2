@@ -20,6 +20,9 @@
     --cart-btn: rgb(225, 226, 350);
     --top-bar: #000066;
     --search-text: #000000;
+    --moon-sun: rgb(225, 226, 350);
+    --chat-sent: #206aff;
+    --chat-recieved: #dddddd;
 }
 
 .dark-mode {
@@ -44,6 +47,9 @@
     --line-back: #3a3a3a;
     --cart-btn: darkorange;
     --top-bar: #000000;
+    --moon-sun: darkorange;
+    --chat-sent: #000066;
+    --chat-recieved: #868686;
 }
 
 .loading-effect {

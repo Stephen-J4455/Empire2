@@ -8,9 +8,10 @@ const feed = document.getElementById("feedpage");
 const help = document.getElementById("help");
 const category = document.querySelector(".category");
 const navBar = document.querySelector(".buttom-nav");
-// dark mode
-const toggleSwitch = document.getElementById("switch");
-const currentTheme = localStorage.getItem("theme");
+// chat
+const messageContainer = document.getElementById("message-container");
+const messageInput = document.getElementById("message-input");
+const sendButton = document.getElementById("send-button");
 // notification
 const notification = document.getElementById("note");
 const noteBox = document.querySelector(".notification");
@@ -18,6 +19,9 @@ function closeNotification() {
     noteBox.style.display = "none";
 }
 // notification
+// dark mode
+const toggleSwitch = document.getElementById("switch");
+const currentTheme = localStorage.getItem("theme");
 // category
 const grosP = document.getElementById("grosP");
 const elecP = document.getElementById("elecP");
@@ -54,6 +58,7 @@ function back() {
     loginForm.style.display = "block";
     reset.style.display = "none";
 }
+
 // window
 window.addEventListener("load", function () {
     if (localStorage.getItem("cartPage")) {
@@ -110,6 +115,51 @@ function removeDarkMode() {
         toggleSwitch.checked = false;
     }
 }
+
+function setUpChat() {
+    let firstUser = firebase.auth().currentUser.uid;
+
+    const otherUser = "Empviv";
+    // Dynamically generate chatID based on alphabetical order
+    const chatID = `chat_${[firstUser, otherUser].sort().join("_")}`;
+
+    sendButton.addEventListener("click", async () => {
+        const messageText = messageInput.value.trim();
+        if (messageText) {
+            await fs
+                .collection("chats")
+                .doc(chatID)
+                .collection("messages")
+                .add({
+                    senderID: firstUser,
+                    message: messageText,
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                });
+            messageInput.value = "";
+        }
+    });
+
+    // Real-time listener for new messages
+    fs.collection("chats")
+        .doc(chatID)
+        .collection("messages")
+        .orderBy("timestamp")
+        .onSnapshot(snapshot => {
+            messageContainer.innerHTML = ""; // Clear old messages
+            snapshot.forEach(doc => {
+                const data = doc.data();
+                const messageDiv = document.createElement("div");
+                messageDiv.classList.add("message");
+                messageDiv.classList.add(
+                    data.senderID === firstUser ? "sent" : "received"
+                );
+                messageDiv.textContent = data.message;
+                messageContainer.appendChild(messageDiv);
+            });
+            messageContainer.scrollTop = messageContainer.scrollHeight; // Auto-scroll to the latest message
+        });
+}
+// end of auto load
 // navBar controls
 function navBtn(index) {
     const nav = document.querySelectorAll(".nav-btn");
@@ -145,13 +195,6 @@ function autoScroll() {
 }
 autoScroll();
 
-// page loading script
-
-// window.addEventListener("scroll", function () {
-//     if (window.scrollY + window.innerHeight >= document.body.clientHeight) {
-//         displayfeedPage();
-//     }
-// });
 document.getElementById("feedList").addEventListener("scroll", function () {
     const feedList = document.getElementById("feedList");
 
@@ -237,7 +280,6 @@ function openAccMgt() {
         accBox.style.display = "flex";
         icon.style.rotate = "180deg";
         icon.style.transition = "0.3s ease";
-        
     }
 }
 function openPasswordReset() {
@@ -253,4 +295,23 @@ function shopMore() {
     const order = document.querySelector(".make-order");
     cart.style.display = "none";
     order.style.display = "none";
+}
+
+function openInbox() {
+    const inbox = document.querySelector(".acc-page");
+    // inbox.innerHTML = "";
+    inbox.classList.add("show-acc");
+}
+
+function closeInbox() {
+    const inbox = document.querySelector(".acc-page");
+    // inbox.innerHTML = "";
+    inbox.classList.remove("show-acc");
+}
+
+function openChat() {
+    document.querySelector(".chat-container").style.display = "block";
+}
+function closeChat() {
+    document.querySelector(".chat-container").style.display = "none";
 }

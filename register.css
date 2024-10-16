@@ -37,7 +37,7 @@ body {
     place-items: center;
     box-shadow: 0 0 50px 20px rgba(0, 0, 0, 0.1);
     line-height: 1;
-    color: var(--mode-color);
+    color: var(--moon-sun);
 }
 
 .put {
@@ -163,55 +163,6 @@ body {
     box-shadow: rgb(4, 12, 120, 0.805) 0px 15px 10px -10px;
 }
 
-.social-account-container {
-    margin-top: 25px;
-}
-
-.social-account-container .title {
-    display: block;
-    text-align: center;
-    font-size: 10px;
-    color: rgb(170, 170, 170);
-}
-
-.social-account-container .social-accounts {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 5px;
-}
-
-.social-account-container .social-accounts .social-button {
-    background: linear-gradient(
-        45deg,
-        rgb(0, 0, 0) 0%,
-        rgb(112, 112, 112) 100%
-    );
-    border: 5px solid white;
-    padding: 5px;
-    border-radius: 50%;
-    width: 40px;
-    aspect-ratio: 1;
-    display: grid;
-    place-content: center;
-    box-shadow: rgb(4, 12, 120, 0.805) 0px 12px 10px -8px;
-    transition: all 0.2s ease-in-out;
-}
-
-.social-account-container .social-accounts .social-button .svg {
-    fill: white;
-    margin: auto;
-}
-
-.social-account-container .social-accounts .social-button:hover {
-    transform: scale(1.2);
-}
-
-.social-account-container .social-accounts .social-button:active {
-    transform: scale(0.9);
-}
-
 .agreement {
     display: block;
     text-align: center;
@@ -334,14 +285,13 @@ body {
 }
 /* end of sign page  */
 #homepage {
-    z-index: 2;
     position: fixed;
     top: 0;
+    height: 94%;
+    width: 100%;
+    z-index: 2;
     overflow-y: scroll;
     scroll-behavior: smooth;
-    width: 100%;
-    height: 94%;
-    border: none;
     color: var(--text-color);
     background-color: var(--background-color);
 }
@@ -377,6 +327,9 @@ body {
 #account-header h2 {
     position: relative;
     top: -10px;
+}
+#userID {
+    display: flex;
 }
 .logout-btn {
     border: none;
@@ -426,6 +379,30 @@ body {
     border: none;
     padding: -10px;
 }
+
+.acc-page {
+    position: fixed;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    z-index: 10;
+    display: none;
+    background-color: var(--background-color);
+    overflow-y: scroll;
+}
+.show-acc {
+    display: block;
+}
+.close-inbox {
+    position: fixed;
+    top: 7px;
+    height: 40px;
+    width: 40px;
+    color: var(--cart-btn);
+}
+.acc-page-content {
+}
 .setting-list {
     margin-bottom: 60px;
     border: none;
@@ -447,10 +424,9 @@ body {
     background-color: rgb(112, 112, 112, 0.57);
 }
 .li {
+    display: flex;
     border: none;
     padding: 5px 3px;
-    display: flex;
-    align-items: center;
     border-radius: 7px;
     font-weight: 500;
     gap: 20px;
@@ -460,8 +436,8 @@ body {
     transition: 0.3s ease;
     padding: 7px 5px;
     font-weight: 700;
-    border-radius: 3px;
-    background-color: rgb(225, 226, 350);
+    border-radius: 10px;
+    background-color: var(--cart-btn);
 }
 .ng {
 }
@@ -494,14 +470,14 @@ body {
 #accountManagement {
     display: none;
     flex-direction: column;
-    gap: 10px;
+    gap: 20px;
     position: relative;
     left: -40px;
     width: 335px;
     padding: 5px 10px;
 }
 #accountManagement span {
-    padding: 10px 0px;
+    padding: 5px 0px;
     display: flex;
     align-items: center;
     gap: 20px;
@@ -516,19 +492,21 @@ body {
     display: none;
 }
 #changePass {
-    border: 0.1px solid;
+    border: 0.1px solid var(--text-color);
+    background-color: var(--background-color);
+    color: var(--text-color);
     border-radius: 10px;
-    height: 30px;
-    padding: 0px 7px;
+    padding: 10px 10px;
     outline: none;
 }
 #sendReset {
     border: 0.1px solid;
     border-radius: 10px;
-    height: 30px;
-    background-color: black;
-    color: white;
+    padding: 10px 10px;
+    background-color: var(--text-color);
+    color: var(--background-color);
     outline: none;
+    margin: 0px 5px;
 }
 #sendReset:hover {
     background-color: white;
@@ -570,7 +548,7 @@ body {
     outline: none;
     top: 30px;
 }
-#deleteAccount {
+#delete {
     border: none;
     border-radius: 10px;
     height: 40px;
@@ -785,7 +763,7 @@ body {
     border-radius: 10px;
     border: none;
     position: fixed;
-    top: 1px;
+    top: 5px;
     right: 0;
     background: transparent;
     color: var(--cart-btn);
@@ -933,6 +911,19 @@ body {
     height: 150px;
     width: 120px;
 }
+.liked-details {
+    border: none;
+    border-radius: 5px;
+    padding: 10px 10px;
+    color: var(--text-color);
+    background-color: var(--background-color);
+}
+.liked-delete {
+    color: red;
+    display: inline-block;
+    position: relative;
+    top: 10px;
+}
 .check-out-btn {
     position: fixed;
     bottom: 0;
@@ -1028,7 +1019,7 @@ body {
 .for-gros {
     display: none;
     grid-template-columns: 45% 45%;
-    gap: 3%;
+    gap: 1% 3%;
 }
 .show {
     display: grid;
@@ -1042,7 +1033,7 @@ body {
     width: 80px;
     overflow: hidden;
     font-size: 11px;
-    height: 23px;
+    height: 25px;
     display: flex;
     justify-content: center;
 }
@@ -1052,10 +1043,9 @@ body {
     border-radius: 5px;
 }
 .category-prods {
-    border: none;
     width: 100%;
+    height: 180px;
     overflow: hidden;
-    padding-bottom: 10px;
     margin-left: 6%;
 }
 /* category items end*/
@@ -1179,37 +1169,26 @@ body {
 }
 
 /* page preloading animation  end*/
-.flyer-loader {
-    position: relative;
-    left: 44%;
-    top: 39%;
-    border: 3px solid rgb(47, 28, 201);
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    border-top: none;
-    animation: flyerloader 0.53s infinite linear;
-}
+
 @keyframes flyerloader {
     0% {
         transform: rotate(0deg);
+        border-bottom-color: darkorange;
     }
     50% {
         border-bottom-color: darkorange;
     }
     100% {
+        border-bottom-color: darkorange;
         transform: rotate(360deg);
     }
 }
 .top-picks-box {
-    border: none;
-    width: 359px;
+    width: 100%;
     height: fit-content;
     display: inline-block;
 }
 .top-picks {
-    background: none;
-    margin-left: 10px;
 }
 /* top-picks loader */
 .top-picks-loader {
@@ -1304,17 +1283,15 @@ body {
     font-weight: bold;
 }
 .topPick-loader {
-    border: 2px solid rgb(47, 28, 201);
+    border: 5px solid #000066;
     height: 15px;
     width: 15px;
     border-radius: 50%;
     position: relative;
-    align-self: center;
     display: inline-block;
     margin: 100px 0px;
     left: 150px;
-    border-top: none;
-    animation: flyerloader 0.7s infinite linear;
+    animation: flyerloader 0.5s infinite linear;
 }
 #popularList {
     border: 2px solid var(--cart-btn);
@@ -1359,17 +1336,13 @@ body {
 }
 
 #brandList {
-    border: none;
+    width: 360px;
+    height: fit-content;
     display: grid;
     grid-template-columns: auto auto auto;
-    column-gap: 20px;
-    padding: 5px 7px;
-    height: fit-content;
-    border-radius: 10px;
+    gap: 20px;
 }
 .brand-prod {
-    margin: 10px 0px;
-    border: none;
     display: flex;
     flex-direction: column;
     border-radius: 10px;
@@ -1388,28 +1361,29 @@ body {
     border: none;
     width: 100%;
     height: 100vh;
-    background-color: rgb(225, 226, 350);
+    background-color: var(--background-color);
     z-index: 120;
     display: none;
     flex-direction: column;
     overflow-y: scroll;
 }
 .container2 {
-    position: relative;
+    position: absolute;
     padding: 40px 0px;
     margin-left: 10px;
     margin-top: 70px;
     width: 330px;
     border: 5px solid rgb(170, 170, 170);
     overflow: hidden;
-    background: transparent;
+    background-color: var(--background-color);
+    color: var(--text-color);
     border-radius: 25px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgb(170, 170, 170);
 }
 
 .container2 header {
     font-size: 1.2rem;
-    color: #000;
+    color: var(--text-color);
     font-weight: 600;
     text-align: center;
 }
@@ -1425,7 +1399,7 @@ body {
 }
 
 .input-box label {
-    color: #000;
+    color: var(--text-color);
     font-size: 0.8em;
 }
 
@@ -1578,7 +1552,7 @@ body {
 .p-page {
     position: absolute;
     width: 100%;
-    height: 93%;
+    height: 94%;
     z-index: 49;
     display: none;
     background-color: var(--background-color);
@@ -1680,6 +1654,21 @@ body {
     color: white;
     font-weight: 700;
     border-radius: 10px;
+}
+.savedItems {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    background-color: var(--line-back);
+    margin: 5px 0px;
+    padding: 3px 5px;
+}
+.liked-item {
+}
+.liked-image {
+    height: 140px;
+    width: 140px;
+    border-radius: 5px;
 }
 .product-page-call-btn {
     width: 30%;
@@ -1788,7 +1777,7 @@ body {
 /* new prod */
 .new-products {
     display: grid;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 2fr));
     width: 100%;
 }
 .new-arrival-product {
@@ -1842,8 +1831,8 @@ body {
 }
 
 /* Default styles for small screens */
-@media only screen and (min-width: 320px) and (max-width: 480px) {
-    .homepage {
+@media only screen and (min-width: 320px) and (max-width: 1980px) {
+    #homepage {
         width: 100%;
     }
     .buttom-nav {
@@ -1862,13 +1851,11 @@ body {
         width: 100%;
     }
     #brandList {
-        width: 100%;
     }
     .top-picks-box {
         width: 100%;
     }
     .top-picks {
-        margin-left: 20px;
     }
     .popular {
         width: 100%;
@@ -1879,4 +1866,126 @@ body {
     .adds {
         width: 100%;
     }
+}
+/* order page */
+.order-page-prod {
+    height: fit-content;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    margin: 5% 5%;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.order-page-image {
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
+}
+.order-page-prod-list {
+    display: flex;
+    flex-direction: column;
+    font-weight: 300;
+    margin: 3px 5px;
+}
+.cancel-order {
+    box-shadow: 0px 0px 3px #565656;
+    border: none;
+    width: 100px;
+    padding: 9px 5px;
+    margin: 5px 5px;
+    border-radius: 7px;
+}
+/* chat page */
+
+/* chat */
+.chat-container {
+    width: 100%;
+    max-width: 600px;
+    height: 100%;
+    margin: 0 auto;
+    z-index: 11;
+    position: fixed;
+    top: 0;
+    background-color: var(--background-color);
+    display: none;
+}
+
+.messages {
+    width: 100%;
+    padding: 5px;
+    margin-top: 50px;
+    position: absolute; /* Change from fixed to absolute */
+    top: 0;
+    bottom: 50px;
+    overflow-y: auto; /* Change to auto */
+    box-sizing: border-box;
+}
+
+.message {
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 20px;
+    max-width: 100%; /* Ensure the message stays inside the container */
+}
+
+.message.sent {
+    background-color: var(--chat-sent);
+    text-align: right;
+    margin-left: auto;
+    width: fit-content;
+    border-top-right-radius: 0;
+    max-width: 70%; /* Ensure messages fit within the container */
+}
+
+.message.received {
+    background-color: var(--chat-recieved);
+    text-align: left;
+    border-top-left-radius: 0;
+    width: fit-content;
+    max-width: 70%; /* Ensure messages fit within the container */
+}
+.input-container {
+    margin-top: 10px;
+}
+.chat-container input {
+    width: 70%;
+    padding: 15px 10px;
+    margin: 0px 3px;
+    position: fixed;
+    bottom: 3px;
+    left: 0;
+    outline: none;
+    border: 0.5px solid var(--cart-btn);
+    border-radius: 7px;
+    color: var(--text-color);
+    background-color: var(--background-color);
+}
+.chat-container button {
+    padding: 0;
+    position: fixed;
+    bottom: 3px;
+    right: 20px;
+    outline: none;
+    border: none;
+    background-color: var(--background-color);
+    color: var(--cart-btn);
+}
+.close-chat {
+    position: fixed;
+    z-index: 1;
+}
+
+/* username change */
+#changeUsername {
+    border: 0.1px solid var(--text-color);
+    background-color: var(--background-color);
+    color: var(--text-color);
+    border-radius: 10px;
+    padding: 10px 10px;
+}
+.save-name {
+    border: 0.1px solid black;
+    border-radius: 10px;
+    padding: 10px 10px;
 }

@@ -12,6 +12,9 @@
         <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-auth.js"></script>
         <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-database.js"></script>
+        <!-- firestore -->
+        <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-firestore.js"></script>
+        <!-- firestore  end-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <link rel="stylesheet" href="register.css" />
         <link rel="stylesheet" href="mode.css" />
@@ -256,9 +259,9 @@
                         REGION</span
                     >
                 </div>
-                <!--   <div class="product-page-cart-box"></div> -->
-                <div id="moreImagePage"></div>
+                <div id="details"></div>
             </div>
+
             <div class="notification">
                 <h2 class="noti-head">Notify</h2>
                 <div id="note" class="notification-info">
@@ -704,13 +707,17 @@
                                         clip-rule="evenodd"
                                     />
                                 </svg>
-                                <div id="userEmail"></div>
+
+                                <div id="userBox">
+                                    <div id="userID"></div>
+                                    <div id="userEmail"></div>
+                                </div>
                             </div>
                         </div>
                         <div class="empire-container">
                             <h4 class="empire-header">My Empviv Account.</h4>
                             <ul class="account-list">
-                                <span class="li"
+                                <span onclick="openChat()" class="li"
                                     ><svg
                                         class="w-6 h-6 text-gray-800 dark:text-white"
                                         aria-hidden="true"
@@ -728,7 +735,7 @@
                                     </svg>
                                     Inbox</span
                                 >
-                                <span class="li"
+                                <span class="li" onclick="runOrder()"
                                     ><svg
                                         class="w-[18px] h-[18px] text-gray-800 dark:text-white"
                                         aria-hidden="true"
@@ -751,25 +758,8 @@
                                     </svg>
                                     Orders</span
                                 >
-                                <span class="li"
-                                    ><svg
-                                        class="w-[17px] h-[17px] text-gray-800 dark:text-white"
-                                        aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width="30"
-                                        height="30"
-                                        fill="rgb(2,42,100)"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <path
-                                            fill-rule="evenodd"
-                                            d="M6 2a2 2 0 0 0-2 2v15a3 3 0 0 0 3 3h12a1 1 0 1 0 0-2h-2v-2h2a1 1 0 0 0 1-1V4a2 2 0 0 0-2-2h-8v16h5v2H7a1 1 0 1 1 0-2h1V2H6Z"
-                                            clip-rule="evenodd"
-                                        />
-                                    </svg>
-                                    Reviews</span
-                                >
-                                <span class="li"
+
+                                <span class="li" onclick="savedItems()"
                                     ><svg
                                         class="w-6 h-6 text-gray-800 dark:text-white"
                                         aria-hidden="true"
@@ -784,58 +774,6 @@
                                         />
                                     </svg>
                                     Saved Items</span
-                                >
-                                <span class="li"
-                                    ><svg
-                                        class="w-[14px] h-[14px] text-gray-800 dark:text-white"
-                                        aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width="30"
-                                        height="30"
-                                        fill="rgb(2,42,100)"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <path
-                                            d="M20 7h-.7c.229-.467.349-.98.351-1.5a3.5 3.5 0 0 0-3.5-3.5c-1.717 0-3.215 1.2-4.331 2.481C10.4 2.842 8.949 2 7.5 2A3.5 3.5 0 0 0 4 5.5c.003.52.123 1.033.351 1.5H4a2 2 0 0 0-2 2v2a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1V9a2 2 0 0 0-2-2Zm-9.942 0H7.5a1.5 1.5 0 0 1 0-3c.9 0 2 .754 3.092 2.122-.219.337-.392.635-.534.878Zm6.1 0h-3.742c.933-1.368 2.371-3 3.739-3a1.5 1.5 0 0 1 0 3h.003ZM13 14h-2v8h2v-8Zm-4 0H4v6a2 2 0 0 0 2 2h3v-8Zm6 0v8h3a2 2 0 0 0 2-2v-6h-5Z"
-                                        />
-                                    </svg>
-                                    Special Deals</span
-                                >
-                                <span class="li"
-                                    ><svg
-                                        class="w-[24px] h-[24px] text-gray-800 dark:text-white"
-                                        aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width="30"
-                                        height="30"
-                                        fill="rgb(2,42,100)"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <path
-                                            stroke="currentColor"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            stroke-width="0"
-                                            d="M20.283 8h-4.285m3.85 3h-3.85m4.061-6H11v11h8.27l1.715-9.847A.983.983 0 0 0 20.059 5ZM6.581 13.23h-.838A13.752 13.752 0 0 1 5.622 11c-.02-.745.02-1.49.12-2.23h1.04c.252 0 .496-.088.683-.245a.927.927 0 0 0 .329-.61l.2-1.872a.888.888 0 0 0-.045-.39.936.936 0 0 0-.212-.34 1.017 1.017 0 0 0-.341-.231A1.08 1.08 0 0 0 6.983 5h-2.06a1.27 1.27 0 0 0-.699.204 1.135 1.135 0 0 0-.442.543A15.066 15.066 0 0 0 3.007 11a15.656 15.656 0 0 0 .795 5.229c.165.462 1.342.771 1.864.771h1.116c.142 0 .283-.028.413-.082.13-.053.246-.132.341-.23a.936.936 0 0 0 .212-.34.889.889 0 0 0 .046-.391l-.201-1.873a.927.927 0 0 0-.33-.609 1.059 1.059 0 0 0-.682-.245ZM10 18v1h10v-1a2 2 0 0 0-2-2h-6a2 2 0 0 0-2 2Z"
-                                        />
-                                    </svg>
-                                    Pre-Orders</span
-                                >
-                                <span class="li"
-                                    ><svg
-                                        class="w-[24px] h-[24px] text-gray-800 dark:text-white"
-                                        aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width="30"
-                                        height="30"
-                                        fill="rgb(2,42,100)"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <path
-                                            d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z"
-                                        />
-                                    </svg>
-                                    Ratings</span
                                 >
                             </ul>
                             <div class="setting">
@@ -904,7 +842,7 @@
                                     ></span>
                                     <!-- ac mg page  -->
                                     <div id="accountManagement">
-                                        <span
+                                        <span onclick="openChange()"
                                             ><svg
                                                 viewBox="0 0 48 48"
                                                 xmlns="http://www.w3.org/2000/svg"
@@ -917,6 +855,22 @@
                                                 /></svg
                                             >Change account name</span
                                         >
+                                        <div class="change-name">
+                                            <input
+                                                type="text"
+                                                name="changeUsername"
+                                                id="changeUsername"
+                                                value=""
+                                                placeholder="Username"
+                                            />
+                                            <button
+                                                onclick="saveName()"
+                                                class="save-name"
+                                                type="submit"
+                                            >
+                                                Save
+                                            </button>
+                                        </div>
                                         <span
                                             id="resetP"
                                             onclick="openPasswordReset()"
@@ -983,6 +937,7 @@
                                                 placeholder="Enter Email to delete account"
                                             />
                                             <button
+                                                id="delete"
                                                 onclick="deleteAcc()"
                                                 id="deleteAccount"
                                                 type="submit"
@@ -1019,11 +974,67 @@
                                         <path d="M18 15l3 -3" />
                                     </svg>
                                 </button>
+
                                 <div class="logout-text">Log Out</div>
                             </div>
                         </div>
                     </div>
 
+                    <!-- chat page -->
+                    <div class="chat-container">
+                        <svg
+                            class="close-chat"
+                            onclick="closeChat()"
+                            viewBox="0 0 48 48"
+                            xmlns="http://www.w3.org/2000/svg"
+                            height="2.3em"
+                            width="2.3em"
+                        >
+                            <path
+                                fill="currentColor"
+                                d="M24 26.1 13.5 36.6q-.45.45-1.05.45-.6 0-1.05-.45-.45-.45-.45-1.05 0-.6.45-1.05L21.9 24 11.4 13.5q-.45-.45-.45-1.05 0-.6.45-1.05.45-.45 1.05-.45.6 0 1.05.45L24 21.9l10.5-10.5q.45-.45 1.05-.45.6 0 1.05.45.45.45.45 1.05 0 .6-.45 1.05L26.1 24l10.5 10.5q.45.45.45 1.05 0 .6-.45 1.05-.45.45-1.05.45-.6 0-1.05-.45Z"
+                            />
+                        </svg>
+                        <div class="messages" id="message-container"></div>
+                        <div class="input-container">
+                            <input
+                                type="text"
+                                id="message-input"
+                                placeholder="Type a message"
+                            />
+                            <button id="send-button">
+                                <svg
+                                    viewBox="0 0 48 48"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    height="3em"
+                                    width="3em"
+                                >
+                                    <path
+                                        fill="currentColor"
+                                        d="M8.1 39.1q-.75.3-1.425-.125T6 37.75V28.9q0-.55.325-.95.325-.4.825-.5L21.1 24 7.15 20.45q-.5-.1-.825-.5Q6 19.55 6 19v-8.75q0-.8.675-1.225Q7.35 8.6 8.1 8.9l32.6 13.7q.9.4.9 1.4 0 1-.9 1.4Z"
+                                    />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- my empviv set pages -->
+                    <div class="acc-page">
+                        <svg
+                            onclick="closeInbox()"
+                            class="close-inbox"
+                            viewBox="0 0 48 48"
+                            xmlns="http://www.w3.org/2000/svg"
+                            height="2.0em"
+                            width="2.0em"
+                        >
+                            <path
+                                fill="currentColor"
+                                d="M24 26.1 13.5 36.6q-.45.45-1.05.45-.6 0-1.05-.45-.45-.45-.45-1.05 0-.6.45-1.05L21.9 24 11.4 13.5q-.45-.45-.45-1.05 0-.6.45-1.05.45-.45 1.05-.45.6 0 1.05.45L24 21.9l10.5-10.5q.45-.45 1.05-.45.6 0 1.05.45.45.45.45 1.05 0 .6-.45 1.05L26.1 24l10.5 10.5q.45.45.45 1.05 0 .6-.45 1.05-.45.45-1.05.45-.6 0-1.05-.45Z"
+                            />
+                        </svg>
+                        <h2 class="rate-page"></h2>
+                        <div class="acc-page-content"></div>
+                    </div>
                     <!-- Help Page  -->
                     <!-- Help Page  -->
                     <!-- Help Page  -->
@@ -1242,47 +1253,7 @@
                                 value="Sign In"
                             />
                         </div>
-                        <div class="social-account-container">
-                            <span class="title">Or Sign in with</span>
-                            <div class="social-accounts">
-                                <button class="social-button google">
-                                    <svg
-                                        class="svg"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        height="1em"
-                                        viewBox="0 0 488 512"
-                                    >
-                                        <path
-                                            d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"
-                                        ></path>
-                                    </svg>
-                                </button>
-                                <button class="social-button apple">
-                                    <svg
-                                        class="svg"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        height="1em"
-                                        viewBox="0 0 384 512"
-                                    >
-                                        <path
-                                            d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"
-                                        ></path>
-                                    </svg>
-                                </button>
-                                <button class="social-button twitter">
-                                    <svg
-                                        class="svg"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        height="1em"
-                                        viewBox="0 0 512 512"
-                                    >
-                                        <path
-                                            d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"
-                                        ></path>
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
+                        <div class="social-account-container"></div>
                         <span class="agreement"
                             ><a href="#">Learn user licence agreement</a></span
                         >
@@ -1377,7 +1348,7 @@
                     />
                 </svg>
                 <section class="container2">
-                    <header>Registration Form</header>
+                    <header>Address Form</header>
                     <form class="form" action="#">
                         <div class="input-box">
                             <label>Full Name</label>
