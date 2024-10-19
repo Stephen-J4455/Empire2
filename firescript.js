@@ -90,7 +90,7 @@ auth.onAuthStateChanged(user => {
         formCnt.style.display = "none";
         navBar.style.display = "flex";
         document.querySelector(".cart-btn").style.display = "block";
-        setUpChat();
+chatSetUp();
         changeAccName();
         cart();
         getUserAddress();
@@ -118,6 +118,10 @@ auth.onAuthStateChanged(user => {
         homePage.style.display = "none";
     }
 });
+
+// chat
+
+// chat
 
 function forgotPassword() {
     const email = document.getElementById("resetEmail").value;
@@ -1453,7 +1457,8 @@ function runOrder() {
                                         e.target.disabled = true; // Disable the button
                                         e.target.textContent = "Order Canceled"; // Update button text
                                         noteBox.style.display = "block";
-            notification.innerText ="Order has been canceled.";
+                                        notification.innerText =
+                                            "Order has been canceled.";
                                     })
                                     .catch(error => {
                                         console.error(

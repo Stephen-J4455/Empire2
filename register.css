@@ -307,7 +307,8 @@ body {
     color: var(--nav-select);
 }
 #account {
-    position: fixed;
+    position: absolute;
+    top: 0;
     background-color: var(--background-color);
     color: var(--text-color);
     width: 100%;
@@ -318,19 +319,18 @@ body {
 #account-header {
     height: fit-content;
     width: 100%;
-    position: fixed;
-    top: 0;
+    position: relative;
     z-index: 1;
     background-color: #000066;
     color: aliceblue;
 }
 #account-header h2 {
     position: relative;
-    top: -10px;
+    width: 50%;
+    top: 0px;
+    margin: 0;
 }
-#userID {
-    display: flex;
-}
+
 .logout-btn {
     border: none;
     background: transparent;
@@ -346,13 +346,21 @@ body {
     font-size: 15px;
     color: red;
 }
+#userBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 #userEmail {
+}
+#userID {
+    display: flex;
 }
 .empire-container {
     color: var(--text-color);
     overflow-y: scroll;
     position: relative;
-    top: 85px;
     height: fit-content;
     width: 100%;
 }
@@ -361,13 +369,15 @@ body {
     padding: 10px 10px;
     color: white;
     font-size: 20px;
-    position: relative;
+    margin: 0;
 }
 .userProfile {
-    border: none;
+    margin: 3px 0;
+    padding: 5px 0;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 .account-list {
     display: flex;
@@ -376,8 +386,7 @@ body {
     gap: 10px;
 }
 .setting {
-    border: none;
-    padding: -10px;
+    padding: 0px;
 }
 
 .acc-page {
@@ -487,8 +496,10 @@ body {
 }
 #accountManagement div:nth-child(3) {
     padding: 20px 3px;
-    display: flex;
     gap: 5px;
+    display: none;
+}
+#passwordChange {
     display: none;
 }
 #changePass {
@@ -586,7 +597,7 @@ body {
 
 .feed-list {
     display: grid;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 2fr));
     background-color: var(--background-color);
     color: var(--text-color);
     overflow-y: auto; /* Enable vertical scrolling */
@@ -785,13 +796,13 @@ body {
 }
 .item-count {
     position: absolute;
-    background-color: darkorange;
+    background-color: var(--cart-count);
     bottom: 30px;
     right: 10px;
     border-radius: 10px;
     padding: 0.5px 3px;
     font-size: 11px;
-    color: white;
+    color: var(--background-color);
 }
 .cart-menu {
     z-index: 50;
@@ -966,23 +977,25 @@ body {
     width: 100%;
     height: 93%;
     overflow-y: scroll;
-    display: inline-block;
+    display: flex;
     flex-direction: column;
+    gap: 10px;
     position: absolute;
     top: 50px;
     bottom: 0;
 }
+
 .category-box span {
-    display: flex;
-    align-items: center;
-    font-size: 13px;
-    overflow: hidden;
-    height: 45px;
-    width: 70px;
-    margin: 3px 0px;
+    display: flex; /* Change to flex to allow justification */
+    justify-content: center; /* Centers content horizontally */
+    align-items: center; /* Centers content vertically */
+    font-size: 70%;
+    height: 10%; /* Specify height, adjust as necessary */
+    width: 15%;
+    gap: 5%;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
-    padding: 2px 5px;
+    padding: 20px 12px;
     background-color: rgb(190, 190, 190);
 }
 .cat-active {
@@ -1007,19 +1020,18 @@ body {
 }
 .category-display {
     position: absolute;
-    border: none;
     width: 74%;
     height: 92%;
-    overflow-y: scroll;
+    overflow-y: auto;
     border-radius: 10px;
     right: 0;
     top: 50px;
-    margin-right: 1px;
+    padding: 1px;
 }
 .for-gros {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 4px;
     display: none;
-    grid-template-columns: 45% 45%;
-    gap: 1% 3%;
 }
 .show {
     display: grid;
@@ -1029,7 +1041,6 @@ body {
     display: none;
 }
 .category-item-name {
-    border: none;
     width: 80px;
     overflow: hidden;
     font-size: 11px;
@@ -1046,7 +1057,6 @@ body {
     width: 100%;
     height: 180px;
     overflow: hidden;
-    margin-left: 6%;
 }
 /* category items end*/
 .cart-head {
@@ -1830,44 +1840,6 @@ body {
     font-size: 15px;
 }
 
-/* Default styles for small screens */
-@media only screen and (min-width: 320px) and (max-width: 1980px) {
-    #homepage {
-        width: 100%;
-    }
-    .buttom-nav {
-        width: 100%;
-    }
-    .category-box {
-        width: 100%;
-    }
-    .cart-menu {
-        width: 100%;
-    }
-    .new-products {
-        width: 100%;
-    }
-    .p-page {
-        width: 100%;
-    }
-    #brandList {
-    }
-    .top-picks-box {
-        width: 100%;
-    }
-    .top-picks {
-    }
-    .popular {
-        width: 100%;
-    }
-    .giftcards {
-        width: 100%;
-    }
-    .adds {
-        width: 100%;
-    }
-}
-/* order page */
 .order-page-prod {
     height: fit-content;
     width: 90%;
@@ -1914,11 +1886,11 @@ body {
 .messages {
     width: 100%;
     padding: 5px;
-    margin-top: 50px;
-    position: absolute; /* Change from fixed to absolute */
-    top: 0;
+    padding-top: 150px;
+    position: absolute;
     bottom: 50px;
-    overflow-y: auto; /* Change to auto */
+    top: 0;
+    overflow-y: auto;
     box-sizing: border-box;
 }
 
@@ -1926,7 +1898,9 @@ body {
     padding: 10px;
     margin: 5px 0;
     border-radius: 20px;
-    max-width: 100%; /* Ensure the message stays inside the container */
+    position: relative;
+    margin-bottom: 10px;
+    max-width: 70%;
 }
 
 .message.sent {
@@ -1954,9 +1928,9 @@ body {
     margin: 0px 3px;
     position: fixed;
     bottom: 3px;
-    left: 0;
+    left: 5%;
     outline: none;
-    border: 0.5px solid var(--cart-btn);
+    border: 1px solid var(--cart-btn);
     border-radius: 7px;
     color: var(--text-color);
     background-color: var(--background-color);
@@ -1974,9 +1948,13 @@ body {
 .close-chat {
     position: fixed;
     z-index: 1;
+    color: var(--cart-btn);
 }
 
 /* username change */
+.change-name {
+    display: none;
+}
 #changeUsername {
     border: 0.1px solid var(--text-color);
     background-color: var(--background-color);
@@ -1988,4 +1966,34 @@ body {
     border: 0.1px solid black;
     border-radius: 10px;
     padding: 10px 10px;
+}
+.date-divider {
+    text-align: center;
+    font-weight: bold;
+    margin: 10px 0;
+    color: #555;
+}
+
+.start-date {
+    text-align: center;
+    font-size: 14px;
+    margin-bottom: 10px;
+    color: #888;
+}
+
+.sent {
+    background-color: #dcf8c6;
+    align-self: flex-end;
+}
+
+.received {
+    background-color: #fff;
+    align-self: flex-start;
+}
+
+.message-time {
+    font-size: 10px;
+    color: var(--message-timestamp);
+    text-align: right;
+    margin-top: 5px;
 }
