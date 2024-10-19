@@ -40,6 +40,102 @@ const booksP = document.getElementById("booksP");
 const automobileP = document.getElementById("automobileP");
 const butt = document.getElementById("grocery");
 // category end
+
+// chat
+function chatSetUp() {
+    let firstUser = firebase.auth().currentUser.uid;
+    const otherUser = "Empviv";
+    const chatID = `chat_${[firstUser, otherUser].sort().join("_")}`;
+
+    const chatDocRef = fs.collection("chats").doc(chatID);
+
+    sendButton.addEventListener("click", async () => {
+        const messageText = messageInput.value.trim();
+        if (messageText) {
+            messageInput.value = "";
+
+            const chatSnapshot = await chatDocRef.get();
+            if (!chatSnapshot.exists) {
+                await chatDocRef.set({
+                    startDate: firebase.firestore.FieldValue.serverTimestamp()
+                });
+            }
+
+            await chatDocRef.collection("messages").add({
+                senderID: firstUser,
+                message: messageText,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            });
+        }
+    });
+
+    // Real-time listener for new messages
+    chatDocRef
+        .collection("messages")
+        .orderBy("timestamp")
+        .onSnapshot(snapshot => {
+            messageContainer.innerHTML = ""; // Clear old messages
+            let lastDate = null;
+
+            snapshot.forEach(doc => {
+                const data = doc.data();
+                const messageDate = data.timestamp
+                    ?.toDate()
+                    .toLocaleDateString();
+                const messageTime = data.timestamp
+                    ?.toDate()
+                    .toLocaleTimeString([], {
+                        hour: "2-digit",
+                        minute: "2-digit"
+                    });
+
+                // If the message is from a different day, display the date
+                if (messageDate !== lastDate) {
+                    lastDate = messageDate;
+                    const dateDiv = document.createElement("div");
+                    dateDiv.classList.add("date-divider");
+                    dateDiv.textContent = lastDate;
+                    messageContainer.appendChild(dateDiv);
+                }
+
+                const messageDiv = document.createElement("div");
+                messageDiv.classList.add("message");
+                messageDiv.classList.add(
+                    data.senderID === firstUser ? "sent" : "received"
+                );
+                messageDiv.textContent = data.message;
+
+                // Create a subscript div for the time
+                const timeSubscript = document.createElement("div");
+                timeSubscript.classList.add("message-time");
+                timeSubscript.textContent = messageTime;
+
+                messageDiv.appendChild(timeSubscript);
+                messageContainer.appendChild(messageDiv);
+            });
+            messageContainer.scrollTop = messageContainer.scrollHeight; // Auto-scroll to the latest message
+        });
+
+    // Display chat start date at the top
+    chatDocRef.get().then(chatSnapshot => {
+        if (chatSnapshot.exists) {
+            const chatData = chatSnapshot.data();
+            const startDate = chatData.startDate?.toDate().toLocaleDateString();
+
+            if (startDate) {
+                const startDiv = document.createElement("div");
+                startDiv.classList.add("start-date");
+                startDiv.textContent = `Chat started on ${startDate}`;
+                messageContainer.insertBefore(
+                    startDiv,
+                    messageContainer.firstChild
+                );
+            }
+        }
+    });
+}
+// chat
+
 function sign() {
     signupForm.style.display = "block";
     loginForm.style.display = "none";
@@ -116,49 +212,6 @@ function removeDarkMode() {
     }
 }
 
-function setUpChat() {
-    let firstUser = firebase.auth().currentUser.uid;
-
-    const otherUser = "Empviv";
-    // Dynamically generate chatID based on alphabetical order
-    const chatID = `chat_${[firstUser, otherUser].sort().join("_")}`;
-
-    sendButton.addEventListener("click", async () => {
-        const messageText = messageInput.value.trim();
-        if (messageText) {
-            await fs
-                .collection("chats")
-                .doc(chatID)
-                .collection("messages")
-                .add({
-                    senderID: firstUser,
-                    message: messageText,
-                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
-                });
-            messageInput.value = "";
-        }
-    });
-
-    // Real-time listener for new messages
-    fs.collection("chats")
-        .doc(chatID)
-        .collection("messages")
-        .orderBy("timestamp")
-        .onSnapshot(snapshot => {
-            messageContainer.innerHTML = ""; // Clear old messages
-            snapshot.forEach(doc => {
-                const data = doc.data();
-                const messageDiv = document.createElement("div");
-                messageDiv.classList.add("message");
-                messageDiv.classList.add(
-                    data.senderID === firstUser ? "sent" : "received"
-                );
-                messageDiv.textContent = data.message;
-                messageContainer.appendChild(messageDiv);
-            });
-            messageContainer.scrollTop = messageContainer.scrollHeight; // Auto-scroll to the latest message
-        });
-}
 // end of auto load
 // navBar controls
 function navBtn(index) {
@@ -288,6 +341,15 @@ function openPasswordReset() {
         resetPage.style.display = "none";
     } else {
         resetPage.style.display = "block";
+    }
+}
+
+function openChange() {
+    const namePage = document.querySelector(".change-name");
+    if (namePage.style.display === "block") {
+        namePage.style.display = "none";
+    } else {
+        namePage.style.display = "block";
     }
 }
 function shopMore() {
