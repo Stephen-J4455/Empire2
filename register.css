@@ -287,7 +287,7 @@ body {
 #homepage {
     position: fixed;
     top: 0;
-    height: 94%;
+    height: 92%;
     width: 100%;
     z-index: 2;
     overflow-y: scroll;
@@ -314,7 +314,7 @@ body {
     width: 100%;
     z-index: 2;
     overflow-y: scroll;
-    height: 94%;
+    height: 92%;
 }
 #account-header {
     height: fit-content;
@@ -420,13 +420,12 @@ body {
     gap: 10px;
 }
 .setting-item {
-    border: none;
     display: flex;
     position: relative;
     left: -40px;
     width: 100%;
     align-items: center;
-    gap: 60px 60px;
+    gap: 0 10px;
     padding: 5px 20px;
 }
 .setting-item:hover {
@@ -577,7 +576,7 @@ body {
     bottom: 50px;
     width: 100%;
     z-index: 2;
-    height: 94%;
+    height: 92%;
 }
 /* feed page */
 .feed-head {
@@ -589,7 +588,7 @@ body {
     width: 100%;
     position: fixed;
     top: 0;
-    height: 94%;
+    height: 92%;
     background-color: var(--background-color);
     color: var(--text-color);
     overflow: hidden; /* Make sure the parent is not scrolling */
@@ -611,7 +610,7 @@ body {
     position: fixed;
     background-color: var(--background-color);
     color: var(--text-color);
-    height: 900px;
+    height: 92%;
     top: 0;
     bottom: 0;
     width: 100%;
@@ -621,13 +620,12 @@ body {
 }
 .info-page {
     height: 700;
-    margin-bottom: 230px;
 }
 /* help page  end*/
 .buttom-nav {
     position: fixed;
     bottom: 0;
-    height: 6%;
+    height: 8%;
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -757,7 +755,7 @@ body {
 }
 #searchResults {
     display: none;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 2fr));
     overflow-y: scroll;
     height: 87%;
     border: none;
@@ -975,7 +973,7 @@ body {
 .category-box {
     border: none;
     width: 100%;
-    height: 93%;
+    height: 92%;
     overflow-y: scroll;
     display: flex;
     flex-direction: column;
@@ -1562,7 +1560,7 @@ body {
 .p-page {
     position: absolute;
     width: 100%;
-    height: 94%;
+    height: 92%;
     z-index: 49;
     display: none;
     background-color: var(--background-color);
@@ -1872,15 +1870,14 @@ body {
 
 /* chat */
 .chat-container {
-    width: 100%;
-    max-width: 600px;
-    height: 100%;
-    margin: 0 auto;
-    z-index: 11;
     position: fixed;
     top: 0;
+    right: -100vw;
+    width: 100%;
+    height: 92%;
+    transition: 0.5s ease;
     background-color: var(--background-color);
-    display: none;
+    z-index: 10;
 }
 
 .messages {
@@ -1919,38 +1916,56 @@ body {
     width: fit-content;
     max-width: 70%; /* Ensure messages fit within the container */
 }
-.input-container {
-    margin-top: 10px;
+/* Ensure chat container is fixed to viewport */
+.chat-container {
+    position: fixed; /* Fixed to viewport, not body */
+    bottom: 0; /* Stick to the bottom of the viewport */
+    left: 400vw;
+    right: 0;
+    height: 100%; /* Take the full viewport height */
+    background-color: var(--background-color); /* Customize background */
+
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional shadow */
+    z-index: 1000; /* Ensure it's above other content */
 }
+
+/* Style for the input field */
 .chat-container input {
-    width: 70%;
-    padding: 15px 10px;
-    margin: 0px 3px;
-    position: fixed;
-    bottom: 3px;
-    left: 5%;
+    position: absolute;
+    bottom: 0;
+    left: 5px;
+    width: calc(80% - 30px);
+    margin: 5px 7px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
     outline: none;
-    border: 1px solid var(--cart-btn);
-    border-radius: 7px;
-    color: var(--text-color);
-    background-color: var(--background-color);
 }
+
+/* Style for the send button */
 .chat-container button {
-    padding: 0;
-    position: fixed;
-    bottom: 3px;
-    right: 20px;
-    outline: none;
+    position: absolute;
+    bottom: 0;
+    right: 7px;
     border: none;
-    background-color: var(--background-color);
-    color: var(--cart-btn);
+    border-radius: 10px;
+    color: var(--top-bar);
+    outline: none;
+    font-size: 12px;
+    margin: 5px 3px;
 }
+
+/* Close chat button */
 .close-chat {
     position: fixed;
     z-index: 1;
     color: var(--cart-btn);
 }
 
+/* Hidden chat container */
+.show-chat {
+    transform: translateX(-400vw); /* Slide out of view */
+}
 /* username change */
 .change-name {
     display: none;
@@ -1996,4 +2011,6 @@ body {
     color: var(--message-timestamp);
     text-align: right;
     margin-top: 5px;
+}
+.open-chat {
 }

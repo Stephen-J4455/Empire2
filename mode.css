@@ -21,7 +21,7 @@
     --cart-btn: rgb(225, 226, 350);
     --search-text: #000000;
     --moon-sun: rgb(225, 226, 350);
-    --chat-sent: #9adbff;
+    --chat-sent: #000066;
     --chat-recieved: #dddddd;
     --message-timestamp: #838383;
     --cart-count: darkorange;
@@ -50,10 +50,10 @@
     --cart-btn: darkorange;
     --top-bar: #000000;
     --moon-sun: darkorange;
-    --chat-sent: #000066;
-    --chat-recieved: #868686;
+    --chat-sent: darkorange;
+    --chat-recieved: #3b3b3b;
     --message-timestamp: #fff;
-        --cart-count: rgb(225, 226, 350);
+    --cart-count: rgb(225, 226, 350);
 }
 
 .loading-effect {
