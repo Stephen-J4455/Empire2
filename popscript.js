@@ -160,6 +160,7 @@ window.addEventListener("load", function () {
     if (localStorage.getItem("cartPage")) {
         document.querySelector(".cart-menu").style.display = "flex";
     }
+    
 });
 // theme
 // Load the theme from local storage on page load
@@ -372,8 +373,10 @@ function closeInbox() {
 }
 
 function openChat() {
-    document.querySelector(".chat-container").style.display = "block";
+    const chatBox = document.querySelector(".chat-container");
+    chatBox.classList.add("show-chat");
 }
 function closeChat() {
-    document.querySelector(".chat-container").style.display = "none";
+    const chatBox = document.querySelector(".chat-container");
+    chatBox.classList.remove("show-chat");
 }

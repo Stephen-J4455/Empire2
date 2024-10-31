@@ -90,7 +90,7 @@ auth.onAuthStateChanged(user => {
         formCnt.style.display = "none";
         navBar.style.display = "flex";
         document.querySelector(".cart-btn").style.display = "block";
-chatSetUp();
+        chatSetUp();
         changeAccName();
         cart();
         getUserAddress();
@@ -251,29 +251,41 @@ function topPicks() {
                 }
             }
 
-            // Adjusted to pass all necessary parameters to openProductPage
+            // Assign a unique ID to each product card
+            const uniqueId = topPick.identification;
+
             topPickListHTML += `
-                <div onclick='openProductPage(${JSON.stringify(images)}, "${
-                    topPick.name
-                }", "${topPick.sellingprice}", "${topPick.costprice}", "${
-                    topPick.identification
-                }", "${topPick.seller}", "${topPick.productSize || ""}", "${
-                    topPick.color || ""
-                }", "${topPick.additionalInfo || ""}", "${
-                    topPick.description || ""
-                }")'
-                class="top-prod">
-                    <img class="top-img" src="${
-                        images[0]
-                    }" height="140px" width="110px"/>
+                <div id="top-pick-${uniqueId}" class="top-prod">
+                    <img class="top-img" src="${images[0]}" height="140px" width="110px"/>
                     <div class="top-picks-name">${topPick.name}</div>
                 </div>
             `;
+
+            // Add an event listener to each product after rendering
+            setTimeout(() => {
+                const productElement = document.getElementById(
+                    `top-pick-${uniqueId}`
+                );
+                productElement.addEventListener("click", () => {
+                    openProductPage(
+                        images,
+                        topPick.name,
+                        topPick.sellingprice,
+                        topPick.costprice,
+                        topPick.identification,
+                        topPick.seller,
+                        topPick.productSize || "",
+                        topPick.color || "",
+                        topPick.additionalInfo || "",
+                        topPick.description || ""
+                    );
+                });
+            }, 0);
         });
 
         document.getElementById("topPickList").innerHTML = topPickListHTML;
 
-        let loaders = document.querySelector(".top-picks-loader");
+        let loaders = document.querySelectorAll(".top-picks-loader");
         loaders.forEach(function (loader) {
             loader.style.display = "none";
         });
@@ -992,47 +1004,71 @@ function shuffleArray(array) {
 
 function displayFeedProducts(products) {
     const productsDiv = document.getElementById("feedList");
+
     products.forEach(product => {
         const productDiv = document.createElement("div");
+        productDiv.className = "new-arrival-product";
+
+        // Gather product images
         const images = [];
         let i = 1;
         while (product[`image${i}`]) {
             images.push(product[`image${i}`]);
             i++;
         }
-        const imagesArray = JSON.stringify(images);
 
-        productDiv.innerHTML = `<div class="new-arrival-product">
-        <div onclick='openProductPage(${imagesArray}, "${product.name}", "${
-            product.sellingprice
-        }", "${product.costprice}", "${product.identification}", "${
-            product.seller
-        }", "${product.productSize || ""}", "${product.color || ""}", "${
-            product.additionalInfo || ""
-        }", "${product.description || ""}")'>
-            <img class="feed-image" src="${
-                product.image1
-            }" height="160px" width="170px"/>
-            <div class="new-arrival-name">${product.name}</div>
-            <div class="new-arrival-sp">${product.sellingprice}</div>
-            <div class="new-arrival-cp">${product.costprice}</div>
-            <div class="new-arrival-seller">${product.seller}</div>
-            <div class="new-arrival-id">${product.identification}</div>
-        </div>
-        <button
-            onclick="addCart('${product.image1}','${product.name}','${
-                product.sellingprice
-            }','${product.seller}','${product.identification}','${
-                product.productSize || ""
-            }','${product.color || ""}','${product.additionalInfo || ""}','${
+        // Create HTML structure for each product
+        productDiv.innerHTML = `
+            <div class="product-content">
+                <img class="feed-image" src="${product.image1}" height="160px" width="170px"/>
+                <div class="new-arrival-name">${product.name}</div>
+                <div class="new-arrival-sp">${product.sellingprice}</div>
+                <div class="new-arrival-cp">${product.costprice}</div>
+                <div class="new-arrival-seller">${product.seller}</div>
+                <div class="new-arrival-id">${product.identification}</div>
+            </div>
+            <button class="add-to-cart-btn">Add to Cart</button>
+        `;
+
+        // Event listener to open the product page
+        const productContentDiv = productDiv.querySelector(".product-content");
+        productContentDiv.addEventListener("click", () => {
+            openProductPage(
+                images,
+                product.name,
+                product.sellingprice,
+                product.costprice,
+                product.identification,
+                product.seller,
+                product.productSize || "",
+                product.color || "",
+                product.additionalInfo || "",
                 product.description || ""
-            }', 1)"
-            class="add-to-cart-btn">Add to Cart</button>
-        </div>`;
+            );
+        });
 
-        document.getElementById("loaderGrid").style.display = "none";
+        // Event listener for the Add to Cart button
+        const addToCartBtn = productDiv.querySelector(".add-to-cart-btn");
+        addToCartBtn.addEventListener("click", () => {
+            addCart(
+                product.image1,
+                product.name,
+                product.sellingprice,
+                product.seller,
+                product.identification,
+                product.productSize || "",
+                product.color || "",
+                product.additionalInfo || "",
+                product.description || "",
+                1 // Assuming quantity to be 1
+            );
+        });
+
         productsDiv.appendChild(productDiv);
     });
+
+    // Hide loader after products are loaded
+    document.getElementById("loaderGrid").style.display = "none";
 }
 
 displayfeedPage();
